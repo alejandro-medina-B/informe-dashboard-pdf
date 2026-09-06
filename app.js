@@ -98,7 +98,7 @@ document.getElementById("btnEmail").addEventListener("click", async () => {
 
         // 2. Enviar al endpoint de Apps Script
         const response = await fetch(
-            "https://script.google.com/macros/s/AKfycbx0a92d7GMiqcdb9tB-7gsJWm_icVDY9JGQatBp6hzUQ0B1oGXK-WCa8-TuPHhtCNJG/exec",
+            "https://script.google.com/macros/s/AKfycbx0a92d7GMiqcdb9tB-7gsJWm_icVDY9JGQatBp6hzUQ0B1oGXK-WCa8-TuPHhtCNJG/",
             {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
