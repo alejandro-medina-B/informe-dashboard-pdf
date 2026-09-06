@@ -75,6 +75,8 @@ document.getElementById("btnPDF").addEventListener("click", () => {
 // ===============================
 document.getElementById("btnEmail").addEventListener("click", async () => {
 
+    console.log("Botón presionado: Enviar por email");
+
     // 1. Generar el PDF en memoria
     const element = document.getElementById("content");
 
@@ -86,32 +88,37 @@ document.getElementById("btnEmail").addEventListener("click", async () => {
         jsPDF: { unit: "in", format: "letter", orientation: "portrait" }
     };
 
-    // Convertir a PDF en memoria
-    const pdfBlob = await html2pdf().set(opt).from(element).outputPdf("blob");
+    try {
+        const pdfBlob = await html2pdf().set(opt).from(element).outputPdf("blob");
 
-    // Convertir a base64
-    const reader = new FileReader();
-    reader.readAsDataURL(pdfBlob);
+        const reader = new FileReader();
+        reader.readAsDataURL(pdfBlob);
 
-    reader.onloadend = async () => {
-        const base64 = reader.result.split(",")[1];
+        reader.onloadend = async () => {
+            const base64 = reader.result.split(",")[1];
 
-        // 2. Enviar al endpoint de Apps Script
-        const response = await fetch(
-            "https://script.google.com/macros/s/AKfycbx0a92d7GMiqcdb9tB-7gsJWm_icVDY9JGQatBp6hzUQ0B1oGXK-WCa8-TuPHhtCNJG/exec",
-            {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    pdfBase64: base64,
-                    fileName: "InformeDashboard.pdf",
-                    emailDestino: "alejandro@randompos.com"
-                })
-            }
-        );
+            console.log("Enviando fetch a Apps Script…");
 
-        const result = await response.json();
-        alert("Correo enviado: " + result.status);
-    };
+            const response = await fetch(
+                "https://script.google.com/macros/s/AKfycbx0a92d7GMiqcdb9tB-7gsJWm_icVDY9JGQatBp6hzUQ0B1oGXK-WCa8-TuPHhtCNJG/exec",
+                {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        pdfBase64: base64,
+                        fileName: "InformeDashboard.pdf",
+                        emailDestino: "alejandro@randompos.com"
+                    })
+                }
+            );
+
+            console.log("Fetch enviado (no-cors). Apps Script lo recibió.");
+            alert("Solicitud enviada. Revisa tu correo en unos segundos.");
+        };
+
+    } catch (error) {
+        console.error("Error generando o enviando PDF:", error);
+        alert("Error al generar o enviar el PDF.");
+    }
 });
-
