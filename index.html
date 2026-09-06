@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe Dashboard PDF</title>
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- html2pdf -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+</head>
+
+<body>
+
+    <div id="app-container">
+
+        <!-- PANEL LATERAL -->
+        <aside id="sidebar">
+            <h2>Informe Dashboard PDF</h2>
+            <p>Datos cargados desde AppSheet</p>
+
+            <div class="sidebar-section">
+                <h3>Acciones</h3>
+                <button id="btnPDF">Generar PDF</button>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Información</h3>
+                <p>Reporte ejecutivo con KPIs, gráficas y análisis.</p>
+            </div>
+        </aside>
+
+        <!-- CONTENIDO PRINCIPAL -->
+        <main id="content">
+
+            <header>
+                <h1>Dashboard Ejecutivo</h1>
+                <p>Resumen de desempeño y métricas clave</p>
+            </header>
+
+            <!-- KPIs -->
+            <section id="kpi-grid">
+
+                <div class="kpi-card">
+                    <h4>Fecha Inicial</h4>
+                    <p id="fechaInicial"></p>
+                </div>
+
+                <div class="kpi-card">
+                    <h4>Fecha Final</h4>
+                    <p id="fechaFinal"></p>
+                </div>
+
+                <div class="kpi-card">
+                    <h4>Usuario</h4>
+                    <p id="usuario"></p>
+                </div>
+
+                <div class="kpi-card">
+                    <h4>Total Oportunidades</h4>
+                    <p id="totalOportunidades"></p>
+                </div>
+
+                <div class="kpi-card">
+                    <h4>Actividades</h4>
+                    <p id="actividades"></p>
+                </div>
+
+                <div class="kpi-card">
+                    <h4>Eficiencia Global</h4>
+                    <p id="eficienciaGlobal"></p>
+                </div>
+
+                <div class="kpi-card">
+                    <h4>Eficiencia Seguimiento</h4>
+                    <p id="eficienciaSeguimiento"></p>
+                </div>
+
+                <div class="kpi-card">
+                    <h4>Eficiencia Cierre</h4>
+                    <p id="eficienciaCierre"></p>
+                </div>
+
+                <div class="kpi-card">
+                    <h4>Eficiencia Trabajo</h4>
+                    <p id="eficienciaTrabajo"></p>
+                </div>
+
+                <div class="kpi-card">
+                    <h4>Tiempo Inactividad</h4>
+                    <p id="tiempoInactividad"></p>
+                </div>
+
+                <div class="kpi-card">
+                    <h4>Ritmo</h4>
+                    <p id="ritmo"></p>
+                </div>
+
+                <div class="kpi-card">
+                    <h4>Tasa de Éxito</h4>
+                    <p id="tasaExito"></p>
+                </div>
+
+                <div class="kpi-card">
+                    <h4>Velocity</h4>
+                    <p id="velocity"></p>
+                </div>
+
+                <div class="kpi-card">
+                    <h4>Momentum</h4>
+                    <p id="momentum"></p>
+                </div>
+
+                <div class="kpi-card">
+                    <h4>Pipeline Health</h4>
+                    <p id="pipelineHealth"></p>
+                </div>
+
+                <div class="kpi-card">
+                    <h4>Forecast</h4>
+                    <p id="forecast"></p>
+                </div>
+
+            </section>
+
+            <!-- GRÁFICAS -->
+            <section id="charts">
+                <h2>Gráfica de Actividades</h2>
+                <canvas id="chartActividades"></canvas>
+            </section>
+
+            <!-- OBSERVACIONES -->
+            <section id="observaciones">
+                <h2>Observaciones</h2>
+                <p id="obsTexto">Análisis automático basado en KPIs.</p>
+            </section>
+
+        </main>
+
+    </div>
+
+    <!-- Script principal -->
+    <script src="app.js"></script>
+
+</body>
+</html>
