@@ -2,42 +2,124 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Informe Dashboard PDF</title>
+    <title>Dashboard Ejecutivo</title>
     <link rel="stylesheet" href="styles.css">
 
-    <!-- Librería para generar PDF -->
+    <!-- Librería PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 
 <body>
 
-    <h2>Informe Ejecutivo</h2>
-    <p>Datos cargados desde AppSheet</p>
+<div class="container">
 
-    <button id="btnPDF">Generar PDF</button>
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <h2>Informe Dashboard PDF</h2>
+        <p class="subtext">Datos cargados desde AppSheet</p>
 
-    <div id="content">
+        <h3>Acciones</h3>
+        <button id="btnPDF">Generar PDF</button>
 
-        <h3>Dashboard Ejecutivo</h3>
-        <p><strong>Fecha Inicial:</strong> <span id="fechaInicial"></span></p>
-        <p><strong>Fecha Final:</strong> <span id="fechaFinal"></span></p>
-        <p><strong>Usuario:</strong> <span id="usuario"></span></p>
-        <p><strong>Total Oportunidades:</strong> <span id="totalOportunidades"></span></p>
-        <p><strong>Actividades:</strong> <span id="actividades"></span></p>
-        <p><strong>Eficiencia Global:</strong> <span id="eficienciaGlobal"></span></p>
-        <p><strong>Eficiencia Seguimiento:</strong> <span id="eficienciaSeguimiento"></span></p>
-        <p><strong>Eficiencia Cierre:</strong> <span id="eficienciaCierre"></span></p>
-        <p><strong>Eficiencia Trabajo:</strong> <span id="eficienciaTrabajo"></span></p>
-        <p><strong>Tiempo Invertido:</strong> <span id="tiempoInactividad"></span></p>
-        <p><strong>Ritmo:</strong> <span id="ritmo"></span></p>
-        <p><strong>Tasa de Éxito:</strong> <span id="tasaExito"></span></p>
-        <p><strong>Velocity:</strong> <span id="velocity"></span></p>
-        <p><strong>Momentum:</strong> <span id="momentum"></span></p>
+        <h3>Información</h3>
+        <p>Reporte ejecutivo con KPIs, gráficas y análisis.</p>
+    </aside>
 
-    </div>
+    <!-- CONTENIDO PRINCIPAL -->
+    <main id="content">
 
-    <script src="app.js"></script>
+        <h1>Dashboard Ejecutivo</h1>
+        <p class="subtitle">Resumen de desempeño y métricas clave</p>
+
+        <div class="grid">
+
+            <div class="card">
+                <h4>Fecha Inicial</h4>
+                <p id="fechaInicial"></p>
+            </div>
+
+            <div class="card">
+                <h4>Fecha Final</h4>
+                <p id="fechaFinal"></p>
+            </div>
+
+            <div class="card">
+                <h4>Usuario</h4>
+                <p id="usuario"></p>
+            </div>
+
+            <div class="card">
+                <h4>Total Oportunidades</h4>
+                <p id="totalOportunidades"></p>
+            </div>
+
+            <div class="card">
+                <h4>Actividades</h4>
+                <p id="actividades"></p>
+            </div>
+
+            <div class="card">
+                <h4>Eficiencia Global</h4>
+                <p id="eficienciaGlobal"></p>
+            </div>
+
+            <div class="card">
+                <h4>Eficiencia Seguimiento</h4>
+                <p id="eficienciaSeguimiento"></p>
+            </div>
+
+            <div class="card">
+                <h4>Eficiencia Cierre</h4>
+                <p id="eficienciaCierre"></p>
+            </div>
+
+            <div class="card">
+                <h4>Eficiencia Trabajo</h4>
+                <p id="eficienciaTrabajo"></p>
+            </div>
+
+            <div class="card">
+                <h4>Tiempo Inactividad</h4>
+                <p id="tiempoInactividad"></p>
+            </div>
+
+            <div class="card">
+                <h4>Ritmo</h4>
+                <p id="ritmo"></p>
+            </div>
+
+            <div class="card">
+                <h4>Tasa de Éxito</h4>
+                <p id="tasaExito"></p>
+            </div>
+
+            <div class="card">
+                <h4>Velocity</h4>
+                <p id="velocity"></p>
+            </div>
+
+            <div class="card">
+                <h4>Momentum</h4>
+                <p id="momentum"></p>
+            </div>
+
+            <div class="card card-large">
+                <h4>Pipeline Health</h4>
+                <p id="pipelineHealth"></p>
+            </div>
+
+            <div class="card card-large">
+                <h4>Forecast</h4>
+                <p id="forecast"></p>
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script src="app.js"></script>
 
 </body>
 </html>
-
