@@ -71,7 +71,7 @@ document.getElementById("btnPDF").addEventListener("click", () => {
 });
 
 // ===============================
-// 5. Enviar PDF por email (solo pruebas)
+// 5. Enviar PDF por email
 // ===============================
 document.getElementById("btnEmail").addEventListener("click", async () => {
 
