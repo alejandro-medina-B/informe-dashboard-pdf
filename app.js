@@ -1,33 +1,26 @@
-// ================================
-// 1. Leer parámetros desde la URL
-// ================================
+// Leer parámetros
 const params = new URLSearchParams(window.location.search);
+const get = n => params.get(n) || "--";
 
-function getParam(name) {
-    return params.get(name) || "--";
-}
+// Insertar valores
+document.getElementById("fechaInicial").innerText = get("fechaInicial");
+document.getElementById("fechaFinal").innerText = get("fechaFinal");
+document.getElementById("usuario").innerText = get("usuario");
+document.getElementById("totalOportunidades").innerText = get("totalOportunidades");
+document.getElementById("actividades").innerText = get("actividades");
+document.getElementById("eficienciaGlobal").innerText = get("eficienciaGlobal") + "%";
+document.getElementById("eficienciaSeguimiento").innerText = get("eficienciaSeguimiento") + "%";
+document.getElementById("eficienciaCierre").innerText = get("eficienciaCierre") + "%";
+document.getElementById("eficienciaTrabajo").innerText = get("eficienciaTrabajo") + "%";
+document.getElementById("tiempoInactividad").innerText = get("tiempoInactividad");
+document.getElementById("ritmo").innerText = get("ritmo");
+document.getElementById("tasaExito").innerText = get("tasaExito") + "%";
+document.getElementById("velocity").innerText = get("velocity");
+document.getElementById("momentum").innerText = get("momentum");
+document.getElementById("pipelineHealth").innerText = get("pipelineHealth");
+document.getElementById("forecast").innerText = get("forecast");
 
-// ================================
-// 2. Insertar valores en los KPIs
-// ================================
-document.getElementById("fechaInicial").innerText = getParam("fechaInicial");
-document.getElementById("fechaFinal").innerText = getParam("fechaFinal");
-document.getElementById("usuario").innerText = getParam("usuario");
-document.getElementById("totalOportunidades").innerText = getParam("totalOportunidades");
-document.getElementById("actividades").innerText = getParam("actividades");
-document.getElementById("eficienciaGlobal").innerText = getParam("eficienciaGlobal") + "%";
-document.getElementById("eficienciaSeguimiento").innerText = getParam("eficienciaSeguimiento") + "%";
-document.getElementById("eficienciaCierre").innerText = getParam("eficienciaCierre") + "%";
-document.getElementById("eficienciaTrabajo").innerText = getParam("eficienciaTrabajo") + "%";
-document.getElementById("tiempoInactividad").innerText = getParam("tiempoInactividad");
-document.getElementById("ritmo").innerText = getParam("ritmo");
-document.getElementById("tasaExito").innerText = getParam("tasaExito") + "%";
-document.getElementById("velocity").innerText = getParam("velocity");
-document.getElementById("momentum").innerText = getParam("momentum");
-
-// ================================
-// 3. Generar PDF
-// ================================
+// Generar PDF
 document.getElementById("btnPDF").addEventListener("click", () => {
     const element = document.getElementById("content");
 
