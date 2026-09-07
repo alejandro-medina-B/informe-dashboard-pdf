@@ -15,8 +15,21 @@ setValue("actividades", "actividades");
 setValue("tasaExito", "tasaExito");
 
 // EFICIENCIA GLOBAL
-setValue("eficienciaGlobal", "eficienciaGlobal");
-setValue("eficienciaSeguimiento", "eficienciaSeguimiento");
+const eficienciaGlobalValor = params.get("eficienciaGlobal");
+document.getElementById("eficienciaGlobal").innerText =
+    eficienciaGlobalValor ? eficienciaGlobalValor + " %" : "—";
+
+const eficienciaSeguimientoValor = params.get("eficienciaSeguimiento");
+document.getElementById("eficienciaSeguimiento").innerText =
+    eficienciaSeguimientoValor ? eficienciaSeguimientoValor + "% de seguimiento" : "";
+
+const eficienciaTrabajoValor = params.get("eficienciaTrabajo");
+document.getElementById("eficienciaTrabajo").innerText =
+    eficienciaTrabajoValor ? eficienciaTrabajoValor + "% de trabajo" : "";
+
+const eficienciaCierreValor = params.get("eficienciaCierre");
+document.getElementById("eficienciaCierre").innerText =
+    eficienciaCierreValor ? eficienciaCierreValor + "% de cierre" : "";
 
 // MOMENTUM
 setValue("PipelineMomentum", "PipelineMomentum");
@@ -30,7 +43,7 @@ setValue("PipelineHealthTexto", "PipelineHealthTexto");
 setValue("ForecastCierres", "ForecastCierres");
 setValue("ForecastCierresTexto", "ForecastCierresTexto");
 
-// BOTÓN PDF (mañana lo activamos)
+// BOTÓN PDF (lo activamos cuando tú digas)
 document.getElementById("btnGenerarPDF").onclick = () => {
-    alert("Mañana activamos la generación de PDF real.");
+    alert("Aquí activaremos la generación de PDF.");
 };
