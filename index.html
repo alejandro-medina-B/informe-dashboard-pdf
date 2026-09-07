@@ -2,77 +2,108 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard Ejecutivo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe Dashboard PDF</title>
     <link rel="stylesheet" href="styles.css">
-
-    <!-- Librería PDF -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
-
 <body>
 
-<div class="container">
+<div class="dashboard-container">
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-        <h2>Informe Dashboard PDF</h2>
-        <p class="subtext">Datos cargados desde AppSheet</p>
+    <!-- PANEL IZQUIERDO -->
+    <div class="panel-izquierdo">
+        <h1>Informe Dashboard PDF</h1>
+        <p class="subtitulo">Datos cargados desde CRM Random</p>
 
-        <h3>Acciones</h3>
-        <button id="btnPDF">Generar PDF</button>
+        <button id="btnGenerarPDF">Generar PDF</button>
 
-        <h3>Información</h3>
-        <p>Reporte ejecutivo con KPIs, gráficas y análisis.</p>
-    </aside>
+        <div class="info-box">
+            <div class="info-item">
+                <span class="label">Usuario:</span>
+                <span id="usuario" class="value"></span>
+            </div>
 
-    <!-- CONTENIDO PRINCIPAL -->
-    <main id="content">
+            <div class="info-item">
+                <span class="label">Fecha Inicial:</span>
+                <span id="fechaInicial" class="value"></span>
+            </div>
 
-        <h1>Dashboard Ejecutivo</h1>
-        <p class="subtitle">Resumen de desempeño y métricas clave</p>
+            <div class="info-item">
+                <span class="label">Fecha Final:</span>
+                <span id="fechaFinal" class="value"></span>
+            </div>
+        </div>
+    </div>
 
-        <div class="grid">
+    <!-- PANEL DERECHO -->
+    <div class="panel-derecho">
 
-            <div class="card"><h4>Fecha Inicial</h4><p id="fechaInicial"></p></div>
-            <div class="card"><h4>Fecha Final</h4><p id="fechaFinal"></p></div>
-            <div class="card"><h4>Usuario</h4><p id="usuario"></p></div>
-            <div class="card"><h4>Total Oportunidades</h4><p id="totalOportunidades"></p></div>
-            <div class="card"><h4>Actividades</h4><p id="actividades"></p></div>
-            <div class="card"><h4>Eficiencia Global</h4><p id="eficienciaGlobal"></p></div>
-            <div class="card"><h4>Eficiencia Seguimiento</h4><p id="eficienciaSeguimiento"></p></div>
-            <div class="card"><h4>Eficiencia Cierre</h4><p id="eficienciaCierre"></p></div>
-            <div class="card"><h4>Eficiencia Trabajo</h4><p id="eficienciaTrabajo"></p></div>
-            <div class="card"><h4>Tiempo Inactividad</h4><p id="tiempoInactividad"></p></div>
-            <div class="card"><h4>Ritmo</h4><p id="ritmo"></p></div>
-            <div class="card"><h4>Tasa de Éxito</h4><p id="tasaExito"></p></div>
+        <h1>Pipeline de Ventas</h1>
+        <p class="subtitulo">Seguimiento de Oportunidades Comerciales</p>
 
-            <div class="card card-large">
-                <h4>Velocity</h4>
+        <div class="pipeline">
+            <div class="box prospectos">
+                <h3>Prospectos</h3>
+                <div class="numero" id="totalOportunidades"></div>
+                <p>Prospecto Nuevo</p>
+            </div>
+
+            <div class="arrow">→</div>
+
+            <div class="box seguimiento">
+                <h3>En Seguimiento</h3>
+                <div class="numero" id="actividades"></div>
+                <p>Oportunidades en Seguimiento</p>
+            </div>
+
+            <div class="arrow">→</div>
+
+            <div class="box cierre-ganado">
+                <h3>Cierre Ganado</h3>
+                <div class="numero" id="tasaExito"></div>
+                <p>Cierres Ganados</p>
+            </div>
+
+            <div class="arrow">→</div>
+
+            <div class="box cierre-perdido">
+                <h3>Cierre Perdido</h3>
+                <div class="numero">0</div>
+                <p>Cierres Perdidos</p>
+            </div>
+        </div>
+
+        <!-- KPIs -->
+        <div class="kpi-container">
+            <div class="kpi kpi-azul">
+                <h4>Eficiencia Global</h4>
+                <div id="eficienciaGlobal" class="kpi-num"></div>
+                <p id="eficienciaSeguimiento"></p>
+            </div>
+
+            <div class="kpi kpi-gris">
+                <h4>Momentum</h4>
+                <div id="momentum" class="kpi-num"></div>
+                <p id="ritmo"></p>
+            </div>
+
+            <div class="kpi kpi-naranja">
+                <h4>Salud del Pipeline</h4>
+                <div id="pipelineHealth" class="kpi-num"></div>
                 <p id="velocity"></p>
             </div>
 
-            <div class="card card-large">
-                <h4>Momentum</h4>
-                <p id="momentum"></p>
+            <div class="kpi kpi-rojo">
+                <h4>Forecast de Cierres</h4>
+                <div id="forecast" class="kpi-num"></div>
+                <p id="eficienciaCierre"></p>
             </div>
-
-            <div class="card card-large">
-                <h4>Pipeline Health</h4>
-                <p id="pipelineHealth"></p>
-            </div>
-
-            <div class="card card-large">
-                <h4>Forecast</h4>
-                <p id="forecast"></p>
-            </div>
-
         </div>
 
-    </main>
+    </div>
 
 </div>
 
 <script src="app.js"></script>
-
 </body>
 </html>
