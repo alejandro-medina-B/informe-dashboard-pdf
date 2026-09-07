@@ -59,18 +59,14 @@ document.getElementById("pdfHealthTexto").innerText = params.get("PipelineHealth
 document.getElementById("pdfForecast").innerText = params.get("ForecastCierres");
 document.getElementById("pdfForecastTexto").innerText = params.get("ForecastCierresTexto");
 
-/* MÉTODO SEGURO */
+/* MÉTODO GARANTIZADO */
 document.getElementById("btnGenerarPDF").onclick = () => {
 
     const pdf = document.getElementById("pdfContainer");
 
-    // 1️⃣ Mostrar el contenedor PDF
-    pdf.style.top = "0px";
-    pdf.style.left = "0px";
-    pdf.style.position = "absolute";
-    pdf.style.zIndex = "9999";
+    // 1️⃣ Mostrarlo para html2pdf (pero invisible para el usuario)
+    pdf.style.visibility = "visible";
 
-    // 2️⃣ Esperar a que el navegador lo pinte
     setTimeout(() => {
 
         const opciones = {
@@ -83,12 +79,10 @@ document.getElementById("btnGenerarPDF").onclick = () => {
 
         html2pdf().set(opciones).from(pdf).save().then(() => {
 
-            // 3️⃣ Ocultar el contenedor PDF de nuevo
-            pdf.style.top = "-9999px";
-            pdf.style.left = "-9999px";
-            pdf.style.zIndex = "-1";
+            // 2️⃣ Volver a ocultarlo
+            pdf.style.visibility = "hidden";
 
         });
 
-    }, 800); // 800ms garantiza que el navegador lo renderice
+    }, 600); // 600ms garantiza render completo
 };
