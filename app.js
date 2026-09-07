@@ -59,9 +59,28 @@ document.getElementById("pdfHealthTexto").innerText = params.get("PipelineHealth
 document.getElementById("pdfForecast").innerText = params.get("ForecastCierres");
 document.getElementById("pdfForecastTexto").innerText = params.get("ForecastCierresTexto");
 
-/* GRÁFICAS SVG */
+/* === GENERAR PNG DESDE SVG === */
 
-// Funnel
+function svgToPng(svgString, width, height, callback) {
+    const svgBlob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
+    const url = URL.createObjectURL(svgBlob);
+
+    const img = new Image();
+    img.onload = function () {
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0);
+        const pngUrl = canvas.toDataURL("image/png");
+        callback(pngUrl);
+        URL.revokeObjectURL(url);
+    };
+    img.src = url;
+}
+
+/* === SVG DEL FUNNEL === */
+
 const prospectosTotales =
     Number(params.get("prospectosNuevos")) +
     Number(params.get("prospectosEnSeguimiento"));
@@ -85,9 +104,12 @@ const svgFunnel = `
 </svg>
 `;
 
-document.getElementById("svgFunnel").insertAdjacentHTML("beforeend", svgFunnel);
+svgToPng(svgFunnel, 420, 300, function (pngUrl) {
+    document.getElementById("pngFunnel").src = pngUrl;
+});
 
-// Eficiencias
+/* === SVG DE EFICIENCIAS === */
+
 const svgEficiencias = `
 <svg width="450" height="250">
   <rect x="30" y="200" width="100" height="-${params.get("eficienciaSeguimiento")}" fill="#0057B8"></rect>
@@ -104,9 +126,12 @@ const svgEficiencias = `
 </svg>
 `;
 
-document.getElementById("svgEficiencias").insertAdjacentHTML("beforeend", svgEficiencias);
+svgToPng(svgEficiencias, 450, 250, function (pngUrl) {
+    document.getElementById("pngEficiencias").src = pngUrl;
+});
 
-/* GENERAR PDF */
+/* === GENERAR PDF === */
+
 document.getElementById("btnGenerarPDF").onclick = () => {
 
     const pdf = document.getElementById("pdfContainer");
@@ -127,5 +152,5 @@ document.getElementById("btnGenerarPDF").onclick = () => {
             pdf.style.visibility = "hidden";
         });
 
-    }, 600);
+    }, 800);
 };
