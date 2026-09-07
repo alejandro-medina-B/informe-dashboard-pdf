@@ -107,3 +107,9 @@ h1 {
     font-size: 32px;
     font-weight: bold;
 }
+
+.kpi-small {
+    font-size: 14px;
+    margin-top: 4px;
+    color: #d1d5db;
+}
