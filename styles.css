@@ -70,7 +70,7 @@ h1 {
     border-radius: 10px;
     text-align: center;
     width: 180px;
-    height: 220px; /* ⭐ ALTURA FIJA PARA TODAS LAS TARJETAS */
+    height: 220px;
 }
 
 .prospectos { background: #1e3a8a; }
@@ -83,6 +83,14 @@ h1 {
     margin: 0 10px;
 }
 
+/* VALORES DEL PIPELINE — MISMO TAMAÑO Y BOLD */
+.numero {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+/* KPIs */
 .kpi-container {
     display: flex;
     margin-top: 30px;
@@ -99,19 +107,16 @@ h1 {
     margin-right: 0;
 }
 
-/* Colores con mayor contraste */
 .kpi-azul { background: #1e3a8a; }
 .kpi-gris { background: #4b5563; }
 .kpi-naranja { background: #ea580c; }
 .kpi-rojo { background: #b91c1c; }
 
-/* Títulos centrados */
 .kpi h4 {
     text-align: center;
     font-weight: 600;
 }
 
-/* Valores centrados */
 .kpi-num {
     text-align: center;
     font-size: 36px;
@@ -122,12 +127,10 @@ h1 {
     justify-content: center;
 }
 
-/* Espacio extra en Eficiencia Global */
 #eficienciaGlobal {
     margin-bottom: 20px;
 }
 
-/* Textos pequeños */
 .kpi-small {
     font-size: 14px;
     color: #e5e7eb;
@@ -135,15 +138,7 @@ h1 {
     text-align: center;
 }
 
-/* Número pequeño para prospectos en seguimiento */
-.numero-small {
-    font-size: 22px;
-    font-weight: 600;
-    margin-top: 10px;
-    text-align: center;
-}
-
-/* Iconos */
+/* ICONOS */
 .icon {
     display: inline-block;
     vertical-align: middle;
