@@ -40,26 +40,15 @@ setValue("ForecastCierresTexto", "ForecastCierresTexto");
 
 document.getElementById("btnGenerarPDF").onclick = () => {
 
-    const url =
-        "https://alejandro-medina-b.github.io/informe-dashboard-pdf/" +
-        "?fechaInicial=" + encodeURIComponent(params.get("fechaInicial")) +
-        "&fechaFinal=" + encodeURIComponent(params.get("fechaFinal")) +
-        "&usuario=" + encodeURIComponent(params.get("usuario")) +
-        "&nombreUsuario=" + encodeURIComponent(params.get("nombreUsuario")) +
-        "&prospectosNuevos=" + encodeURIComponent(params.get("prospectosNuevos")) +
-        "&prospectosEnSeguimiento=" + encodeURIComponent(params.get("prospectosEnSeguimiento")) +
-        "&actividades=" + encodeURIComponent(params.get("actividades")) +
-        "&tasaExito=" + encodeURIComponent(params.get("tasaExito")) +
-        "&eficienciaGlobal=" + encodeURIComponent(params.get("eficienciaGlobal")) +
-        "&eficienciaSeguimiento=" + encodeURIComponent(params.get("eficienciaSeguimiento")) +
-        "&eficienciaTrabajo=" + encodeURIComponent(params.get("eficienciaTrabajo")) +
-        "&eficienciaCierre=" + encodeURIComponent(params.get("eficienciaCierre")) +
-        "&PipelineMomentum=" + encodeURIComponent(params.get("PipelineMomentum")) +
-        "&TextoPipelineMomentum=" + encodeURIComponent(params.get("TextoPipelineMomentum")) +
-        "&PipelineHealthScore=" + encodeURIComponent(params.get("PipelineHealthScore")) +
-        "&PipelineHealthTexto=" + encodeURIComponent(params.get("PipelineHealthTexto")) +
-        "&ForecastCierres=" + encodeURIComponent(params.get("ForecastCierres")) +
-        "&ForecastCierresTexto=" + encodeURIComponent(params.get("ForecastCierresTexto"));
+    const element = document.body;
 
-    window.open(url, "_blank");
+    const opciones = {
+        margin: 0.5,
+        filename: "Reporte-Pipeline.pdf",
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: "in", format: "letter", orientation: "portrait" }
+    };
+
+    html2pdf().set(opciones).from(element).save();
 };
