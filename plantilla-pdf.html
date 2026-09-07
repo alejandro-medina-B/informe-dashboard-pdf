@@ -13,7 +13,6 @@
         color: #111827;
     }
 
-    /* PORTADA */
     .portada {
         text-align: center;
         padding: 60px 20px;
@@ -43,7 +42,6 @@
         margin-top: 20px;
     }
 
-    /* SECCIÓN */
     .seccion {
         padding: 30px 40px;
         border-bottom: 2px solid #e5e7eb;
@@ -60,7 +58,6 @@
         color: #374151;
     }
 
-    /* TARJETAS */
     .tarjetas {
         display: flex;
         flex-wrap: wrap;
@@ -92,14 +89,12 @@
         margin-bottom: 4px;
     }
 
-    /* COLORES CORPORATIVOS */
     .azul { background: #1e3a8a; }
     .gris { background: #4b5563; }
     .verde { background: #059669; }
     .rojo { background: #b91c1c; }
     .naranja { background: #ea580c; }
 
-    /* PIE DE PÁGINA */
     .footer {
         text-align: center;
         font-size: 14px;
@@ -112,7 +107,6 @@
 
 <body>
 
-<!-- PORTADA -->
 <div class="portada">
     <img src="logo-random.png" class="logo">
 
@@ -120,12 +114,26 @@
     <div class="subtitulo-portada">Generado desde CRM Random</div>
 
     <div class="datos-portada">
-        <strong>Usuario:</strong> <<usuario>> <br>
+        <strong>Usuario:</strong> <<nombreUsuario>> <br>
         <strong>Fecha Inicial:</strong> <<fechaInicial>> <br>
         <strong>Fecha Final:</strong> <<fechaFinal>>
     </div>
 </div>
 
-<!-- SECCIÓN PIPELINE -->
 <div class="seccion">
-    <h2>Pipeline
+    <h2>Pipeline Comercial</h2>
+    <p>Resumen ejecutivo del estado actual del pipeline de ventas.</p>
+
+    <div class="tarjetas">
+
+        <div class="tarjeta azul">
+            <h3>Prospectos</h3>
+            <div class="valor"><<prospectosNuevos>></div>
+            <div class="texto">Prospectos nuevos</div>
+
+            <div class="valor"><<prospectosEnSeguimiento>></div>
+            <div class="texto">Prospectos en seguimiento</div>
+        </div>
+
+        <div class="tarjeta gris">
+            <
