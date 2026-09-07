@@ -70,6 +70,7 @@ h1 {
     border-radius: 10px;
     text-align: center;
     width: 180px;
+    height: 220px; /* ⭐ ALTURA FIJA PARA TODAS LAS TARJETAS */
 }
 
 .prospectos { background: #1e3a8a; }
