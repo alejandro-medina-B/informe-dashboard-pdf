@@ -17,17 +17,14 @@ const eficienciaGlobalValor = params.get("eficienciaGlobal");
 document.getElementById("eficienciaGlobal").innerText =
     eficienciaGlobalValor ? eficienciaGlobalValor + " %" : "—";
 
-const eficienciaSeguimientoValor = params.get("eficienciaSeguimiento");
 document.getElementById("eficienciaSeguimiento").innerText =
-    eficienciaSeguimientoValor ? eficienciaSeguimientoValor + "% de seguimiento" : "";
+    params.get("eficienciaSeguimiento") ? params.get("eficienciaSeguimiento") + "% de seguimiento" : "";
 
-const eficienciaTrabajoValor = params.get("eficienciaTrabajo");
 document.getElementById("eficienciaTrabajo").innerText =
-    eficienciaTrabajoValor ? eficienciaTrabajoValor + "% de trabajo" : "";
+    params.get("eficienciaTrabajo") ? params.get("eficienciaTrabajo") + "% de trabajo" : "";
 
-const eficienciaCierreValor = params.get("eficienciaCierre");
 document.getElementById("eficienciaCierre").innerText =
-    eficienciaCierreValor ? eficienciaCierreValor + "% de cierre" : "";
+    params.get("eficienciaCierre") ? params.get("eficienciaCierre") + "% de cierre" : "";
 
 setValue("PipelineMomentum", "PipelineMomentum");
 setValue("TextoPipelineMomentum", "TextoPipelineMomentum");
@@ -38,9 +35,34 @@ setValue("PipelineHealthTexto", "PipelineHealthTexto");
 setValue("ForecastCierres", "ForecastCierres");
 setValue("ForecastCierresTexto", "ForecastCierresTexto");
 
+/* PDF VALUES */
+document.getElementById("pdfUsuario").innerText = params.get("nombreUsuario");
+document.getElementById("pdfFechaInicial").innerText = params.get("fechaInicial");
+document.getElementById("pdfFechaFinal").innerText = params.get("fechaFinal");
+
+document.getElementById("pdfProspectosNuevos").innerText = params.get("prospectosNuevos");
+document.getElementById("pdfProspectosEnSeguimiento").innerText = params.get("prospectosEnSeguimiento");
+document.getElementById("pdfActividades").innerText = params.get("actividades");
+document.getElementById("pdfTasaExito").innerText = params.get("tasaExito");
+
+document.getElementById("pdfEficienciaGlobal").innerText = params.get("eficienciaGlobal");
+document.getElementById("pdfEficienciaSeguimiento").innerText = params.get("eficienciaSeguimiento");
+document.getElementById("pdfEficienciaTrabajo").innerText = params.get("eficienciaTrabajo");
+document.getElementById("pdfEficienciaCierre").innerText = params.get("eficienciaCierre");
+
+document.getElementById("pdfMomentum").innerText = params.get("PipelineMomentum");
+document.getElementById("pdfTextoMomentum").innerText = params.get("TextoPipelineMomentum");
+
+document.getElementById("pdfHealthScore").innerText = params.get("PipelineHealthScore");
+document.getElementById("pdfHealthTexto").innerText = params.get("PipelineHealthTexto");
+
+document.getElementById("pdfForecast").innerText = params.get("ForecastCierres");
+document.getElementById("pdfForecastTexto").innerText = params.get("ForecastCierresTexto");
+
+/* GENERAR PDF */
 document.getElementById("btnGenerarPDF").onclick = () => {
 
-    const element = document.body;
+    const element = document.getElementById("pdfContainer");
 
     const opciones = {
         margin: 0.5,
