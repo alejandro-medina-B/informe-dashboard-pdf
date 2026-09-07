@@ -17,7 +17,6 @@ body {
     padding: 30px;
 }
 
-/* LOGO */
 .logo-container {
     text-align: center;
     margin-bottom: 25px;
@@ -28,7 +27,6 @@ body {
     height: auto;
 }
 
-/* TITULOS */
 h1 {
     margin: 0;
     font-size: 28px;
@@ -39,7 +37,6 @@ h1 {
     margin-bottom: 20px;
 }
 
-/* BOTÓN */
 #btnGenerarPDF {
     width: 100%;
     padding: 15px;
@@ -51,7 +48,6 @@ h1 {
     cursor: pointer;
 }
 
-/* INFO BOX */
 .info-box {
     margin-top: 30px;
 }
@@ -74,7 +70,6 @@ h1 {
     color: white;
 }
 
-/* PIPELINE */
 .pipeline {
     display: flex;
     align-items: center;
@@ -99,14 +94,12 @@ h1 {
     margin: 0 10px;
 }
 
-/* VALORES DEL PIPELINE */
 .numero {
     font-size: 32px;
     font-weight: 700;
     margin-bottom: 6px;
 }
 
-/* KPIs */
 .kpi-container {
     display: flex;
     margin-top: 30px;
@@ -154,7 +147,6 @@ h1 {
     text-align: center;
 }
 
-/* ICONOS */
 .icon {
     display: inline-block;
     vertical-align: middle;
