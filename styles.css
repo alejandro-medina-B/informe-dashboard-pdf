@@ -17,11 +17,18 @@ body {
     padding: 30px;
 }
 
-.panel-derecho {
-    width: 70%;
-    padding: 30px;
+/* LOGO */
+.logo-container {
+    text-align: center;
+    margin-bottom: 25px;
 }
 
+.logo-img {
+    width: 180px;
+    height: auto;
+}
+
+/* TITULOS */
 h1 {
     margin: 0;
     font-size: 28px;
@@ -32,6 +39,7 @@ h1 {
     margin-bottom: 20px;
 }
 
+/* BOTÓN */
 #btnGenerarPDF {
     width: 100%;
     padding: 15px;
@@ -43,22 +51,30 @@ h1 {
     cursor: pointer;
 }
 
+/* INFO BOX */
 .info-box {
     margin-top: 30px;
 }
 
 .info-item {
-    margin-bottom: 15px;
+    margin-bottom: 22px; /* MÁS ESPACIO ENTRE CAMPO Y VALOR */
+    display: flex;
+    flex-direction: column; /* ALINEACIÓN VERTICAL */
 }
 
 .label {
     color: #9ca3af;
+    font-size: 15px;
+    margin-bottom: 6px; /* ESPACIO ENTRE NOMBRE Y VALOR */
 }
 
-.value {
-    font-weight: bold;
+.info-value {
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
 }
 
+/* PIPELINE */
 .pipeline {
     display: flex;
     align-items: center;
@@ -83,7 +99,7 @@ h1 {
     margin: 0 10px;
 }
 
-/* VALORES DEL PIPELINE — MISMO TAMAÑO Y BOLD */
+/* VALORES DEL PIPELINE */
 .numero {
     font-size: 32px;
     font-weight: 700;
