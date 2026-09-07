@@ -98,18 +98,42 @@ h1 {
     margin-right: 0;
 }
 
-.kpi-azul { background: #1e40af; }
-.kpi-gris { background: #374151; }
-.kpi-naranja { background: #f97316; }
-.kpi-rojo { background: #dc2626; }
+/* Colores con mayor contraste */
+.kpi-azul { background: #1e3a8a; }
+.kpi-gris { background: #4b5563; }
+.kpi-naranja { background: #ea580c; }
+.kpi-rojo { background: #b91c1c; }
 
-.kpi-num {
-    font-size: 32px;
-    font-weight: bold;
+/* Títulos centrados */
+.kpi h4 {
+    text-align: center;
+    font-weight: 600;
 }
 
+/* Valores centrados */
+.kpi-num {
+    text-align: center;
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+/* Espacio extra en Eficiencia Global */
+#eficienciaGlobal {
+    margin-bottom: 20px;
+}
+
+/* Textos pequeños */
 .kpi-small {
     font-size: 14px;
+    color: #e5e7eb;
     margin-top: 4px;
-    color: #d1d5db;
+    text-align: center;
+}
+
+/* Iconos */
+.icon {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 8px;
 }
