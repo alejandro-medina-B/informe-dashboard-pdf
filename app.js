@@ -22,19 +22,31 @@ setValue("actividades", "actividades");
 setValue("tasaExito", "tasaExito");
 
 // ===============================
-// 4. KPIs nuevos
+// 4. KPI: EFICIENCIA GLOBAL
+// ===============================
+setValue("eficienciaGlobal", "eficienciaGlobal");
+setValue("eficienciaSeguimiento", "eficienciaSeguimiento");
+
+// ===============================
+// 5. KPI: MOMENTUM
 // ===============================
 setValue("PipelineMomentum", "PipelineMomentum");
 setValue("TextoPipelineMomentum", "TextoPipelineMomentum");
 
+// ===============================
+// 6. KPI: SALUD DEL PIPELINE
+// ===============================
 setValue("PipelineHealthScore", "PipelineHealthScore");
 setValue("PipelineHealthTexto", "PipelineHealthTexto");
 
+// ===============================
+// 7. KPI: FORECAST
+// ===============================
 setValue("ForecastCierres", "ForecastCierres");
 setValue("ForecastCierresTexto", "ForecastCierresTexto");
 
 // ===============================
-// 5. Botón Generar PDF (mañana lo activamos)
+// 8. Botón Generar PDF (mañana lo activamos)
 // ===============================
 document.getElementById("btnGenerarPDF").onclick = () => {
     alert("Mañana activamos la generación de PDF real.");
