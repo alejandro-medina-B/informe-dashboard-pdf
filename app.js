@@ -10,7 +10,8 @@ setValue("fechaInicial", "fechaInicial");
 setValue("fechaFinal", "fechaFinal");
 
 // PIPELINE
-setValue("totalOportunidades", "totalOportunidades");
+setValue("prospectosNuevos", "prospectosNuevos");
+setValue("prospectosEnSeguimiento", "prospectosEnSeguimiento");
 setValue("actividades", "actividades");
 setValue("tasaExito", "tasaExito");
 
