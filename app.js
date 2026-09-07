@@ -4,18 +4,15 @@ function setValue(id, param) {
     document.getElementById(id).innerText = params.get(param) || "—";
 }
 
-// PANEL IZQUIERDO
-setValue("usuario", "usuario");
+setValue("nombreUsuario", "nombreUsuario");
 setValue("fechaInicial", "fechaInicial");
 setValue("fechaFinal", "fechaFinal");
 
-// PIPELINE
 setValue("prospectosNuevos", "prospectosNuevos");
 setValue("prospectosEnSeguimiento", "prospectosEnSeguimiento");
 setValue("actividades", "actividades");
 setValue("tasaExito", "tasaExito");
 
-// EFICIENCIA GLOBAL
 const eficienciaGlobalValor = params.get("eficienciaGlobal");
 document.getElementById("eficienciaGlobal").innerText =
     eficienciaGlobalValor ? eficienciaGlobalValor + " %" : "—";
@@ -32,19 +29,15 @@ const eficienciaCierreValor = params.get("eficienciaCierre");
 document.getElementById("eficienciaCierre").innerText =
     eficienciaCierreValor ? eficienciaCierreValor + "% de cierre" : "";
 
-// MOMENTUM
 setValue("PipelineMomentum", "PipelineMomentum");
 setValue("TextoPipelineMomentum", "TextoPipelineMomentum");
 
-// SALUD DEL PIPELINE
 setValue("PipelineHealthScore", "PipelineHealthScore");
 setValue("PipelineHealthTexto", "PipelineHealthTexto");
 
-// FORECAST
 setValue("ForecastCierres", "ForecastCierres");
 setValue("ForecastCierresTexto", "ForecastCierresTexto");
 
-// BOTÓN PDF
 document.getElementById("btnGenerarPDF").onclick = () => {
 
     const url =
@@ -52,6 +45,7 @@ document.getElementById("btnGenerarPDF").onclick = () => {
         "?fechaInicial=" + encodeURIComponent(params.get("fechaInicial")) +
         "&fechaFinal=" + encodeURIComponent(params.get("fechaFinal")) +
         "&usuario=" + encodeURIComponent(params.get("usuario")) +
+        "&nombreUsuario=" + encodeURIComponent(params.get("nombreUsuario")) +
         "&prospectosNuevos=" + encodeURIComponent(params.get("prospectosNuevos")) +
         "&prospectosEnSeguimiento=" + encodeURIComponent(params.get("prospectosEnSeguimiento")) +
         "&actividades=" + encodeURIComponent(params.get("actividades")) +
