@@ -8,61 +8,34 @@ function setValue(id, param) {
 }
 
 // ===============================
-// 2. Insertar valores en el panel izquierdo
+// 2. Panel izquierdo
 // ===============================
 setValue("usuario", "usuario");
 setValue("fechaInicial", "fechaInicial");
 setValue("fechaFinal", "fechaFinal");
 
 // ===============================
-// 3. Insertar valores en el Pipeline
+// 3. Pipeline
 // ===============================
 setValue("totalOportunidades", "totalOportunidades");
 setValue("actividades", "actividades");
 setValue("tasaExito", "tasaExito");
 
 // ===============================
-// 4. Insertar valores en KPIs
+// 4. KPIs nuevos
 // ===============================
-setValue("eficienciaGlobal", "eficienciaGlobal");
-setValue("eficienciaSeguimiento", "eficienciaSeguimiento");
-setValue("eficienciaCierre", "eficienciaCierre");
-setValue("eficienciaTrabajo", "eficienciaTrabajo");
+setValue("PipelineMomentum", "PipelineMomentum");
+setValue("TextoPipelineMomentum", "TextoPipelineMomentum");
 
-setValue("momentum", "momentum");
-setValue("ritmo", "ritmo");
+setValue("PipelineHealthScore", "PipelineHealthScore");
+setValue("PipelineHealthTexto", "PipelineHealthTexto");
 
-setValue("pipelineHealth", "pipelineHealth");
-setValue("velocity", "velocity");
-
-setValue("forecast", "forecast");
+setValue("ForecastCierres", "ForecastCierres");
+setValue("ForecastCierresTexto", "ForecastCierresTexto");
 
 // ===============================
-// 5. Botón Generar Reporte (misma página)
+// 5. Botón Generar PDF (mañana lo activamos)
 // ===============================
 document.getElementById("btnGenerarPDF").onclick = () => {
-
-    const baseURL = "https://alejandro-medina-b.github.io/informe-dashboard-pdf/";
-
-    const url =
-        baseURL +
-        "?fechaInicial=" + params.get("fechaInicial") +
-        "&fechaFinal=" + params.get("fechaFinal") +
-        "&usuario=" + params.get("usuario") +
-        "&totalOportunidades=" + params.get("totalOportunidades") +
-        "&actividades=" + params.get("actividades") +
-        "&eficienciaGlobal=" + params.get("eficienciaGlobal") +
-        "&eficienciaSeguimiento=" + params.get("eficienciaSeguimiento") +
-        "&eficienciaCierre=" + params.get("eficienciaCierre") +
-        "&eficienciaTrabajo=" + params.get("eficienciaTrabajo") +
-        "&tiempoInactividad=" + params.get("tiempoInactividad") +
-        "&ritmo=" + params.get("ritmo") +
-        "&tasaExito=" + params.get("tasaExito") +
-        "&velocity=" + params.get("velocity") +
-        "&momentum=" + params.get("momentum") +
-        "&pipelineHealth=" + params.get("pipelineHealth") +
-        "&forecast=" + params.get("forecast");
-
-    // 🔥 ESTA LÍNEA ES LA QUE SOLUCIONA TODO
-    window.location.href = url;
+    alert("Mañana activamos la generación de PDF real.");
 };
