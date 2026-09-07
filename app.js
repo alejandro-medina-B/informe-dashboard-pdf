@@ -43,7 +43,7 @@ setValue("PipelineHealthTexto", "PipelineHealthTexto");
 setValue("ForecastCierres", "ForecastCierres");
 setValue("ForecastCierresTexto", "ForecastCierresTexto");
 
-// BOTÓN PDF (lo activamos cuando tú digas)
+// BOTÓN PDF
 document.getElementById("btnGenerarPDF").onclick = () => {
     alert("Aquí activaremos la generación de PDF.");
 };
