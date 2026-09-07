@@ -85,7 +85,7 @@ const svgFunnel = `
 </svg>
 `;
 
-document.getElementById("svgFunnel").innerHTML = svgFunnel;
+document.getElementById("svgFunnel").insertAdjacentHTML("beforeend", svgFunnel);
 
 // Eficiencias
 const svgEficiencias = `
@@ -104,7 +104,7 @@ const svgEficiencias = `
 </svg>
 `;
 
-document.getElementById("svgEficiencias").innerHTML = svgEficiencias;
+document.getElementById("svgEficiencias").insertAdjacentHTML("beforeend", svgEficiencias);
 
 /* GENERAR PDF */
 document.getElementById("btnGenerarPDF").onclick = () => {
