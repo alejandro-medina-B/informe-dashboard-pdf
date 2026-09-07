@@ -116,6 +116,9 @@ h1 {
     font-size: 36px;
     font-weight: 700;
     margin-bottom: 12px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 /* Espacio extra en Eficiencia Global */
