@@ -134,6 +134,14 @@ h1 {
     text-align: center;
 }
 
+/* Número pequeño para prospectos en seguimiento */
+.numero-small {
+    font-size: 22px;
+    font-weight: 600;
+    margin-top: 10px;
+    text-align: center;
+}
+
 /* Iconos */
 .icon {
     display: inline-block;
