@@ -8,6 +8,7 @@
 </head>
 <body>
 
+<!-- DASHBOARD NORMAL -->
 <div class="dashboard-container">
 
     <div class="panel-izquierdo">
@@ -49,15 +50,7 @@
         <div class="pipeline">
 
             <div class="box prospectos">
-                <h3>
-                    <span class="icon">
-                        <svg width="26" height="26" fill="white">
-                            <circle cx="13" cy="13" r="11" stroke="white" stroke-width="2" fill="none"/>
-                        </svg>
-                    </span>
-                    Prospectos
-                </h3>
-
+                <h3>Prospectos</h3>
                 <div class="numero" id="prospectosNuevos"></div>
                 <p>Prospectos nuevos</p>
 
@@ -68,15 +61,7 @@
             <div class="arrow">→</div>
 
             <div class="box seguimiento">
-                <h3>
-                    <span class="icon">
-                        <svg width="26" height="26" fill="white">
-                            <path d="M4 14h18M10 10l4 4-4 4" stroke="white" stroke-width="2" fill="none"/>
-                        </svg>
-                    </span>
-                    En Seguimiento
-                </h3>
-
+                <h3>En Seguimiento</h3>
                 <div class="numero" id="actividades"></div>
                 <p>Actividades en seguimiento</p>
             </div>
@@ -84,15 +69,7 @@
             <div class="arrow">→</div>
 
             <div class="box cierre-ganado">
-                <h3>
-                    <span class="icon">
-                        <svg width="26" height="26" fill="white">
-                            <polyline points="4,14 10,20 22,6" stroke="white" stroke-width="2" fill="none"/>
-                        </svg>
-                    </span>
-                    Cierre Ganado
-                </h3>
-
+                <h3>Cierre Ganado</h3>
                 <div class="numero" id="tasaExito"></div>
                 <p>Cierres Ganados</p>
             </div>
@@ -100,16 +77,7 @@
             <div class="arrow">→</div>
 
             <div class="box cierre-perdido">
-                <h3>
-                    <span class="icon">
-                        <svg width="26" height="26" fill="white">
-                            <line x1="6" y1="6" x2="20" y2="20" stroke="white" stroke-width="2"/>
-                            <line x1="20" y1="6" x2="6" y2="20" stroke="white" stroke-width="2"/>
-                        </svg>
-                    </span>
-                    Cierre Perdido
-                </h3>
-
+                <h3>Cierre Perdido</h3>
                 <div class="numero">0</div>
                 <p>Cierres Perdidos</p>
             </div>
@@ -118,61 +86,27 @@
         <div class="kpi-container">
 
             <div class="kpi kpi-azul">
-                <h4>
-                    <span class="icon">
-                        <svg width="28" height="28" fill="white">
-                            <circle cx="14" cy="14" r="12" stroke="white" stroke-width="2" fill="none"/>
-                            <line x1="14" y1="14" x2="22" y2="10" stroke="white" stroke-width="2"/>
-                        </svg>
-                    </span>
-                    Eficiencia Global
-                </h4>
-
+                <h4>Eficiencia Global</h4>
                 <div id="eficienciaGlobal" class="kpi-num"></div>
-
                 <p id="eficienciaSeguimiento" class="kpi-small"></p>
                 <p id="eficienciaTrabajo" class="kpi-small"></p>
                 <p id="eficienciaCierre" class="kpi-small"></p>
             </div>
 
             <div class="kpi kpi-gris">
-                <h4>
-                    <span class="icon">
-                        <svg width="28" height="28" fill="white">
-                            <path d="M4 14h20M10 10l4 4-4 4" stroke="white" stroke-width="2" fill="none"/>
-                        </svg>
-                    </span>
-                    Momentum
-                </h4>
-
+                <h4>Momentum</h4>
                 <div id="PipelineMomentum" class="kpi-num"></div>
                 <p id="TextoPipelineMomentum"></p>
             </div>
 
             <div class="kpi kpi-naranja">
-                <h4>
-                    <span class="icon">
-                        <svg width="28" height="28" fill="white">
-                            <path d="M14 22s-8-4.5-8-11a6 6 0 0112 0c0 6.5-8 11-8 11z" stroke="white" stroke-width="2" fill="none"/>
-                        </svg>
-                    </span>
-                    Salud del Pipeline
-                </h4>
-
+                <h4>Salud del Pipeline</h4>
                 <div id="PipelineHealthScore" class="kpi-num"></div>
                 <p id="PipelineHealthTexto"></p>
             </div>
 
             <div class="kpi kpi-rojo">
-                <h4>
-                    <span class="icon">
-                        <svg width="28" height="28" fill="white">
-                            <polyline points="4,20 10,14 16,18 22,8" stroke="white" stroke-width="2" fill="none"/>
-                        </svg>
-                    </span>
-                    Forecast de Cierres
-                </h4>
-
+                <h4>Forecast de Cierres</h4>
                 <div id="ForecastCierres" class="kpi-num"></div>
                 <p id="ForecastCierresTexto"></p>
             </div>
@@ -180,6 +114,58 @@
         </div>
 
     </div>
+
+</div>
+
+<!-- CONTENEDOR PDF (OCULTO) -->
+<div id="pdfContainer" style="display:none; padding:40px; font-family:Segoe UI;">
+
+    <div style="text-align:center; margin-bottom:40px;">
+        <img src="logo-random.png" style="width:220px; margin-bottom:20px;">
+        <h1 style="margin:0; font-size:32px;">Reporte Ejecutivo - Pipeline de Ventas</h1>
+        <p style="color:#555; font-size:18px;">Generado desde CRM Random</p>
+    </div>
+
+    <div style="font-size:18px; margin-bottom:40px;">
+        <strong>Usuario:</strong> <span id="pdfUsuario"></span><br>
+        <strong>Fecha Inicial:</strong> <span id="pdfFechaInicial"></span><br>
+        <strong>Fecha Final:</strong> <span id="pdfFechaFinal"></span>
+    </div>
+
+    <h2 style="border-bottom:2px solid #ddd; padding-bottom:10px;">Pipeline Comercial</h2>
+
+    <div style="margin-top:20px;">
+
+        <h3>Prospectos</h3>
+        <p><strong>Nuevos:</strong> <span id="pdfProspectosNuevos"></span></p>
+        <p><strong>En seguimiento:</strong> <span id="pdfProspectosEnSeguimiento"></span></p>
+
+        <h3>En Seguimiento</h3>
+        <p><strong>Actividades:</strong> <span id="pdfActividades"></span></p>
+
+        <h3>Cierre Ganado</h3>
+        <p><strong>Cierres Ganados:</strong> <span id="pdfTasaExito"></span></p>
+
+        <h3>Cierre Perdido</h3>
+        <p><strong>Cierres Perdidos:</strong> 0</p>
+
+    </div>
+
+    <h2 style="border-bottom:2px solid #ddd; padding-bottom:10px; margin-top:40px;">KPIs</h2>
+
+    <p><strong>Eficiencia Global:</strong> <span id="pdfEficienciaGlobal"></span>%</p>
+    <p><strong>Seguimiento:</strong> <span id="pdfEficienciaSeguimiento"></span>%</p>
+    <p><strong>Trabajo:</strong> <span id="pdfEficienciaTrabajo"></span>%</p>
+    <p><strong>Cierre:</strong> <span id="pdfEficienciaCierre"></span>%</p>
+
+    <p><strong>Momentum:</strong> <span id="pdfMomentum"></span></p>
+    <p><strong>Descripción Momentum:</strong> <span id="pdfTextoMomentum"></span></p>
+
+    <p><strong>Salud del Pipeline:</strong> <span id="pdfHealthScore"></span></p>
+    <p><strong>Descripción Salud:</strong> <span id="pdfHealthTexto"></span></p>
+
+    <p><strong>Forecast:</strong> <span id="pdfForecast"></span></p>
+    <p><strong>Descripción Forecast:</strong> <span id="pdfForecastTexto"></span></p>
 
 </div>
 
