@@ -1,36 +1,30 @@
-// Leer parámetros
 const params = new URLSearchParams(window.location.search);
-const get = n => params.get(n) || "--";
 
-// Insertar valores
-document.getElementById("fechaInicial").innerText = get("fechaInicial");
-document.getElementById("fechaFinal").innerText = get("fechaFinal");
-document.getElementById("usuario").innerText = get("usuario");
-document.getElementById("totalOportunidades").innerText = get("totalOportunidades");
-document.getElementById("actividades").innerText = get("actividades");
-document.getElementById("eficienciaGlobal").innerText = get("eficienciaGlobal") + "%";
-document.getElementById("eficienciaSeguimiento").innerText = get("eficienciaSeguimiento") + "%";
-document.getElementById("eficienciaCierre").innerText = get("eficienciaCierre") + "%";
-document.getElementById("eficienciaTrabajo").innerText = get("eficienciaTrabajo") + "%";
-document.getElementById("tiempoInactividad").innerText = get("tiempoInactividad");
-document.getElementById("ritmo").innerText = get("ritmo");
-document.getElementById("tasaExito").innerText = get("tasaExito") + "%";
-document.getElementById("velocity").innerText = get("velocity");
-document.getElementById("momentum").innerText = get("momentum");
-document.getElementById("pipelineHealth").innerText = get("pipelineHealth");
-document.getElementById("forecast").innerText = get("forecast");
+function setValue(id, param) {
+    document.getElementById(id).innerText = params.get(param) || "—";
+}
 
-// Generar PDF
-document.getElementById("btnPDF").addEventListener("click", () => {
-    const element = document.getElementById("content");
+setValue("usuario", "usuario");
+setValue("fechaInicial", "fechaInicial");
+setValue("fechaFinal", "fechaFinal");
 
-    const opt = {
-        margin: 0.5,
-        filename: "InformeDashboard.pdf",
-        image: { type: "jpeg", quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: "in", format: "letter", orientation: "portrait" }
-    };
+setValue("totalOportunidades", "totalOportunidades");
+setValue("actividades", "actividades");
+setValue("tasaExito", "tasaExito");
 
-    html2pdf().set(opt).from(element).save();
-});
+setValue("eficienciaGlobal", "eficienciaGlobal");
+setValue("eficienciaSeguimiento", "eficienciaSeguimiento");
+setValue("eficienciaCierre", "eficienciaCierre");
+setValue("eficienciaTrabajo", "eficienciaTrabajo");
+
+setValue("momentum", "momentum");
+setValue("ritmo", "ritmo");
+
+setValue("pipelineHealth", "pipelineHealth");
+setValue("velocity", "velocity");
+
+setValue("forecast", "forecast");
+
+document.getElementById("btnGenerarPDF").onclick = () => {
+    window.open(window.location.href, "_blank");
+};
