@@ -59,18 +59,36 @@ document.getElementById("pdfHealthTexto").innerText = params.get("PipelineHealth
 document.getElementById("pdfForecast").innerText = params.get("ForecastCierres");
 document.getElementById("pdfForecastTexto").innerText = params.get("ForecastCierresTexto");
 
-/* GENERAR PDF */
+/* MÉTODO SEGURO */
 document.getElementById("btnGenerarPDF").onclick = () => {
 
-    const element = document.getElementById("pdfContainer");
+    const pdf = document.getElementById("pdfContainer");
 
-    const opciones = {
-        margin: 0.5,
-        filename: "Reporte-Ejecutivo-Pipeline.pdf",
-        image: { type: "jpeg", quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: "in", format: "letter", orientation: "portrait" }
-    };
+    // 1️⃣ Mostrar el contenedor PDF
+    pdf.style.top = "0px";
+    pdf.style.left = "0px";
+    pdf.style.position = "absolute";
+    pdf.style.zIndex = "9999";
 
-    html2pdf().set(opciones).from(element).save();
+    // 2️⃣ Esperar a que el navegador lo pinte
+    setTimeout(() => {
+
+        const opciones = {
+            margin: 0.5,
+            filename: "Reporte-Ejecutivo-Pipeline.pdf",
+            image: { type: "jpeg", quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: "in", format: "letter", orientation: "portrait" }
+        };
+
+        html2pdf().set(opciones).from(pdf).save().then(() => {
+
+            // 3️⃣ Ocultar el contenedor PDF de nuevo
+            pdf.style.top = "-9999px";
+            pdf.style.left = "-9999px";
+            pdf.style.zIndex = "-1";
+
+        });
+
+    }, 800); // 800ms garantiza que el navegador lo renderice
 };
