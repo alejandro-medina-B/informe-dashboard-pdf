@@ -63,5 +63,6 @@ document.getElementById("btnGenerarPDF").onclick = () => {
         "&pipelineHealth=" + params.get("pipelineHealth") +
         "&forecast=" + params.get("forecast");
 
-    window.open(url, "_blank");
+    // 🔥 ESTA LÍNEA ES LA QUE SOLUCIONA TODO
+    window.location.href = url;
 };
