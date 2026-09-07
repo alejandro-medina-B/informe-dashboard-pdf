@@ -13,9 +13,8 @@ setValue("prospectosEnSeguimiento", "prospectosEnSeguimiento");
 setValue("actividades", "actividades");
 setValue("tasaExito", "tasaExito");
 
-const eficienciaGlobalValor = params.get("eficienciaGlobal");
 document.getElementById("eficienciaGlobal").innerText =
-    eficienciaGlobalValor ? eficienciaGlobalValor + " %" : "—";
+    params.get("eficienciaGlobal") ? params.get("eficienciaGlobal") + " %" : "—";
 
 document.getElementById("eficienciaSeguimiento").innerText =
     params.get("eficienciaSeguimiento") ? params.get("eficienciaSeguimiento") + "% de seguimiento" : "";
