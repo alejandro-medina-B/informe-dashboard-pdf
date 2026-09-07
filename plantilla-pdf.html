@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Reporte Ejecutivo - Pipeline de Ventas</title>
+
+<style>
+    body {
+        font-family: "Segoe UI", sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #ffffff;
+        color: #111827;
+    }
+
+    /* PORTADA */
+    .portada {
+        text-align: center;
+        padding: 60px 20px;
+        border-bottom: 4px solid #e5e7eb;
+    }
+
+    .logo {
+        width: 240px;
+        margin-bottom: 20px;
+    }
+
+    .titulo-portada {
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .subtitulo-portada {
+        font-size: 18px;
+        color: #4b5563;
+        margin-bottom: 30px;
+    }
+
+    .datos-portada {
+        font-size: 18px;
+        line-height: 1.6;
+        margin-top: 20px;
+    }
+
+    /* SECCIÓN */
+    .seccion {
+        padding: 30px 40px;
+        border-bottom: 2px solid #e5e7eb;
+    }
+
+    .seccion h2 {
+        font-size: 26px;
+        margin-bottom: 10px;
+        color: #1f2937;
+    }
+
+    .seccion p {
+        font-size: 16px;
+        color: #374151;
+    }
+
+    /* TARJETAS */
+    .tarjetas {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+    .tarjeta {
+        width: 48%;
+        padding: 20px;
+        border-radius: 10px;
+        color: white;
+    }
+
+    .tarjeta h3 {
+        margin: 0;
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
+
+    .valor {
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 6px;
+    }
+
+    .texto {
+        font-size: 16px;
+        margin-bottom: 4px;
+    }
+
+    /* COLORES CORPORATIVOS */
+    .azul { background: #1e3a8a; }
+    .gris { background: #4b5563; }
+    .verde { background: #059669; }
+    .rojo { background: #b91c1c; }
+    .naranja { background: #ea580c; }
+
+    /* PIE DE PÁGINA */
+    .footer {
+        text-align: center;
+        font-size: 14px;
+        color: #6b7280;
+        margin-top: 40px;
+        padding-bottom: 20px;
+    }
+</style>
+</head>
+
+<body>
+
+<!-- PORTADA -->
+<div class="portada">
+    <img src="logo-random.png" class="logo">
+
+    <div class="titulo-portada">Reporte Ejecutivo - Pipeline de Ventas</div>
+    <div class="subtitulo-portada">Generado desde CRM Random</div>
+
+    <div class="datos-portada">
+        <strong>Usuario:</strong> <<usuario>> <br>
+        <strong>Fecha Inicial:</strong> <<fechaInicial>> <br>
+        <strong>Fecha Final:</strong> <<fechaFinal>>
+    </div>
+</div>
+
+<!-- SECCIÓN PIPELINE -->
+<div class="seccion">
+    <h2>Pipeline
