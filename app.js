@@ -15,16 +15,16 @@ setValue("actividades", "actividades");
 setValue("tasaExito", "tasaExito");
 
 document.getElementById("eficienciaGlobal").innerText =
-    params.get("eficienciaGlobal") ? params.get("eficienciaGlobal") + " %" : "—";
+    params.get("eficienciaGlobal") ? params.get("eficienciaGlobal") + "%" : "—";
 
 document.getElementById("eficienciaSeguimiento").innerText =
-    params.get("eficienciaSeguimiento") ? params.get("eficienciaSeguimiento") + "% de seguimiento" : "";
+    params.get("eficienciaSeguimiento") || "—";
 
 document.getElementById("eficienciaTrabajo").innerText =
-    params.get("eficienciaTrabajo") ? params.get("eficienciaTrabajo") + "% de trabajo" : "";
+    params.get("eficienciaTrabajo") || "—";
 
 document.getElementById("eficienciaCierre").innerText =
-    params.get("eficienciaCierre") ? params.get("eficienciaCierre") + "% de cierre" : "";
+    params.get("eficienciaCierre") || "—";
 
 setValue("PipelineMomentum", "PipelineMomentum");
 setValue("TextoPipelineMomentum", "TextoPipelineMomentum");
@@ -59,56 +59,7 @@ document.getElementById("pdfHealthTexto").innerText = params.get("PipelineHealth
 document.getElementById("pdfForecast").innerText = params.get("ForecastCierres");
 document.getElementById("pdfForecastTexto").innerText = params.get("ForecastCierresTexto");
 
-/* === QUICKCHART GRÁFICAS === */
-
-/* FUNNEL */
-const prospectosTotales =
-    Number(params.get("prospectosNuevos")) +
-    Number(params.get("prospectosEnSeguimiento"));
-
-const urlFunnel =
-  "https://quickchart.io/chart?c=" +
-  encodeURIComponent(`{
-    type:'horizontalBar',
-    data:{
-      labels:['Prospectos Totales','Seguimiento','Cierre'],
-      datasets:[{
-        label:'Pipeline',
-        backgroundColor:['#0057B8','#444','#2ECC71'],
-        data:[${prospectosTotales},${params.get("prospectosEnSeguimiento")},${params.get("tasaExito")}]
-      }]
-    },
-    options:{
-      legend:{display:false},
-      scales:{xAxes:[{ticks:{beginAtZero:true}}]}
-    }
-  }`);
-
-document.getElementById("pngFunnel").src = urlFunnel;
-
-/* EFICIENCIAS */
-const urlEficiencias =
-  "https://quickchart.io/chart?c=" +
-  encodeURIComponent(`{
-    type:'bar',
-    data:{
-      labels:['Seguimiento','Trabajo','Cierre'],
-      datasets:[{
-        label:'Eficiencias',
-        backgroundColor:['#0057B8','#F28C28','#E74C3C'],
-        data:[${params.get("eficienciaSeguimiento")},${params.get("eficienciaTrabajo")},${params.get("eficienciaCierre")}]
-      }]
-    },
-    options:{
-      legend:{display:false},
-      scales:{yAxes:[{ticks:{beginAtZero:true,max:100}}]}
-    }
-  }`);
-
-document.getElementById("pngEficiencias").src = urlEficiencias;
-
-/* === GENERAR PDF === */
-
+/* GENERAR PDF */
 document.getElementById("btnGenerarPDF").onclick = () => {
 
     const pdf = document.getElementById("pdfContainer");
@@ -129,5 +80,5 @@ document.getElementById("btnGenerarPDF").onclick = () => {
             pdf.style.visibility = "hidden";
         });
 
-    }, 1200); // tiempo para que carguen las imágenes externas
+    }, 800);
 };
