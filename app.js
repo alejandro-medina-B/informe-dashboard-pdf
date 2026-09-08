@@ -50,6 +50,10 @@ document.getElementById("pdfEficienciaSeguimiento").innerText = params.get("efic
 document.getElementById("pdfEficienciaTrabajo").innerText = params.get("eficienciaTrabajo");
 document.getElementById("pdfEficienciaCierre").innerText = params.get("eficienciaCierre");
 
+/* NUEVO FIX PARA KPIs */
+document.getElementById("pdfEficienciaGlobalKPI").innerText = params.get("eficienciaGlobal");
+
+/* DIAGNÓSTICO */
 document.getElementById("pdfMomentum").innerText = params.get("PipelineMomentum");
 document.getElementById("pdfTextoMomentum").innerText = params.get("TextoPipelineMomentum");
 
