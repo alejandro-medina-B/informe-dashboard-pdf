@@ -61,22 +61,24 @@ document.getElementById("pdfForecastTexto").innerText = params.get("ForecastCier
 
 /* === GENERAR PNG DESDE SVG === */
 
-function svgToPng(svgString, width, height, callback) {
-    const svgBlob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
-    const url = URL.createObjectURL(svgBlob);
+function svgToPng(svgString, width, height) {
+    return new Promise(resolve => {
+        const svgBlob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
+        const url = URL.createObjectURL(svgBlob);
 
-    const img = new Image();
-    img.onload = function () {
-        const canvas = document.createElement("canvas");
-        canvas.width = width;
-        canvas.height = height;
-        const ctx = canvas.getContext("2d");
-        ctx.drawImage(img, 0, 0);
-        const pngUrl = canvas.toDataURL("image/png");
-        callback(pngUrl);
-        URL.revokeObjectURL(url);
-    };
-    img.src = url;
+        const img = new Image();
+        img.onload = function () {
+            const canvas = document.createElement("canvas");
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0);
+            const pngUrl = canvas.toDataURL("image/png");
+            resolve(pngUrl);
+            URL.revokeObjectURL(url);
+        };
+        img.src = url;
+    });
 }
 
 /* === SVG DEL FUNNEL === */
@@ -104,10 +106,6 @@ const svgFunnel = `
 </svg>
 `;
 
-svgToPng(svgFunnel, 420, 300, function (pngUrl) {
-    document.getElementById("pngFunnel").src = pngUrl;
-});
-
 /* === SVG DE EFICIENCIAS === */
 
 const svgEficiencias = `
@@ -126,31 +124,55 @@ const svgEficiencias = `
 </svg>
 `;
 
-svgToPng(svgEficiencias, 450, 250, function (pngUrl) {
-    document.getElementById("pngEficiencias").src = pngUrl;
+/* === GENERAR PNGS Y ESPERAR === */
+
+let funnelReady = false;
+let eficienciasReady = false;
+
+svgToPng(svgFunnel, 420, 300).then(pngUrl => {
+    document.getElementById("pngFunnel").src = pngUrl;
+    funnelReady = true;
 });
+
+svgToPng(svgEficiencias, 450, 250).then(pngUrl => {
+    document.getElementById("pngEficiencias").src = pngUrl;
+    eficienciasReady = true;
+});
+
+/* === ESPERAR A QUE AMBAS GRÁFICAS ESTÉN LISTAS === */
+
+function waitForCharts(callback) {
+    const interval = setInterval(() => {
+        if (funnelReady && eficienciasReady) {
+            clearInterval(interval);
+            callback();
+        }
+    }, 100);
+}
 
 /* === GENERAR PDF === */
 
 document.getElementById("btnGenerarPDF").onclick = () => {
 
     const pdf = document.getElementById("pdfContainer");
-
     pdf.style.visibility = "visible";
 
-    setTimeout(() => {
+    waitForCharts(() => {
 
-        const opciones = {
-            margin: 0.5,
-            filename: "Reporte-Ejecutivo-Pipeline.pdf",
-            image: { type: "jpeg", quality: 0.98 },
-            html2canvas: { scale: 2 },
-            jsPDF: { unit: "in", format: "letter", orientation: "portrait" }
-        };
+        setTimeout(() => {
 
-        html2pdf().set(opciones).from(pdf).save().then(() => {
-            pdf.style.visibility = "hidden";
-        });
+            const opciones = {
+                margin: 0.5,
+                filename: "Reporte-Ejecutivo-Pipeline.pdf",
+                image: { type: "jpeg", quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: "in", format: "letter", orientation: "portrait" }
+            };
 
-    }, 800);
+            html2pdf().set(opciones).from(pdf).save().then(() => {
+                pdf.style.visibility = "hidden";
+            });
+
+        }, 300);
+    });
 };
