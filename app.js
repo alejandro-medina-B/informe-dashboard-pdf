@@ -118,6 +118,9 @@ document.getElementById("pdfContainer").innerHTML += htmlActividades;
 document.getElementById("btnGenerarPDF").addEventListener("click", () => {
     const element = document.getElementById("pdfContainer");
 
+    // Mostrar el contenedor antes de generar el PDF
+    element.style.display = "block";
+
     const opt = {
         margin: 0.5,
         filename: "Reporte-Ejecutivo-Pipeline.pdf",
@@ -126,5 +129,8 @@ document.getElementById("btnGenerarPDF").addEventListener("click", () => {
         jsPDF: { unit: "in", format: "letter", orientation: "portrait" }
     };
 
-    html2pdf().set(opt).from(element).save();
+    html2pdf().set(opt).from(element).save().then(() => {
+        // Ocultar nuevamente después de generar el PDF
+        element.style.display = "none";
+    });
 });
