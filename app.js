@@ -1,101 +1,130 @@
+/* ============================
+   LECTURA DE PARÁMETROS
+   ============================ */
+
 const params = new URLSearchParams(window.location.search);
 
-function setValue(id, param) {
-    document.getElementById(id).innerText = params.get(param) || "—";
-}
+/* ============================
+   LLENADO DE CAMPOS DEL PDF
+   ============================ */
 
-/* DASHBOARD */
-setValue("nombreUsuario", "nombreUsuario");
-setValue("fechaInicial", "fechaInicial");
-setValue("fechaFinal", "fechaFinal");
-
-setValue("prospectosNuevos", "prospectosNuevos");
-setValue("prospectosEnSeguimiento", "prospectosEnSeguimiento");
-setValue("actividades", "actividades");
-setValue("tasaExito", "tasaExito");
-
-document.getElementById("eficienciaGlobal").innerText =
-    params.get("eficienciaGlobal") ? params.get("eficienciaGlobal") + " %" : "—";
-
-document.getElementById("eficienciaSeguimiento").innerText =
-    params.get("eficienciaSeguimiento") ? params.get("eficienciaSeguimiento") + "% de seguimiento" : "";
-
-document.getElementById("eficienciaTrabajo").innerText =
-    params.get("eficienciaTrabajo") ? params.get("eficienciaTrabajo") + "% de trabajo" : "";
-
-document.getElementById("eficienciaCierre").innerText =
-    params.get("eficienciaCierre") ? params.get("eficienciaCierre") + "% de cierre" : "";
-
-setValue("PipelineMomentum", "PipelineMomentum");
-setValue("TextoPipelineMomentum", "TextoPipelineMomentum");
-
-setValue("PipelineHealthScore", "PipelineHealthScore");
-setValue("PipelineHealthTexto", "PipelineHealthTexto");
-
-setValue("ForecastCierres", "ForecastCierres");
-setValue("ForecastCierresTexto", "ForecastCierresTexto");
-
-/* PDF */
-document.getElementById("pdfUsuario").innerText = params.get("nombreUsuario");
+// Usuario y fechas
+document.getElementById("pdfUsuario").innerText = params.get("usuario");
 document.getElementById("pdfFechaInicial").innerText = params.get("fechaInicial");
 document.getElementById("pdfFechaFinal").innerText = params.get("fechaFinal");
 
+// KPIs principales
+document.getElementById("pdfEficienciaGlobal").innerText = params.get("eficienciaGlobal");
 document.getElementById("pdfProspectosNuevos").innerText = params.get("prospectosNuevos");
 document.getElementById("pdfProspectosEnSeguimiento").innerText = params.get("prospectosEnSeguimiento");
 document.getElementById("pdfActividades").innerText = params.get("actividades");
 document.getElementById("pdfTasaExito").innerText = params.get("tasaExito");
+document.getElementById("pdfActividadPorProspecto").innerText = params.get("actividadPorProspecto");
+document.getElementById("pdfTasaCierre").innerText = params.get("tasaCierre");
 
-document.getElementById("pdfEficienciaGlobal").innerText = params.get("eficienciaGlobal");
+// KPIs secundarios
+document.getElementById("pdfEficienciaGlobalKPI").innerText = params.get("eficienciaGlobal");
 document.getElementById("pdfEficienciaSeguimiento").innerText = params.get("eficienciaSeguimiento");
 document.getElementById("pdfEficienciaTrabajo").innerText = params.get("eficienciaTrabajo");
 document.getElementById("pdfEficienciaCierre").innerText = params.get("eficienciaCierre");
 
-/* NUEVO FIX PARA KPIs */
-document.getElementById("pdfEficienciaGlobalKPI").innerText = params.get("eficienciaGlobal");
-
-/* DIAGNÓSTICO */
+// Momentum
 document.getElementById("pdfMomentum").innerText = params.get("PipelineMomentum");
 document.getElementById("pdfTextoMomentum").innerText = params.get("TextoPipelineMomentum");
 
+// Salud del Pipeline
 document.getElementById("pdfHealthScore").innerText = params.get("PipelineHealthScore");
 document.getElementById("pdfHealthTexto").innerText = params.get("PipelineHealthTexto");
 
+// Forecast
 document.getElementById("pdfForecast").innerText = params.get("ForecastCierres");
 document.getElementById("pdfForecastTexto").innerText = params.get("ForecastCierresTexto");
 
-/* NUEVOS CAMPOS DEL PDF */
+/* ============================
+   ACTIVIDADES POR OPORTUNIDAD
+   ============================ */
 
-// Actividad por prospecto
-const actividades = Number(params.get("actividades"));
-const prospectos = Number(params.get("prospectosEnSeguimiento"));
-document.getElementById("pdfActividadPorProspecto").innerText =
-    prospectos > 0 ? (actividades / prospectos).toFixed(2) : "0";
+const actividadesJSON = params.get("actividadesJSON");
 
-// Tasa de cierre
-const cierres = Number(params.get("tasaExito"));
-document.getElementById("pdfTasaCierre").innerText =
-    prospectos > 0 ? ((cierres / prospectos) * 100).toFixed(2) : "0";
+let actividades = [];
+try {
+    actividades = JSON.parse(actividadesJSON);
+} catch (e) {
+    console.error("Error al parsear actividadesJSON:", e);
+}
 
-/* GENERAR PDF */
-document.getElementById("btnGenerarPDF").onclick = () => {
+/* Agrupar por oportunidad */
+const actividadesPorOportunidad = {};
 
-    const pdf = document.getElementById("pdfContainer");
+actividades.forEach(act => {
+    const opID = act.oportunidadID;
 
-    pdf.style.visibility = "visible";
-
-    setTimeout(() => {
-
-        const opciones = {
-            margin: 0.5,
-            filename: "Reporte-Ejecutivo-Pipeline.pdf",
-            image: { type: "jpeg", quality: 0.98 },
-            html2canvas: { scale: 2 },
-            jsPDF: { unit: "in", format: "letter", orientation: "portrait" }
+    if (!actividadesPorOportunidad[opID]) {
+        actividadesPorOportunidad[opID] = {
+            nombre: act.oportunidadNombre,
+            actividades: []
         };
+    }
 
-        html2pdf().set(opciones).from(pdf).save().then(() => {
-            pdf.style.visibility = "hidden";
-        });
+    actividadesPorOportunidad[opID].actividades.push(act);
+});
 
-    }, 600);
-};
+/* Ordenar cada grupo por fecha + hora */
+Object.keys(actividadesPorOportunidad).forEach(opID => {
+    actividadesPorOportunidad[opID].actividades.sort((a, b) => {
+        const fechaA = new Date(`${a.fecha} ${a.hora}`);
+        const fechaB = new Date(`${b.fecha} ${b.hora}`);
+        return fechaA - fechaB;
+    });
+});
+
+/* Construir HTML dinámico */
+let htmlActividades = `
+<h2 style="font-size:26px; border-bottom:2px solid #ddd; padding-bottom:8px; margin-top:50px;">
+    ACTIVIDADES POR OPORTUNIDAD
+</h2>
+<div style="margin-top:25px; font-size:16px; line-height:1.45;">
+`;
+
+Object.keys(actividadesPorOportunidad).forEach(opID => {
+    const grupo = actividadesPorOportunidad[opID];
+
+    htmlActividades += `
+        <h3 style="margin-top:30px; font-size:20px; font-weight:600;">
+            ${grupo.nombre}
+        </h3>
+    `;
+
+    grupo.actividades.forEach(act => {
+        htmlActividades += `
+            <p style="margin:8px 0;">
+                <strong>${act.fecha} ${act.hora}</strong> — 
+                <em>${act.actividad}</em><br>
+                ${act.comentario || ""}
+            </p>
+        `;
+    });
+});
+
+htmlActividades += `</div>`;
+
+/* Insertar en el PDF */
+document.getElementById("pdfContainer").innerHTML += htmlActividades;
+
+/* ============================
+   GENERAR PDF
+   ============================ */
+
+document.getElementById("btnGenerarPDF").addEventListener("click", () => {
+    const element = document.getElementById("pdfContainer");
+
+    const opt = {
+        margin: 0.5,
+        filename: "Reporte-Ejecutivo-Pipeline.pdf",
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: "in", format: "letter", orientation: "portrait" }
+    };
+
+    html2pdf().set(opt).from(element).save();
+});
