@@ -124,56 +124,89 @@
     width:100%;
     background:white;
     color:#111;
-    padding:40px;
-    font-family:Segoe UI;
+    padding:50px;
+    font-family:'Segoe UI', sans-serif;
+    line-height:1.5;
 ">
 
-    <div style="text-align:center; margin-bottom:40px;">
-        <img src="logo-random.png" style="width:220px; margin-bottom:20px;">
-        <h1 style="margin:0; font-size:32px;">Reporte Ejecutivo - Pipeline de Ventas</h1>
-        <p style="color:#555; font-size:18px;">Generado desde CRM Random</p>
+    <!-- ENCABEZADO -->
+    <div style="text-align:center; margin-bottom:50px;">
+        <h1 style="margin:0; font-size:34px; font-weight:700;">
+            Reporte Ejecutivo - Pipeline de Ventas
+        </h1>
+        <p style="font-size:18px; color:#444; margin-top:10px;">
+            Resumen de actividad comercial y salud del embudo de ventas
+        </p>
     </div>
 
-    <div style="font-size:18px; margin-bottom:40px;">
-        <strong>Usuario:</strong> <span id="pdfUsuario"></span><br>
-        <strong>Fecha Inicial:</strong> <span id="pdfFechaInicial"></span><br>
-        <strong>Fecha Final:</strong> <span id="pdfFechaFinal"></span>
+    <!-- USUARIO Y PERIODO -->
+    <div style="margin-bottom:40px; font-size:18px;">
+        <strong>USUARIO</strong><br>
+        <span id="pdfUsuario" style="font-size:20px;"></span><br><br>
+
+        <strong>PERIODO</strong><br>
+        <span id="pdfFechaInicial"></span> - <span id="pdfFechaFinal"></span><br><br>
+
+        <strong>EFICIENCIA GLOBAL</strong><br>
+        <span id="pdfEficienciaGlobal" style="font-size:22px; font-weight:600;"></span>%
     </div>
 
-    <h2 style="border-bottom:2px solid #ddd; padding-bottom:10px;">Pipeline Comercial</h2>
+    <!-- PIPELINE COMERCIAL -->
+    <h2 style="font-size:26px; border-bottom:2px solid #ddd; padding-bottom:8px; margin-top:40px;">
+        PIPELINE COMERCIAL
+    </h2>
 
-    <div style="margin-top:20px;">
+    <div style="margin-top:25px; font-size:18px;">
 
-        <h3>Prospectos</h3>
-        <p><strong>Nuevos:</strong> <span id="pdfProspectosNuevos"></span></p>
-        <p><strong>En seguimiento:</strong> <span id="pdfProspectosEnSeguimiento"></span></p>
+        <strong>PROSPECTOS</strong><br>
+        Total de prospectos en el periodo<br>
+        Nuevos: <span id="pdfProspectosNuevos"></span> · 
+        En seguimiento: <span id="pdfProspectosEnSeguimiento"></span><br><br>
 
-        <h3>En Seguimiento</h3>
-        <p><strong>Actividades:</strong> <span id="pdfActividades"></span></p>
+        <strong>EN SEGUIMIENTO</strong><br>
+        Actividades registradas: <span id="pdfActividades"></span><br><br>
 
-        <h3>Cierre Ganado</h3>
-        <p><strong>Cierres Ganados:</strong> <span id="pdfTasaExito"></span></p>
+        <strong>CIERRE GANADO</strong><br>
+        Cierres ganados en el periodo: <span id="pdfTasaExito"></span><br><br>
 
-        <h3>Cierre Perdido</h3>
-        <p><strong>Cierres Perdidos:</strong> 0</p>
+        <strong>CIERRE PERDIDO</strong><br>
+        Cierres perdidos en el periodo: 0<br><br>
 
+        <strong>Actividad por prospecto:</strong> ~<span id="pdfActividadPorProspecto"></span><br>
+        <strong>Tasa de cierre:</strong> <span id="pdfTasaCierre"></span>%
     </div>
 
-    <h2 style="border-bottom:2px solid #ddd; padding-bottom:10px; margin-top:40px;">KPIs</h2>
+    <!-- KPIS -->
+    <h2 style="font-size:26px; border-bottom:2px solid #ddd; padding-bottom:8px; margin-top:50px;">
+        INDICADORES CLAVE (KPIs)
+    </h2>
 
-    <p><strong>Eficiencia Global:</strong> <span id="pdfEficienciaGlobal"></span>%</p>
-    <p><strong>Seguimiento:</strong> <span id="pdfEficienciaSeguimiento"></span>%</p>
-    <p><strong>Trabajo:</strong> <span id="pdfEficienciaTrabajo"></span>%</p>
-    <p><strong>Cierre:</strong> <span id="pdfEficienciaCierre"></span>%</p>
+    <div style="margin-top:25px; font-size:18px;">
+        <p><strong>EFICIENCIA GLOBAL:</strong> <span id="pdfEficienciaGlobal"></span>%</p>
+        <p><strong>SEGUIMIENTO:</strong> <span id="pdfEficienciaSeguimiento"></span>%</p>
+        <p><strong>TRABAJO:</strong> <span id="pdfEficienciaTrabajo"></span>%</p>
+        <p><strong>CIERRE:</strong> <span id="pdfEficienciaCierre"></span>%</p>
+    </div>
 
-    <p><strong>Momentum:</strong> <span id="pdfMomentum"></span></p>
-    <p><strong>Descripción Momentum:</strong> <span id="pdfTextoMomentum"></span></p>
+    <!-- DIAGNÓSTICO -->
+    <h2 style="font-size:26px; border-bottom:2px solid #ddd; padding-bottom:8px; margin-top:50px;">
+        DIAGNÓSTICO DEL PIPELINE
+    </h2>
 
-    <p><strong>Salud del Pipeline:</strong> <span id="pdfHealthScore"></span></p>
-    <p><strong>Descripción Salud:</strong> <span id="pdfHealthTexto"></span></p>
+    <div style="margin-top:25px; font-size:18px;">
 
-    <p><strong>Forecast:</strong> <span id="pdfForecast"></span></p>
-    <p><strong>Descripción Forecast:</strong> <span id="pdfForecastTexto"></span></p>
+        <strong>MOMENTUM</strong><br>
+        <span id="pdfMomentum" style="font-size:22px; font-weight:600;"></span><br>
+        <span id="pdfTextoMomentum"></span><br><br>
+
+        <strong>SALUD DEL PIPELINE</strong><br>
+        <span id="pdfHealthScore" style="font-size:22px; font-weight:600;"></span><br>
+        <span id="pdfHealthTexto"></span><br><br>
+
+        <strong>FORECAST</strong><br>
+        <span id="pdfForecast" style="font-size:22px; font-weight:600;"></span><br>
+        <span id="pdfForecastTexto"></span>
+    </div>
 
 </div>
 
