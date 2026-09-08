@@ -59,53 +59,6 @@ document.getElementById("pdfHealthTexto").innerText = params.get("PipelineHealth
 document.getElementById("pdfForecast").innerText = params.get("ForecastCierres");
 document.getElementById("pdfForecastTexto").innerText = params.get("ForecastCierresTexto");
 
-/* GRÁFICAS SVG */
-
-// Funnel
-const prospectosTotales =
-    Number(params.get("prospectosNuevos")) +
-    Number(params.get("prospectosEnSeguimiento"));
-
-const svgFunnelTemplate = `
-<svg width="400" height="300">
-  <polygon points="50,30 350,30 300,90 100,90" fill="#0057B8"/>
-  <text x="200" y="65" font-size="18" fill="white" text-anchor="middle">
-    Prospectos Totales: ${prospectosTotales}
-  </text>
-
-  <polygon points="100,110 300,110 260,170 140,170" fill="#444"/>
-  <text x="200" y="145" font-size="18" fill="white" text-anchor="middle">
-    Seguimiento: ${params.get("prospectosEnSeguimiento")}
-  </text>
-
-  <polygon points="140,190 260,190 230,240 170,240" fill="#2ECC71"/>
-  <text x="200" y="220" font-size="18" fill="white" text-anchor="middle">
-    Cierre: ${params.get("tasaExito")}
-  </text>
-</svg>
-`;
-
-document.getElementById("svgFunnel").innerHTML = svgFunnelTemplate;
-
-// Eficiencias
-const svgEficienciasTemplate = `
-<svg width="450" height="250">
-  <rect x="30" y="200" width="100" height="-${params.get("eficienciaSeguimiento")}" fill="#0057B8"/>
-  <text x="80" y="220" font-size="14" text-anchor="middle">Seguimiento</text>
-  <text x="80" y="180" font-size="16" text-anchor="middle">${params.get("eficienciaSeguimiento")}%</text>
-
-  <rect x="170" y="200" width="100" height="-${params.get("eficienciaTrabajo")}" fill="#F28C28"/>
-  <text x="220" y="220" font-size="14" text-anchor="middle">Trabajo</text>
-  <text x="220" y="180" font-size="16" text-anchor="middle">${params.get("eficienciaTrabajo")}%</text>
-
-  <rect x="310" y="200" width="100" height="-${params.get("eficienciaCierre")}" fill="#E74C3C"/>
-  <text x="360" y="220" font-size="14" text-anchor="middle">Cierre</text>
-  <text x="360" y="180" font-size="16" text-anchor="middle">${params.get("eficienciaCierre")}%</text>
-</svg>
-`;
-
-document.getElementById("svgEficiencias").innerHTML = svgEficienciasTemplate;
-
 /* GENERAR PDF */
 document.getElementById("btnGenerarPDF").onclick = () => {
 
