@@ -3,179 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informe Dashboard PDF</title>
+    <title>Reporte Ejecutivo Pipeline</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-<div class="dashboard-container">
+<div id="dashboardContainer">
 
-    <div class="panel-izquierdo">
-        <div class="logo-container">
-            <img src="logo-random.png" alt="Random Technology" class="logo-img">
+    <h1>Reporte Ejecutivo - Pipeline de Ventas</h1>
+    <h3>Generado desde CRM Random</h3>
+
+    <div class="infoBox">
+        <p><strong>Usuario:</strong> <span id="nombreUsuario"></span></p>
+        <p><strong>Fecha Inicial:</strong> <span id="fechaInicial"></span></p>
+        <p><strong>Fecha Final:</strong> <span id="fechaFinal"></span></p>
+    </div>
+
+    <h2>Pipeline Comercial</h2>
+
+    <div class="grid2">
+        <div class="card">
+            <h3>Prospectos Nuevos</h3>
+            <p id="prospectosNuevos"></p>
         </div>
 
-        <h1>Informe Dashboard PDF</h1>
-        <p class="subtitulo">Datos cargados desde CRM Random</p>
-
-        <button id="btnGenerarPDF">Generar PDF Ejecutivo</button>
-
-        <div class="info-box">
-            <div class="info-item">
-                <span class="label">Usuario:</span>
-                <span id="nombreUsuario" class="value info-value"></span>
-            </div>
-
-            <div class="info-item">
-                <span class="label">Fecha Inicial:</span>
-                <span id="fechaInicial" class="value info-value"></span>
-            </div>
-
-            <div class="info-item">
-                <span class="label">Fecha Final:</span>
-                <span id="fechaFinal" class="value info-value"></span>
-            </div>
+        <div class="card">
+            <h3>Prospectos en Seguimiento</h3>
+            <p id="prospectosEnSeguimiento"></p>
         </div>
     </div>
 
-    <div class="panel-derecho">
-
-        <h1>Pipeline de Ventas</h1>
-        <p class="subtitulo">Seguimiento de Oportunidades Comerciales</p>
-
-        <div class="pipeline">
-            <div class="box prospectos">
-                <h3>Prospectos</h3>
-                <div class="numero" id="prospectosNuevos"></div>
-                <p>Prospectos nuevos</p>
-
-                <div class="numero" id="prospectosEnSeguimiento"></div>
-                <p>Prospectos en seguimiento</p>
-            </div>
-
-            <div class="arrow">→</div>
-
-            <div class="box seguimiento">
-                <h3>En Seguimiento</h3>
-                <div class="numero" id="actividades"></div>
-                <p>Actividades en seguimiento</p>
-            </div>
-
-            <div class="arrow">→</div>
-
-            <div class="box cierre-ganado">
-                <h3>Cierre Ganado</h3>
-                <div class="numero" id="tasaExito"></div>
-                <p>Cierres Ganados</p>
-            </div>
-
-            <div class="arrow">→</div>
-
-            <div class="box cierre-perdido">
-                <h3>Cierre Perdido</h3>
-                <div class="numero">0</div>
-                <p>Cierres Perdidos</p>
-            </div>
+    <div class="grid2">
+        <div class="card">
+            <h3>Actividades</h3>
+            <p id="actividades"></p>
         </div>
 
-        <div class="kpi-container">
-            <div class="kpi kpi-azul">
-                <h4>Eficiencia Global</h4>
-                <div id="eficienciaGlobal" class="kpi-num"></div>
-                <p id="eficienciaSeguimiento" class="kpi-small"></p>
-                <p id="eficienciaTrabajo" class="kpi-small"></p>
-                <p id="eficienciaCierre" class="kpi-small"></p>
-            </div>
-
-            <div class="kpi kpi-gris">
-                <h4>Momentum</h4>
-                <div id="PipelineMomentum" class="kpi-num"></div>
-                <p id="TextoPipelineMomentum"></p>
-            </div>
-
-            <div class="kpi kpi-naranja">
-                <h4>Salud del Pipeline</h4>
-                <div id="PipelineHealthScore" class="kpi-num"></div>
-                <p id="PipelineHealthTexto"></p>
-            </div>
-
-            <div class="kpi kpi-rojo">
-                <h4>Forecast de Cierres</h4>
-                <div id="ForecastCierres" class="kpi-num"></div>
-                <p id="ForecastCierresTexto"></p>
-            </div>
+        <div class="card">
+            <h3>Cierres Ganados</h3>
+            <p id="tasaExito"></p>
         </div>
-
     </div>
+
+    <h2>KPIs</h2>
+
+    <div class="grid2">
+        <div class="card">
+            <h3>Eficiencia Global</h3>
+            <p id="eficienciaGlobal"></p>
+        </div>
+
+        <div class="card">
+            <h3>Seguimiento</h3>
+            <p id="eficienciaSeguimiento"></p>
+        </div>
+
+        <div class="card">
+            <h3>Trabajo</h3>
+            <p id="eficienciaTrabajo"></p>
+        </div>
+
+        <div class="card">
+            <h3>Cierre</h3>
+            <p id="eficienciaCierre"></p>
+        </div>
+    </div>
+
+    <h2>Momentum</h2>
+    <p><strong>Valor:</strong> <span id="PipelineMomentum"></span></p>
+    <p id="TextoPipelineMomentum"></p>
+
+    <h2>Salud del Pipeline</h2>
+    <p><strong>Score:</strong> <span id="PipelineHealthScore"></span></p>
+    <p id="PipelineHealthTexto"></p>
+
+    <h2>Forecast</h2>
+    <p><strong>Valor:</strong> <span id="ForecastCierres"></span></p>
+    <p id="ForecastCierresTexto"></p>
+
+    <button id="btnGenerarPDF">Generar PDF</button>
 
 </div>
 
-<!-- PDF -->
-<div id="pdfContainer" style="
-    visibility:hidden;
-    position:relative;
-    width:100%;
-    background:white;
-    color:#111;
-    padding:40px;
-    font-family:Segoe UI;
-">
+<!-- PDF CONTAINER -->
+<div id="pdfContainer" style="visibility:hidden">
 
-    <div style="text-align:center; margin-bottom:40px;">
-        <img src="logo-random.png" style="width:220px; margin-bottom:20px;">
-        <h1 style="margin:0; font-size:32px;">Reporte Ejecutivo - Pipeline de Ventas</h1>
-        <p style="color:#555; font-size:18px;">Generado desde CRM Random</p>
-    </div>
+    <h1>Reporte Ejecutivo - Pipeline de Ventas</h1>
+    <h3>Generado desde CRM Random</h3>
 
-    <div style="font-size:18px; margin-bottom:40px;">
-        <strong>Usuario:</strong> <span id="pdfUsuario"></span><br>
-        <strong>Fecha Inicial:</strong> <span id="pdfFechaInicial"></span><br>
-        <strong>Fecha Final:</strong> <span id="pdfFechaFinal"></span>
-    </div>
+    <p><strong>Usuario:</strong> <span id="pdfUsuario"></span></p>
+    <p><strong>Fecha Inicial:</strong> <span id="pdfFechaInicial"></span></p>
+    <p><strong>Fecha Final:</strong> <span id="pdfFechaFinal"></span></p>
 
-    <h2 style="border-bottom:2px solid #ddd; padding-bottom:10px;">Pipeline Comercial</h2>
+    <h2>Pipeline Comercial</h2>
+    <p><strong>Prospectos Nuevos:</strong> <span id="pdfProspectosNuevos"></span></p>
+    <p><strong>Prospectos en Seguimiento:</strong> <span id="pdfProspectosEnSeguimiento"></span></p>
+    <p><strong>Actividades:</strong> <span id="pdfActividades"></span></p>
+    <p><strong>Cierres Ganados:</strong> <span id="pdfTasaExito"></span></p>
 
-    <div style="margin-top:20px;">
-        <h3>Prospectos</h3>
-        <p><strong>Nuevos:</strong> <span id="pdfProspectosNuevos"></span></p>
-        <p><strong>En seguimiento:</strong> <span id="pdfProspectosEnSeguimiento"></span></p>
-
-        <h3>En Seguimiento</h3>
-        <p><strong>Actividades:</strong> <span id="pdfActividades"></span></p>
-
-        <h3>Cierre Ganado</h3>
-        <p><strong>Cierres Ganados:</strong> <span id="pdfTasaExito"></span></p>
-
-        <h3>Cierre Perdido</h3>
-        <p><strong>Cierres Perdidos:</strong> 0</p>
-    </div>
-
-    <h2 style="border-bottom:2px solid #ddd; padding-bottom:10px; margin-top:40px;">KPIs</h2>
-
+    <h2>KPIs</h2>
     <p><strong>Eficiencia Global:</strong> <span id="pdfEficienciaGlobal"></span>%</p>
     <p><strong>Seguimiento:</strong> <span id="pdfEficienciaSeguimiento"></span>%</p>
     <p><strong>Trabajo:</strong> <span id="pdfEficienciaTrabajo"></span>%</p>
     <p><strong>Cierre:</strong> <span id="pdfEficienciaCierre"></span>%</p>
 
-    <p><strong>Momentum:</strong> <span id="pdfMomentum"></span></p>
-    <p><strong>Descripción Momentum:</strong> <span id="pdfTextoMomentum"></span></p>
+    <h2>Momentum</h2>
+    <p><strong>Valor:</strong> <span id="pdfMomentum"></span></p>
+    <p id="pdfTextoMomentum"></p>
 
-    <p><strong>Salud del Pipeline:</strong> <span id="pdfHealthScore"></span></p>
-    <p><strong>Descripción Salud:</strong> <span id="pdfHealthTexto"></span></p>
+    <h2>Salud del Pipeline</h2>
+    <p><strong>Score:</strong> <span id="pdfHealthScore"></span></p>
+    <p id="pdfHealthTexto"></p>
 
-    <p><strong>Forecast:</strong> <span id="pdfForecast"></span></p>
-    <p><strong>Descripción Forecast:</strong> <span id="pdfForecastTexto"></span></p>
-
-    <!-- GRÁFICAS PNG -->
-    <h2 style="margin-top:40px;">Gráfica Pipeline Funnel</h2>
-    <img id="pngFunnel" style="width:420px;">
-
-    <h2 style="margin-top:40px;">Gráfica de Eficiencias</h2>
-    <img id="pngEficiencias" style="width:450px;">
+    <h2>Forecast</h2>
+    <p><strong>Valor:</strong> <span id="pdfForecast"></span></p>
+    <p id="pdfForecastTexto"></p>
 
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+<script src="html2pdf.bundle.min.js"></script>
 <script src="app.js"></script>
 
 </body>
