@@ -59,6 +59,19 @@ document.getElementById("pdfHealthTexto").innerText = params.get("PipelineHealth
 document.getElementById("pdfForecast").innerText = params.get("ForecastCierres");
 document.getElementById("pdfForecastTexto").innerText = params.get("ForecastCierresTexto");
 
+/* NUEVOS CAMPOS DEL PDF */
+
+// Actividad por prospecto
+const actividades = Number(params.get("actividades"));
+const prospectos = Number(params.get("prospectosEnSeguimiento"));
+document.getElementById("pdfActividadPorProspecto").innerText =
+    prospectos > 0 ? (actividades / prospectos).toFixed(2) : "0";
+
+// Tasa de cierre
+const cierres = Number(params.get("tasaExito"));
+document.getElementById("pdfTasaCierre").innerText =
+    prospectos > 0 ? ((cierres / prospectos) * 100).toFixed(2) : "0";
+
 /* GENERAR PDF */
 document.getElementById("btnGenerarPDF").onclick = () => {
 
