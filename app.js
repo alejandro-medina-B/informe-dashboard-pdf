@@ -1,119 +1,130 @@
-// ===============================
-// 1. Leer parámetros desde la URL
-// ===============================
+/* ============================
+   LECTURA DE PARÁMETROS
+   ============================ */
+
 const params = new URLSearchParams(window.location.search);
 
-function getParam(name) {
-    return params.get(name) || "—";
-}
+/* ============================
+   LLENADO DE CAMPOS DEL PDF
+   ============================ */
 
-// ===============================
-// 2. Descomprimir JSON de actividades
-// ===============================
-let actividadesJSON = [];
+// Usuario y fechas
+document.getElementById("pdfUsuario").innerText = params.get("usuario");
+document.getElementById("pdfFechaInicial").innerText = params.get("fechaInicial");
+document.getElementById("pdfFechaFinal").innerText = params.get("fechaFinal");
 
+// KPIs principales
+document.getElementById("pdfEficienciaGlobal").innerText = params.get("eficienciaGlobal");
+document.getElementById("pdfProspectosNuevos").innerText = params.get("prospectosNuevos");
+document.getElementById("pdfProspectosEnSeguimiento").innerText = params.get("prospectosEnSeguimiento");
+document.getElementById("pdfActividades").innerText = params.get("actividades");
+document.getElementById("pdfTasaExito").innerText = params.get("tasaExito");
+document.getElementById("pdfActividadPorProspecto").innerText = params.get("actividadPorProspecto");
+document.getElementById("pdfTasaCierre").innerText = params.get("tasaCierre");
+
+// KPIs secundarios
+document.getElementById("pdfEficienciaGlobalKPI").innerText = params.get("eficienciaGlobal");
+document.getElementById("pdfEficienciaSeguimiento").innerText = params.get("eficienciaSeguimiento");
+document.getElementById("pdfEficienciaTrabajo").innerText = params.get("eficienciaTrabajo");
+document.getElementById("pdfEficienciaCierre").innerText = params.get("eficienciaCierre");
+
+// Momentum
+document.getElementById("pdfMomentum").innerText = params.get("PipelineMomentum");
+document.getElementById("pdfTextoMomentum").innerText = params.get("TextoPipelineMomentum");
+
+// Salud del Pipeline
+document.getElementById("pdfHealthScore").innerText = params.get("PipelineHealthScore");
+document.getElementById("pdfHealthTexto").innerText = params.get("PipelineHealthTexto");
+
+// Forecast
+document.getElementById("pdfForecast").innerText = params.get("ForecastCierres");
+document.getElementById("pdfForecastTexto").innerText = params.get("ForecastCierresTexto");
+
+/* ============================
+   ACTIVIDADES POR OPORTUNIDAD
+   ============================ */
+
+const actividadesJSON = params.get("actividadesJSON");
+
+let actividades = [];
 try {
-    const actividadesComprimidas = getParam("actividadesJSON");
-
-    if (actividadesComprimidas && actividadesComprimidas !== "—") {
-        const descomprimido = LZString.decompressFromEncodedURIComponent(actividadesComprimidas);
-
-        if (descomprimido) {
-            actividadesJSON = JSON.parse(descomprimido);
-        } else {
-            console.error("No se pudo descomprimir actividadesJSON");
-        }
-    }
+    actividades = JSON.parse(actividadesJSON);
 } catch (e) {
-    console.error("Error procesando actividadesJSON:", e);
+    console.error("Error al parsear actividadesJSON:", e);
 }
 
-// ===============================
-// 3. Insertar valores en los KPIs
-// ===============================
-document.getElementById("fechaInicial").innerText = getParam("fechaInicial");
-document.getElementById("fechaFinal").innerText = getParam("fechaFinal");
-document.getElementById("usuario").innerText = getParam("usuario");
-document.getElementById("totalOportunidades").innerText = getParam("totalOportunidades");
-document.getElementById("actividades").innerText = getParam("actividades");
-document.getElementById("eficienciaGlobal").innerText = getParam("eficienciaGlobal") + "%";
-document.getElementById("eficienciaSeguimiento").innerText = getParam("eficienciaSeguimiento") + "%";
-document.getElementById("eficienciaCierre").innerText = getParam("eficienciaCierre") + "%";
-document.getElementById("eficienciaTrabajo").innerText = getParam("eficienciaTrabajo") + "%";
-document.getElementById("tiempoInactividad").innerText = getParam("tiempoInactividad");
-document.getElementById("ritmo").innerText = getParam("ritmo");
-document.getElementById("tasaExito").innerText = getParam("tasaExito") + "%";
-document.getElementById("velocity").innerText = getParam("velocity");
-document.getElementById("momentum").innerText = getParam("momentum");
-document.getElementById("pipelineHealth").innerText = getParam("pipelineHealth");
-document.getElementById("forecast").innerText = getParam("forecast");
+/* Agrupar por oportunidad */
+const actividadesPorOportunidad = {};
 
-// ===============================
-// 4. Gráfica de Actividades
-// ===============================
-const ctx = document.getElementById("chartActividades");
+actividades.forEach(act => {
+    const opID = act.oportunidadID;
 
-new Chart(ctx, {
-    type: "bar",
-    data: {
-        labels: ["Oportunidades", "Actividades"],
-        datasets: [{
-            label: "Totales",
-            data: [
-                Number(getParam("totalOportunidades")),
-                Number(getParam("actividades"))
-            ],
-            backgroundColor: ["#3b82f6", "#10b981"]
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: {
-            legend: { display: false }
-        }
+    if (!actividadesPorOportunidad[opID]) {
+        actividadesPorOportunidad[opID] = {
+            nombre: act.oportunidadNombre,
+            actividades: []
+        };
     }
+
+    actividadesPorOportunidad[opID].actividades.push(act);
 });
 
-// ===============================
-// 5. Imprimir actividades en el PDF
-// ===============================
-const actividadesContainer = document.getElementById("actividadesContainer");
-
-if (actividadesJSON.length > 0) {
-    actividadesJSON.forEach(act => {
-        const div = document.createElement("div");
-        div.className = "actividad-item";
-
-        div.innerHTML = `
-            <strong>${act.oportunidadNombre}</strong><br>
-            Fecha: ${act.fecha} ${act.hora}<br>
-            Tipo: ${act.tipo}<br>
-            Actividad: ${act.actividad}<br>
-            Comentario: ${act.comentario}<br>
-            Usuario: ${act.usuarioID}<br>
-            Secuencia: ${act.secuencia}
-            <hr>
-        `;
-
-        actividadesContainer.appendChild(div);
+/* Ordenar cada grupo por fecha + hora */
+Object.keys(actividadesPorOportunidad).forEach(opID => {
+    actividadesPorOportunidad[opID].actividades.sort((a, b) => {
+        const fechaA = new Date(`${a.fecha} ${a.hora}`);
+        const fechaB = new Date(`${b.fecha} ${b.hora}`);
+        return fechaA - fechaB;
     });
-} else {
-    actividadesContainer.innerHTML = "<p>No hay actividades registradas en el periodo.</p>";
-}
+});
 
-// ===============================
-// 6. Generar PDF
-// ===============================
-document.getElementById("btnPDF").addEventListener("click", () => {
-    const element = document.getElementById("content");
+/* Construir HTML dinámico */
+let htmlActividades = `
+<h2 style="font-size:26px; border-bottom:2px solid #ddd; padding-bottom:8px; margin-top:50px;">
+    ACTIVIDADES POR OPORTUNIDAD
+</h2>
+<div style="margin-top:25px; font-size:16px; line-height:1.45;">
+`;
 
-    const options = {
+Object.keys(actividadesPorOportunidad).forEach(opID => {
+    const grupo = actividadesPorOportunidad[opID];
+
+    htmlActividades += `
+        <h3 style="margin-top:30px; font-size:20px; font-weight:600;">
+            ${grupo.nombre}
+        </h3>
+    `;
+
+    grupo.actividades.forEach(act => {
+        htmlActividades += `
+            <p style="margin:8px 0;">
+                <strong>${act.fecha} ${act.hora}</strong> — 
+                <em>${act.actividad}</em><br>
+                ${act.comentario || ""}
+            </p>
+        `;
+    });
+});
+
+htmlActividades += `</div>`;
+
+/* Insertar en el PDF */
+document.getElementById("pdfContainer").innerHTML += htmlActividades;
+
+/* ============================
+   GENERAR PDF
+   ============================ */
+
+document.getElementById("btnGenerarPDF").addEventListener("click", () => {
+    const element = document.getElementById("pdfContainer");
+
+    const opt = {
         margin: 0.5,
-        filename: "InformeDashboard.pdf",
+        filename: "Reporte-Ejecutivo-Pipeline.pdf",
         image: { type: "jpeg", quality: 0.98 },
         html2canvas: { scale: 2 },
         jsPDF: { unit: "in", format: "letter", orientation: "portrait" }
     };
 
-    html2pdf().set(options).from(element).save();
+    html2pdf().set(opt).from(element).save();
 });
