@@ -120,7 +120,10 @@ h1 {
 .kpi-naranja { background: #ea580c; }
 .kpi-rojo { background: #b91c1c; }
 
-/* TARJETA MEJORADA */
+/* ================================
+   TARJETA MEJORADA - EFICIENCIA GLOBAL
+   ================================ */
+
 .kpi-azul {
     background: #1e3a8a;
     padding: 22px;
@@ -144,7 +147,7 @@ h1 {
     display: flex;
     justify-content: center;
     gap: 14px;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;   /* ← permite que el texto fluya */
     margin-top: 8px;
 }
 
@@ -152,5 +155,5 @@ h1 {
 .kpi-small {
     font-size: 15px;
     color: #e5e7eb;
-    white-space: nowrap;
+    white-space: normal;   /* ← permite mostrar el texto completo */
 }
