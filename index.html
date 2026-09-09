@@ -6,6 +6,7 @@
     <title>Informe Dashboard PDF</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
 <div class="dashboard-container">
@@ -104,20 +105,20 @@
         <!-- KPIs INFERIORES -->
         <div class="kpi-container">
 
+            <!-- EFICIENCIA GLOBAL (VERSIÓN ORIGINAL) -->
             <div class="kpi kpi-azul">
                 <div class="kpi-icon">📊</div>
                 <h4>Eficiencia Global</h4>
                 <div id="eficienciaGlobal" class="kpi-num"></div>
 
                 <div class="kpi-line">
-                    <p id="eficienciaSeguimiento" class="kpi-small"></p>
-                    <p class="kpi-small">·</p>
-                    <p id="eficienciaTrabajo" class="kpi-small"></p>
-                    <p class="kpi-small">·</p>
-                    <p id="eficienciaCierre" class="kpi-small"></p>
+                    <p class="kpi-small">Seguimiento: <span id="eficienciaSeguimiento"></span>%</p>
+                    <p class="kpi-small">Trabajo: <span id="eficienciaTrabajo"></span>%</p>
+                    <p class="kpi-small">Cierre: <span id="eficienciaCierre"></span>%</p>
                 </div>
             </div>
 
+            <!-- MOMENTUM -->
             <div class="kpi kpi-gris">
                 <div class="kpi-icon">⚡</div>
                 <h4>Momentum</h4>
@@ -125,6 +126,7 @@
                 <p id="TextoPipelineMomentum"></p>
             </div>
 
+            <!-- SALUD DEL PIPELINE -->
             <div class="kpi kpi-naranja">
                 <div class="kpi-icon">❤️</div>
                 <h4>Salud del Pipeline</h4>
@@ -132,6 +134,7 @@
                 <p id="PipelineHealthTexto"></p>
             </div>
 
+            <!-- FORECAST -->
             <div class="kpi kpi-rojo">
                 <div class="kpi-icon">📉</div>
                 <h4>Forecast de Cierres</h4>
@@ -145,62 +148,7 @@
 
 </div>
 
-<!-- ============================================
-     CONTENEDOR DEL PDF (FUNCIONAL)
-============================================ -->
-<div id="pdfContainer" style="display:none; padding:40px; font-family:'Segoe UI', sans-serif;">
-
-    <h1 style="text-align:center; margin-bottom:20px;">Reporte Ejecutivo del Pipeline</h1>
-
-    <h3>Información del Usuario</h3>
-    <p><strong>Usuario:</strong> <span id="pdfUsuario"></span></p>
-    <p><strong>Fecha Inicial:</strong> <span id="pdfFechaInicial"></span></p>
-    <p><strong>Fecha Final:</strong> <span id="pdfFechaFinal"></span></p>
-
-    <hr style="margin:25px 0;">
-
-    <h3>KPIs Principales</h3>
-    <p><strong>Eficiencia Global:</strong> <span id="pdfEficienciaGlobal"></span></p>
-    <p><strong>Prospectos Nuevos:</strong> <span id="pdfProspectosNuevos"></span></p>
-    <p><strong>Prospectos en Seguimiento:</strong> <span id="pdfProspectosEnSeguimiento"></span></p>
-    <p><strong>Actividades:</strong> <span id="pdfActividades"></span></p>
-    <p><strong>Tasa de Éxito:</strong> <span id="pdfTasaExito"></span></p>
-
-    <hr style="margin:25px 0;">
-
-    <h3>KPIs Derivados</h3>
-    <p><strong>Actividad por Prospecto:</strong> <span id="pdfActividadPorProspecto"></span></p>
-    <p><strong>Tasa de Cierre:</strong> <span id="pdfTasaCierre"></span></p>
-
-    <hr style="margin:25px 0;">
-
-    <h3>Eficiencia Detallada</h3>
-    <p><strong>Seguimiento:</strong> <span id="pdfEficienciaSeguimiento"></span>%</p>
-    <p><strong>Trabajo:</strong> <span id="pdfEficienciaTrabajo"></span>%</p>
-    <p><strong>Cierre:</strong> <span id="pdfEficienciaCierre"></span>%</p>
-
-    <hr style="margin:25px 0;">
-
-    <h3>Momentum</h3>
-    <p><strong>Valor:</strong> <span id="pdfMomentum"></span></p>
-    <p><span id="pdfTextoMomentum"></span></p>
-
-    <hr style="margin:25px 0;">
-
-    <h3>Salud del Pipeline</h3>
-    <p><strong>Score:</strong> <span id="pdfHealthScore"></span></p>
-    <p><span id="pdfHealthTexto"></span></p>
-
-    <hr style="margin:25px 0;">
-
-    <h3>Forecast</h3>
-    <p><strong>Cierres Esperados:</strong> <span id="pdfForecast"></span></p>
-    <p><span id="pdfForecastTexto"></span></p>
-
-</div>
-
 <!-- SCRIPTS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
 <script src="app.js"></script>
 
 </body>
