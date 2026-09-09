@@ -1,94 +1,88 @@
+// ===============================
+// CARGA DE PARÁMETROS DESDE URL
+// ===============================
 const params = new URLSearchParams(window.location.search);
 
-/* Panel izquierdo */
-document.getElementById("nombreUsuario").innerText = params.get("nombreUsuario");
-document.getElementById("fechaInicial").innerText = params.get("fechaInicial");
-document.getElementById("fechaFinal").innerText = params.get("fechaFinal");
+// Función segura para asignar valores
+function setValue(id, value) {
+    const el = document.getElementById(id);
+    if (el) el.innerText = value ?? "";
+}
 
-/* Pipeline */
-document.getElementById("prospectosNuevos").innerText = params.get("prospectosNuevos");
-document.getElementById("prospectosEnSeguimiento").innerText = params.get("prospectosEnSeguimiento");
-document.getElementById("actividades").innerText = params.get("actividades");
+// ===============================
+// ASIGNACIÓN DE VALORES AL DASHBOARD
+// ===============================
+setValue("nombreUsuario", params.get("nombreUsuario"));
+setValue("fechaInicial", params.get("fechaInicial"));
+setValue("fechaFinal", params.get("fechaFinal"));
 
-/* Actividad promedio */
-document.getElementById("actividadPromedio").innerText =
-    params.get("actividadPorProspecto");
+setValue("prospectosNuevos", params.get("prospectosNuevos"));
+setValue("prospectosEnSeguimiento", params.get("prospectosEnSeguimiento"));
+setValue("actividades", params.get("actividades"));
+setValue("actividadPromedio", params.get("actividadPorProspecto"));
 
-/* Cierre Ganado (tarjeta verde) */
-document.getElementById("cierreGanado").innerText =
-    params.get("tasaExito") || 0;
+setValue("cierreGanado", params.get("cierreGanado"));
+setValue("cierrePerdido", params.get("cierrePerdido"));
 
-/* Cierre Perdido (si después lo conectas) */
-document.getElementById("cierrePerdido").innerText =
-    params.get("cierrePerdido") || 0;
+setValue("eficienciaGlobal", params.get("eficienciaGlobal"));
+setValue("eficienciaSeguimiento", params.get("eficienciaSeguimiento"));
+setValue("eficienciaTrabajo", params.get("eficienciaTrabajo"));
+setValue("eficienciaCierre", params.get("eficienciaCierre"));
 
-/* KPIs principales */
-document.getElementById("eficienciaGlobal").innerText = params.get("eficienciaGlobal");
+setValue("PipelineMomentum", params.get("PipelineMomentum"));
+setValue("TextoPipelineMomentum", params.get("TextoPipelineMomentum"));
 
-document.getElementById("eficienciaSeguimiento").innerText =
-    params.get("eficienciaSeguimiento") + "% de seguimiento";
+setValue("PipelineHealthScore", params.get("PipelineHealthScore"));
+setValue("PipelineHealthTexto", params.get("PipelineHealthTexto"));
 
-document.getElementById("eficienciaTrabajo").innerText =
-    params.get("eficienciaTrabajo") + "% de trabajo";
+setValue("ForecastCierres", params.get("ForecastCierres"));
+setValue("ForecastCierresTexto", params.get("ForecastCierresTexto"));
 
-document.getElementById("eficienciaCierre").innerText =
-    params.get("eficienciaCierre") + "% de cierre";
 
-/* Momentum */
-document.getElementById("PipelineMomentum").innerText = params.get("PipelineMomentum");
-document.getElementById("TextoPipelineMomentum").innerText = params.get("TextoPipelineMomentum");
+// ===============================
+// ASIGNACIÓN DE VALORES AL PDF
+// ===============================
+setValue("pdfUsuario", params.get("nombreUsuario"));
+setValue("pdfFechaInicial", params.get("fechaInicial"));
+setValue("pdfFechaFinal", params.get("fechaFinal"));
 
-/* Salud */
-document.getElementById("PipelineHealthScore").innerText = params.get("PipelineHealthScore");
-document.getElementById("PipelineHealthTexto").innerText = params.get("PipelineHealthTexto");
+setValue("pdfEficienciaGlobal", params.get("eficienciaGlobal"));
+setValue("pdfProspectosNuevos", params.get("prospectosNuevos"));
+setValue("pdfProspectosEnSeguimiento", params.get("prospectosEnSeguimiento"));
+setValue("pdfActividades", params.get("actividades"));
+setValue("pdfTasaExito", params.get("tasaExito"));
 
-/* Forecast */
-document.getElementById("ForecastCierres").innerText = params.get("ForecastCierres");
-document.getElementById("ForecastCierresTexto").innerText = params.get("ForecastCierresTexto");
+setValue("pdfActividadPorProspecto", params.get("actividadPorProspecto"));
+setValue("pdfTasaCierre", params.get("tasaCierre"));
 
-/* PDF */
-document.getElementById("pdfUsuario").innerText = params.get("nombreUsuario");
-document.getElementById("pdfFechaInicial").innerText = params.get("fechaInicial");
-document.getElementById("pdfFechaFinal").innerText = params.get("fechaFinal");
+setValue("pdfEficienciaSeguimiento", params.get("eficienciaSeguimiento"));
+setValue("pdfEficienciaTrabajo", params.get("eficienciaTrabajo"));
+setValue("pdfEficienciaCierre", params.get("eficienciaCierre"));
 
-document.getElementById("pdfEficienciaGlobal").innerText = params.get("eficienciaGlobal");
-document.getElementById("pdfProspectosNuevos").innerText = params.get("prospectosNuevos");
-document.getElementById("pdfProspectosEnSeguimiento").innerText = params.get("prospectosEnSeguimiento");
-document.getElementById("pdfActividades").innerText = params.get("actividades");
-document.getElementById("pdfTasaExito").innerText = params.get("tasaExito");
+setValue("pdfMomentum", params.get("PipelineMomentum"));
+setValue("pdfTextoMomentum", params.get("TextoPipelineMomentum"));
 
-document.getElementById("pdfActividadPorProspecto").innerText = params.get("actividadPorProspecto");
-document.getElementById("pdfTasaCierre").innerText = params.get("tasaCierre");
+setValue("pdfHealthScore", params.get("PipelineHealthScore"));
+setValue("pdfHealthTexto", params.get("PipelineHealthTexto"));
 
-document.getElementById("pdfEficienciaGlobalKPI").innerText = params.get("eficienciaGlobal");
-document.getElementById("pdfEficienciaSeguimiento").innerText = params.get("eficienciaSeguimiento");
-document.getElementById("pdfEficienciaTrabajo").innerText = params.get("eficienciaTrabajo");
-document.getElementById("pdfEficienciaCierre").innerText = params.get("eficienciaCierre");
+setValue("pdfForecast", params.get("ForecastCierres"));
+setValue("pdfForecastTexto", params.get("ForecastCierresTexto"));
 
-document.getElementById("pdfMomentum").innerText = params.get("PipelineMomentum");
-document.getElementById("pdfTextoMomentum").innerText = params.get("TextoPipelineMomentum");
 
-document.getElementById("pdfHealthScore").innerText = params.get("PipelineHealthScore");
-document.getElementById("pdfHealthTexto").innerText = params.get("PipelineHealthTexto");
-
-document.getElementById("pdfForecast").innerText = params.get("ForecastCierres");
-document.getElementById("pdfForecastTexto").innerText = params.get("ForecastCierresTexto");
-
-/* PDF GENERATOR */
+// ===============================
+// GENERAR PDF
+// ===============================
 document.getElementById("btnGenerarPDF").addEventListener("click", () => {
 
-    const pdfContainer = document.getElementById("pdfContainer");
-    pdfContainer.style.display = "block";
+    const element = document.getElementById("pdfContainer");
 
     const opt = {
-        margin: 0.5,
-        filename: "Reporte-Ejecutivo-Pipeline.pdf",
-        image: { type: "jpeg", quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: "in", format: "letter", orientation: "portrait" }
+        margin:       0.5,
+        filename:     `Reporte-Pipeline-${params.get("nombreUsuario")}.pdf`,
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2 },
+        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
     };
 
-    html2pdf().set(opt).from(pdfContainer).save().then(() => {
-        pdfContainer.style.display = "none";
-    });
+    html2pdf().set(opt).from(element).save();
 });
