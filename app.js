@@ -1,12 +1,4 @@
-/* ============================
-   LECTURA DE PARÁMETROS
-   ============================ */
-
 const params = new URLSearchParams(window.location.search);
-
-/* ============================
-   LLENADO DEL DASHBOARD
-   ============================ */
 
 /* Panel izquierdo */
 document.getElementById("nombreUsuario").innerText = params.get("nombreUsuario");
@@ -17,12 +9,14 @@ document.getElementById("fechaFinal").innerText = params.get("fechaFinal");
 document.getElementById("prospectosNuevos").innerText = params.get("prospectosNuevos");
 document.getElementById("prospectosEnSeguimiento").innerText = params.get("prospectosEnSeguimiento");
 document.getElementById("actividades").innerText = params.get("actividades");
-document.getElementById("tasaExito").innerText = params.get("tasaExito");
+
+/* NUEVO: actividad promedio */
+document.getElementById("actividadPromedio").innerText =
+    params.get("actividadPorProspecto");
 
 /* KPIs principales */
 document.getElementById("eficienciaGlobal").innerText = params.get("eficienciaGlobal");
 
-/* ⭐ LEYENDAS COMPLETAS — CORREGIDO */
 document.getElementById("eficienciaSeguimiento").innerText =
     params.get("eficienciaSeguimiento") + "% de seguimiento";
 
@@ -36,7 +30,7 @@ document.getElementById("eficienciaCierre").innerText =
 document.getElementById("PipelineMomentum").innerText = params.get("PipelineMomentum");
 document.getElementById("TextoPipelineMomentum").innerText = params.get("TextoPipelineMomentum");
 
-/* Salud del pipeline */
+/* Salud */
 document.getElementById("PipelineHealthScore").innerText = params.get("PipelineHealthScore");
 document.getElementById("PipelineHealthTexto").innerText = params.get("PipelineHealthTexto");
 
@@ -44,48 +38,35 @@ document.getElementById("PipelineHealthTexto").innerText = params.get("PipelineH
 document.getElementById("ForecastCierres").innerText = params.get("ForecastCierres");
 document.getElementById("ForecastCierresTexto").innerText = params.get("ForecastCierresTexto");
 
-/* ============================
-   LLENADO DEL PDF
-   ============================ */
-
-/* Usuario y fechas */
+/* PDF */
 document.getElementById("pdfUsuario").innerText = params.get("nombreUsuario");
 document.getElementById("pdfFechaInicial").innerText = params.get("fechaInicial");
 document.getElementById("pdfFechaFinal").innerText = params.get("fechaFinal");
 
-/* KPIs principales */
 document.getElementById("pdfEficienciaGlobal").innerText = params.get("eficienciaGlobal");
 document.getElementById("pdfProspectosNuevos").innerText = params.get("prospectosNuevos");
 document.getElementById("pdfProspectosEnSeguimiento").innerText = params.get("prospectosEnSeguimiento");
 document.getElementById("pdfActividades").innerText = params.get("actividades");
 document.getElementById("pdfTasaExito").innerText = params.get("tasaExito");
 
-/* Derivados */
 document.getElementById("pdfActividadPorProspecto").innerText = params.get("actividadPorProspecto");
 document.getElementById("pdfTasaCierre").innerText = params.get("tasaCierre");
 
-/* KPIs secundarios */
 document.getElementById("pdfEficienciaGlobalKPI").innerText = params.get("eficienciaGlobal");
 document.getElementById("pdfEficienciaSeguimiento").innerText = params.get("eficienciaSeguimiento");
 document.getElementById("pdfEficienciaTrabajo").innerText = params.get("eficienciaTrabajo");
 document.getElementById("pdfEficienciaCierre").innerText = params.get("eficienciaCierre");
 
-/* Momentum */
 document.getElementById("pdfMomentum").innerText = params.get("PipelineMomentum");
 document.getElementById("pdfTextoMomentum").innerText = params.get("TextoPipelineMomentum");
 
-/* Salud */
 document.getElementById("pdfHealthScore").innerText = params.get("PipelineHealthScore");
 document.getElementById("pdfHealthTexto").innerText = params.get("PipelineHealthTexto");
 
-/* Forecast */
 document.getElementById("pdfForecast").innerText = params.get("ForecastCierres");
 document.getElementById("pdfForecastTexto").innerText = params.get("ForecastCierresTexto");
 
-/* ============================
-   GENERAR PDF
-   ============================ */
-
+/* PDF GENERATOR */
 document.getElementById("btnGenerarPDF").addEventListener("click", () => {
 
     const pdfContainer = document.getElementById("pdfContainer");
