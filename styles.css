@@ -81,7 +81,7 @@ h1 {
     border-radius: 10px;
     text-align: center;
     width: 180px;
-    height: 290px; /* ← Ajustado para que no se desborde */
+    height: 290px; /* ← Ajustado para evitar desbordes */
 }
 
 .prospectos { background: #1e3a8a; }
@@ -135,9 +135,15 @@ h1 {
     text-align: center;
     margin-bottom: 6px;
     opacity: 1;
-    color: white; /* ← iconos más visibles */
-    filter: drop-shadow(0px 0px 3px rgba(0,0,0,0.7)); /* ← sombra para resaltar */
+    color: white;
+    filter: drop-shadow(0px 0px 3px rgba(0,0,0,0.7));
     pointer-events: none;
+}
+
+/* ICONO DE ACTIVIDADES — MÁS CONTRASTE */
+.seguimiento .kpi-icon {
+    color: #ffffff;
+    filter: drop-shadow(0px 0px 4px rgba(0,0,0,0.9));
 }
 
 /* PROMEDIO */
