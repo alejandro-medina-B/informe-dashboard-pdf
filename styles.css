@@ -129,12 +129,13 @@ h1 {
     color: white;
 }
 
-/* ICONOS */
+/* ICONOS — AJUSTADOS */
 .kpi-icon {
-    font-size: 32px;
+    font-size: 28px;
     text-align: center;
-    margin-bottom: 10px;
-    opacity: 0.9;
+    margin-bottom: 8px;
+    opacity: 0.85;
+    pointer-events: none;
 }
 
 /* PROMEDIO */
