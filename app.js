@@ -11,8 +11,21 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     const usuario = getParam("usuario");
-    const fechaInicial = getParam("fechaInicial");
-    const fechaFinal = getParam("fechaFinal");
+    let fechaInicial = getParam("fechaInicial");
+    let fechaFinal = getParam("fechaFinal");
+
+    /* ============================
+       CONVERTIR FECHAS DD/MM/YYYY → YYYY-MM-DD
+       ============================ */
+
+    function convertirFecha(fecha) {
+        if (!fecha.includes("/")) return fecha; // ya viene en ISO
+        const [dia, mes, anio] = fecha.split("/");
+        return `${anio}-${mes.padStart(2, "0")}-${dia.padStart(2, "0")}`;
+    }
+
+    fechaInicial = convertirFecha(fechaInicial);
+    fechaFinal = convertirFecha(fechaFinal);
 
 
     /* ============================
@@ -25,12 +38,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         try {
             const res = await fetch(url);
+            if (!res.ok) return [];
             const data = await res.json();
-
-            return data; // ← JSON limpio con actividades
+            return Array.isArray(data) ? data : [];
 
         } catch (error) {
-            console.error("Error al obtener actividades desde Apps Script:", error);
+            console.error("Error al obtener actividades:", error);
             return [];
         }
     }
@@ -68,64 +81,68 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
     /* ============================
-       ACTIVIDADES POR OPORTUNIDAD (APPS SCRIPT)
+       ACTIVIDADES POR OPORTUNIDAD
        ============================ */
 
     const actividades = await cargarActividadesDesdeAPI(usuario, fechaInicial, fechaFinal);
 
-    const actividadesPorOportunidad = {};
+    if (actividades.length > 0) {
 
-    actividades.forEach(act => {
-        const opID = act.oportunidadID;
+        const actividadesPorOportunidad = {};
 
-        if (!actividadesPorOportunidad[opID]) {
-            actividadesPorOportunidad[opID] = {
-                nombre: act.oportunidadNombre,
-                actividades: []
-            };
-        }
+        actividades.forEach(act => {
+            const opID = act.oportunidadID;
 
-        actividadesPorOportunidad[opID].actividades.push(act);
-    });
+            if (!actividadesPorOportunidad[opID]) {
+                actividadesPorOportunidad[opID] = {
+                    nombre: act.oportunidadNombre,
+                    actividades: []
+                };
+            }
 
-    Object.keys(actividadesPorOportunidad).forEach(opID => {
-        actividadesPorOportunidad[opID].actividades.sort((a, b) => {
-            const fechaA = new Date(`${a.fecha} ${a.hora}`);
-            const fechaB = new Date(`${b.fecha} ${b.hora}`);
-            return fechaA - fechaB;
+            actividadesPorOportunidad[opID].actividades.push(act);
         });
-    });
 
-    let htmlActividades = `
-        <h2 style="font-size:26px; border-bottom:2px solid #ddd; padding-bottom:8px; margin-top:50px;">
-            ACTIVIDADES POR OPORTUNIDAD
-        </h2>
-        <div style="margin-top:25px; font-size:16px; line-height:1.45;">
-    `;
+        Object.keys(actividadesPorOportunidad).forEach(opID => {
+            actividadesPorOportunidad[opID].actividades.sort((a, b) => {
+                const fechaA = new Date(`${a.fecha} ${a.hora}`);
+                const fechaB = new Date(`${b.fecha} ${b.hora}`);
+                return fechaA - fechaB;
+            });
+        });
 
-    Object.keys(actividadesPorOportunidad).forEach(opID => {
-        const grupo = actividadesPorOportunidad[opID];
-
-        htmlActividades += `
-            <h3 style="margin-top:30px; font-size:20px; font-weight:600;">
-                ${grupo.nombre}
-            </h3>
+        let htmlActividades = `
+            <section style="margin-top:50px;">
+                <h2 style="font-size:26px; border-bottom:2px solid #ddd; padding-bottom:8px;">
+                    ACTIVIDADES POR OPORTUNIDAD
+                </h2>
+                <div style="margin-top:25px; font-size:16px; line-height:1.45;">
         `;
 
-        grupo.actividades.forEach(act => {
+        Object.keys(actividadesPorOportunidad).forEach(opID => {
+            const grupo = actividadesPorOportunidad[opID];
+
             htmlActividades += `
-                <p style="margin:8px 0;">
-                    <strong>${act.fecha} ${act.hora}</strong> — 
-                    <em>${act.actividad}</em><br>
-                    ${act.comentario || ""}
-                </p>
+                <h3 style="margin-top:30px; font-size:20px; font-weight:600;">
+                    ${grupo.nombre}
+                </h3>
             `;
+
+            grupo.actividades.forEach(act => {
+                htmlActividades += `
+                    <p style="margin:8px 0;">
+                        <strong>${act.fecha} ${act.hora}</strong> — 
+                        <em>${act.actividad}</em><br>
+                        ${act.comentario || ""}
+                    </p>
+                `;
+            });
         });
-    });
 
-    htmlActividades += `</div>`;
+        htmlActividades += `</div></section>`;
 
-    document.getElementById("pdfContainer").innerHTML += htmlActividades;
+        document.getElementById("pdfContainer").insertAdjacentHTML("beforeend", htmlActividades);
+    }
 
 
     /* ============================
@@ -136,8 +153,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const element = document.getElementById("pdfContainer");
 
-        element.style.display = "block";
-
         const opt = {
             margin: 0.5,
             filename: "Reporte-Ejecutivo-Pipeline.pdf",
@@ -146,9 +161,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             jsPDF: { unit: "in", format: "letter", orientation: "portrait" }
         };
 
-        html2pdf().set(opt).from(element).save().then(() => {
-            element.style.display = "none";
-        });
+        html2pdf().set(opt).from(element).save();
     });
 
 });
