@@ -81,7 +81,7 @@ h1 {
     border-radius: 10px;
     text-align: center;
     width: 180px;
-    height: 280px; /* ← AUMENTADO PARA QUE NO SE DESBORDE */
+    height: 290px; /* ← Ajustado para que no se desborde */
 }
 
 .prospectos { background: #1e3a8a; }
@@ -129,13 +129,14 @@ h1 {
     color: white;
 }
 
-/* ICONOS — AJUSTADOS Y VISIBLES */
+/* ICONOS — VISIBLES Y SIN INVADIR CONTENIDO */
 .kpi-icon {
     font-size: 30px;
     text-align: center;
     margin-bottom: 6px;
-    opacity: 1; /* ← MÁS VISIBLES */
-    filter: drop-shadow(0px 0px 2px rgba(0,0,0,0.6)); /* ← SOMBRA SUAVE */
+    opacity: 1;
+    color: white; /* ← iconos más visibles */
+    filter: drop-shadow(0px 0px 3px rgba(0,0,0,0.7)); /* ← sombra para resaltar */
     pointer-events: none;
 }
 
