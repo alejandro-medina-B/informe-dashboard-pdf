@@ -8,7 +8,6 @@
 </head>
 <body>
 
-<!-- DASHBOARD NORMAL -->
 <div class="dashboard-container">
 
     <div class="panel-izquierdo">
@@ -50,6 +49,7 @@
         <div class="pipeline">
 
             <div class="box prospectos">
+                <div class="kpi-icon">👤</div>
                 <h3>Prospectos</h3>
                 <div class="numero" id="prospectosNuevos"></div>
                 <p>Prospectos nuevos</p>
@@ -61,14 +61,21 @@
             <div class="arrow">→</div>
 
             <div class="box seguimiento">
+                <div class="kpi-icon">📋</div>
                 <h3>En Seguimiento</h3>
+
                 <div class="numero" id="actividades"></div>
                 <p>Actividades en seguimiento</p>
+
+                <p class="promedio">
+                    Actividad promedio por prospecto: <span id="actividadPromedio"></span>
+                </p>
             </div>
 
             <div class="arrow">→</div>
 
             <div class="box cierre-ganado">
+                <div class="kpi-icon">🏆</div>
                 <h3>Cierre Ganado</h3>
                 <div class="numero" id="tasaExito"></div>
                 <p>Cierres Ganados</p>
@@ -77,6 +84,7 @@
             <div class="arrow">→</div>
 
             <div class="box cierre-perdido">
+                <div class="kpi-icon">❌</div>
                 <h3>Cierre Perdido</h3>
                 <div class="numero">0</div>
                 <p>Cierres Perdidos</p>
@@ -85,8 +93,8 @@
 
         <div class="kpi-container">
 
-            <!-- TARJETA MEJORADA -->
             <div class="kpi kpi-azul">
+                <div class="kpi-icon">📊</div>
                 <h4>Eficiencia Global</h4>
                 <div id="eficienciaGlobal" class="kpi-num"></div>
 
@@ -100,18 +108,21 @@
             </div>
 
             <div class="kpi kpi-gris">
+                <div class="kpi-icon">⚡</div>
                 <h4>Momentum</h4>
                 <div id="PipelineMomentum" class="kpi-num"></div>
                 <p id="TextoPipelineMomentum"></p>
             </div>
 
             <div class="kpi kpi-naranja">
+                <div class="kpi-icon">❤️</div>
                 <h4>Salud del Pipeline</h4>
                 <div id="PipelineHealthScore" class="kpi-num"></div>
                 <p id="PipelineHealthTexto"></p>
             </div>
 
             <div class="kpi kpi-rojo">
+                <div class="kpi-icon">📉</div>
                 <h4>Forecast de Cierres</h4>
                 <div id="ForecastCierres" class="kpi-num"></div>
                 <p id="ForecastCierresTexto"></p>
@@ -119,99 +130,6 @@
 
         </div>
 
-    </div>
-
-</div>
-
-<!-- CONTENEDOR PDF EJECUTIVO -->
-<div id="pdfContainer" style="
-    display:none;
-    position:relative;
-    width:100%;
-    background:white;
-    color:#111;
-    padding:50px;
-    font-family:'Segoe UI', sans-serif;
-    line-height:1.5;
-">
-
-    <!-- ENCABEZADO -->
-    <div style="text-align:center; margin-bottom:50px;">
-        <h1 style="margin:0; font-size:34px; font-weight:700;">
-            Reporte Ejecutivo - Pipeline de Ventas
-        </h1>
-        <p style="font-size:18px; color:#444; margin-top:10px;">
-            Resumen de actividad comercial y salud del embudo de ventas
-        </p>
-    </div>
-
-    <!-- USUARIO Y PERIODO -->
-    <div style="margin-bottom:40px; font-size:18px;">
-        <strong>USUARIO</strong><br>
-        <span id="pdfUsuario" style="font-size:20px;"></span><br><br>
-
-        <strong>PERIODO</strong><br>
-        <span id="pdfFechaInicial"></span> - <span id="pdfFechaFinal"></span><br><br>
-
-        <strong>EFICIENCIA GLOBAL</strong><br>
-        <span id="pdfEficienciaGlobal" style="font-size:22px; font-weight:600;"></span>%
-    </div>
-
-    <!-- PIPELINE COMERCIAL -->
-    <h2 style="font-size:26px; border-bottom:2px solid #ddd; padding-bottom:8px; margin-top:40px;">
-        PIPELINE COMERCIAL
-    </h2>
-
-    <div style="margin-top:25px; font-size:18px;">
-
-        <strong>PROSPECTOS</strong><br>
-        Nuevos: <span id="pdfProspectosNuevos"></span> · 
-        En seguimiento: <span id="pdfProspectosEnSeguimiento"></span><br><br>
-
-        <strong>EN SEGUIMIENTO</strong><br>
-        Actividades registradas: <span id="pdfActividades"></span><br><br>
-
-        <strong>CIERRE GANADO</strong><br>
-        Cierres ganados: <span id="pdfTasaExito"></span><br><br>
-
-        <strong>CIERRE PERDIDO</strong><br>
-        0<br><br>
-
-        <strong>Actividad por prospecto:</strong> ~<span id="pdfActividadPorProspecto"></span><br>
-        <strong>Tasa de cierre:</strong> <span id="pdfTasaCierre"></span>%
-    </div>
-
-    <!-- KPIS -->
-    <h2 style="font-size:26px; border-bottom:2px solid #ddd; padding-bottom:8px; margin-top:50px;">
-        INDICADORES CLAVE (KPIs)
-    </h2>
-
-    <div style="margin-top:25px; font-size:18px;">
-        <p><strong>EFICIENCIA GLOBAL:</strong> <span id="pdfEficienciaGlobalKPI"></span>%</p>
-        <p><strong>SEGUIMIENTO:</strong> <span id="pdfEficienciaSeguimiento"></span>%</p>
-        <p><strong>TRABAJO:</strong> <span id="pdfEficienciaTrabajo"></span>%</p>
-        <p><strong>CIERRE:</strong> <span id="pdfEficienciaCierre"></span>%</p>
-    </div>
-
-    <!-- DIAGNÓSTICO -->
-    <h2 style="font-size:26px; border-bottom:2px solid #ddd; padding-bottom:8px; margin-top:50px;">
-        DIAGNÓSTICO DEL PIPELINE
-    </h2>
-
-    <div style="margin-top:25px; font-size:16px; line-height:1.45;">
-
-        <strong>MOMENTUM</strong><br>
-        <span id="pdfMomentum" style="font-size:22px; font-weight:600;"></span><br>
-
-        <span id="pdfTextoMomentum" style="font-size:15px; line-height:1.45; display:block; max-width:95%;"></span><br><br>
-
-        <strong>SALUD DEL PIPELINE</strong><br>
-        <span id="pdfHealthScore" style="font-size:22px; font-weight:600;"></span><br>
-        <span id="pdfHealthTexto" style="font-size:16px; line-height:1.45; display:block; max-width:95%;"></span><br><br>
-
-        <strong>FORECAST</strong><br>
-        <span id="pdfForecast" style="font-size:22px; font-weight:600;"></span><br>
-        <span id="pdfForecastTexto" style="font-size:16px; line-height:1.45; display:block; max-width:95%;"></span>
     </div>
 
 </div>
