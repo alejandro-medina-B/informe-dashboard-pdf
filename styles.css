@@ -112,6 +112,14 @@ h1 {
     border-radius: 10px;
 }
 
+/* TITULOS DE LAS TARJETAS — REPARADO */
+.kpi h4 {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
 .kpi:last-child {
     margin-right: 0;
 }
@@ -142,18 +150,19 @@ h1 {
     margin-bottom: 14px;
 }
 
-/* Línea de KPIs pequeños */
+/* Línea de KPIs pequeños — REPARADO */
 .kpi-line {
     display: flex;
     justify-content: center;
-    gap: 14px;
-    flex-wrap: wrap;   /* ← permite que el texto fluya */
+    align-items: center;
+    gap: 10px;
+    flex-wrap: nowrap;   /* ← evita que se rompa */
     margin-top: 8px;
 }
 
-/* Texto de cada KPI pequeño */
+/* Texto de cada KPI pequeño — REPARADO */
 .kpi-small {
     font-size: 15px;
     color: #e5e7eb;
-    white-space: normal;   /* ← permite mostrar el texto completo */
+    white-space: nowrap;   /* ← evita recortes */
 }
