@@ -10,9 +10,17 @@ document.getElementById("prospectosNuevos").innerText = params.get("prospectosNu
 document.getElementById("prospectosEnSeguimiento").innerText = params.get("prospectosEnSeguimiento");
 document.getElementById("actividades").innerText = params.get("actividades");
 
-/* NUEVO: actividad promedio */
+/* Actividad promedio */
 document.getElementById("actividadPromedio").innerText =
     params.get("actividadPorProspecto");
+
+/* Cierre Ganado (tarjeta verde) */
+document.getElementById("cierreGanado").innerText =
+    params.get("tasaExito") || 0;
+
+/* Cierre Perdido (si después lo conectas) */
+document.getElementById("cierrePerdido").innerText =
+    params.get("cierrePerdido") || 0;
 
 /* KPIs principales */
 document.getElementById("eficienciaGlobal").innerText = params.get("eficienciaGlobal");
