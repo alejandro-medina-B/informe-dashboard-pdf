@@ -10,36 +10,27 @@ document.addEventListener("DOMContentLoaded", async () => {
         return params.get(name) || "";
     }
 
-    const filtroID = getParam("filtroID"); // NUEVO: solo recibimos el ID del filtro
+    const usuario = getParam("usuario");
+    const fechaInicial = getParam("fechaInicial");
+    const fechaFinal = getParam("fechaFinal");
 
 
     /* ============================
-       DESCARGAR ACTIVIDADES DESDE APPSHEET API
+       DESCARGAR ACTIVIDADES DESDE APPS SCRIPT
        ============================ */
 
-    async function cargarActividadesDesdeAPI(filtroID) {
+    async function cargarActividadesDesdeAPI(usuario, fechaInicial, fechaFinal) {
 
-        const url = `https://api.appsheet.com/api/v2/apps/<APP_ID>/tables/DBFiltrado/records/${filtroID}`;
+        const url = `https://script.google.com/macros/s/AKfycbxLkIOcjYiSN9Bizux4LLYIOQrdwp0of9MCZYTM2PZKOzxDCLNO2KT_W39dhYm3igxy/exec?usuario=${usuario}&inicio=${fechaInicial}&fin=${fechaFinal}`;
 
         try {
-            const res = await fetch(url, {
-                method: "GET",
-                headers: {
-                    "ApplicationAccessKey": "<API_KEY>"
-                }
-            });
-
+            const res = await fetch(url);
             const data = await res.json();
 
-            if (!data || !data.ActividadesJSON) {
-                console.error("No se encontró ActividadesJSON en el registro.");
-                return [];
-            }
-
-            return JSON.parse(data.ActividadesJSON);
+            return data; // ← JSON limpio con actividades
 
         } catch (error) {
-            console.error("Error al obtener actividades desde AppSheet API:", error);
+            console.error("Error al obtener actividades desde Apps Script:", error);
             return [];
         }
     }
@@ -49,9 +40,9 @@ document.addEventListener("DOMContentLoaded", async () => {
        LLENADO DE CAMPOS DEL PDF
        ============================ */
 
-    document.getElementById("pdfUsuario").innerText = getParam("usuario");
-    document.getElementById("pdfFechaInicial").innerText = getParam("fechaInicial");
-    document.getElementById("pdfFechaFinal").innerText = getParam("fechaFinal");
+    document.getElementById("pdfUsuario").innerText = usuario;
+    document.getElementById("pdfFechaInicial").innerText = fechaInicial;
+    document.getElementById("pdfFechaFinal").innerText = fechaFinal;
 
     document.getElementById("pdfEficienciaGlobal").innerText = getParam("eficienciaGlobal");
     document.getElementById("pdfProspectosNuevos").innerText = getParam("prospectosNuevos");
@@ -77,10 +68,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
     /* ============================
-       ACTIVIDADES POR OPORTUNIDAD (API)
+       ACTIVIDADES POR OPORTUNIDAD (APPS SCRIPT)
        ============================ */
 
-    const actividades = await cargarActividadesDesdeAPI(filtroID);
+    const actividades = await cargarActividadesDesdeAPI(usuario, fechaInicial, fechaFinal);
 
     const actividadesPorOportunidad = {};
 
