@@ -151,9 +151,13 @@
 </div>
 
 <!-- ============================================= -->
-<!-- PLANTILLA DEL PDF (oculta, fuera de pantalla) -->
-<!-- Esto es lo que html2pdf convierte en el PDF   -->
+<!-- PLANTILLA DEL PDF                              -->
+<!-- El div "pdf-oculto" (padre) es el que se oculta con height:0;
+     overflow:hidden. El "pdfContainer" en sí NUNCA lleva display:none
+     ni position:fixed/absolute, porque html2pdf.js necesita medir su
+     altura real al generarlo (ver nota en styles.css). -->
 <!-- ============================================= -->
+<div class="pdf-oculto">
 <div id="pdfContainer" class="pdf-page">
 
     <div class="pdf-header">
@@ -239,6 +243,8 @@
     </div>
 
 </div>
+</div>
+<!-- fin de .pdf-oculto -->
 
 <!-- SCRIPTS -->
 <script src="app.js"></script>
