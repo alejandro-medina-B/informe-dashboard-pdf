@@ -1,17 +1,14 @@
-// ===============================
-// CARGA DE PARÁMETROS DESDE URL
-// ===============================
 const params = new URLSearchParams(window.location.search);
 
-// Función segura para asignar valores
 function setValue(id, value) {
     const el = document.getElementById(id);
     if (el) el.innerText = value ?? "";
 }
 
-// ===============================
-// ASIGNACIÓN DE VALORES AL DASHBOARD
-// ===============================
+/* ============================
+   LLENADO DEL DASHBOARD
+   ============================ */
+
 setValue("nombreUsuario", params.get("nombreUsuario"));
 setValue("fechaInicial", params.get("fechaInicial"));
 setValue("fechaFinal", params.get("fechaFinal"));
@@ -38,50 +35,59 @@ setValue("PipelineHealthTexto", params.get("PipelineHealthTexto"));
 setValue("ForecastCierres", params.get("ForecastCierres"));
 setValue("ForecastCierresTexto", params.get("ForecastCierresTexto"));
 
+/* ============================
+   LLENADO DEL PDF
+   ============================ */
 
-// ===============================
-// ASIGNACIÓN DE VALORES AL PDF
-// ===============================
-setValue("pdfUsuario", params.get("nombreUsuario"));
-setValue("pdfFechaInicial", params.get("fechaInicial"));
-setValue("pdfFechaFinal", params.get("fechaFinal"));
+function setPDF(id, value) {
+    const el = document.getElementById(id);
+    if (el) el.innerText = value ?? "";
+}
 
-setValue("pdfEficienciaGlobal", params.get("eficienciaGlobal"));
-setValue("pdfProspectosNuevos", params.get("prospectosNuevos"));
-setValue("pdfProspectosEnSeguimiento", params.get("prospectosEnSeguimiento"));
-setValue("pdfActividades", params.get("actividades"));
-setValue("pdfTasaExito", params.get("tasaExito"));
+setPDF("pdfUsuario", params.get("nombreUsuario"));
+setPDF("pdfFechaInicial", params.get("fechaInicial"));
+setPDF("pdfFechaFinal", params.get("fechaFinal"));
 
-setValue("pdfActividadPorProspecto", params.get("actividadPorProspecto"));
-setValue("pdfTasaCierre", params.get("tasaCierre"));
+setPDF("pdfEficienciaGlobal", params.get("eficienciaGlobal"));
+setPDF("pdfEficienciaGlobal2", params.get("eficienciaGlobal"));
 
-setValue("pdfEficienciaSeguimiento", params.get("eficienciaSeguimiento"));
-setValue("pdfEficienciaTrabajo", params.get("eficienciaTrabajo"));
-setValue("pdfEficienciaCierre", params.get("eficienciaCierre"));
+setPDF("pdfProspectosNuevos", params.get("prospectosNuevos"));
+setPDF("pdfProspectosEnSeguimiento", params.get("prospectosEnSeguimiento"));
+setPDF("pdfActividades", params.get("actividades"));
 
-setValue("pdfMomentum", params.get("PipelineMomentum"));
-setValue("pdfTextoMomentum", params.get("TextoPipelineMomentum"));
+setPDF("pdfCierreGanado", params.get("cierreGanado"));
+setPDF("pdfCierrePerdido", params.get("cierrePerdido"));
 
-setValue("pdfHealthScore", params.get("PipelineHealthScore"));
-setValue("pdfHealthTexto", params.get("PipelineHealthTexto"));
+setPDF("pdfActividadPorProspecto", params.get("actividadPorProspecto"));
+setPDF("pdfTasaCierre", params.get("tasaCierre"));
 
-setValue("pdfForecast", params.get("ForecastCierres"));
-setValue("pdfForecastTexto", params.get("ForecastCierresTexto"));
+setPDF("pdfEficienciaSeguimiento", params.get("eficienciaSeguimiento"));
+setPDF("pdfEficienciaTrabajo", params.get("eficienciaTrabajo"));
+setPDF("pdfEficienciaCierre", params.get("eficienciaCierre"));
 
+setPDF("pdfMomentum", params.get("PipelineMomentum"));
+setPDF("pdfTextoMomentum", params.get("TextoPipelineMomentum"));
 
-// ===============================
-// GENERAR PDF
-// ===============================
+setPDF("pdfHealthScore", params.get("PipelineHealthScore"));
+setPDF("pdfHealthTexto", params.get("PipelineHealthTexto"));
+
+setPDF("pdfForecast", params.get("ForecastCierres"));
+setPDF("pdfForecastTexto", params.get("ForecastCierresTexto"));
+
+/* ============================
+   GENERAR PDF
+   ============================ */
+
 document.getElementById("btnGenerarPDF").addEventListener("click", () => {
 
     const element = document.getElementById("pdfContainer");
 
     const opt = {
-        margin:       0.5,
-        filename:     `Reporte-Pipeline-${params.get("nombreUsuario")}.pdf`,
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2 },
-        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+        margin: 0.5,
+        filename: `Reporte-Pipeline-${params.get("nombreUsuario")}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
     };
 
     html2pdf().set(opt).from(element).save();
