@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Informe Dashboard PDF</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- Librería para generar el PDF -->
+    <!-- Librerías para generar el PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 
@@ -151,13 +152,11 @@
 </div>
 
 <!-- ============================================= -->
-<!-- PLANTILLA DEL PDF                              -->
-<!-- El div "pdf-oculto" (padre) es el que se oculta con height:0;
-     overflow:hidden. El "pdfContainer" en sí NUNCA lleva display:none
-     ni position:fixed/absolute, porque html2pdf.js necesita medir su
-     altura real al generarlo (ver nota en styles.css). -->
+<!-- PLANTILLA DEL PDF (oculta, fuera de pantalla)  -->
+<!-- Se captura directamente con html2canvas (ver app.js), sin pasar
+     por el envoltorio automático de html2pdf.js, que era la causa
+     de los recortes. -->
 <!-- ============================================= -->
-<div class="pdf-oculto">
 <div id="pdfContainer" class="pdf-page">
 
     <div class="pdf-header">
@@ -243,8 +242,6 @@
     </div>
 
 </div>
-</div>
-<!-- fin de .pdf-oculto -->
 
 <!-- SCRIPTS -->
 <script src="app.js"></script>
