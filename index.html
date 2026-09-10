@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Informe Dashboard PDF</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Librería para generar el PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 
 <body>
@@ -105,6 +107,7 @@
         <!-- KPIs INFERIORES -->
         <div class="kpi-container">
 
+            <!-- EFICIENCIA GLOBAL (VERSIÓN ORIGINAL) -->
             <div class="kpi kpi-azul">
                 <div class="kpi-icon">📊</div>
                 <h4>Eficiencia Global</h4>
@@ -117,6 +120,7 @@
                 </div>
             </div>
 
+            <!-- MOMENTUM -->
             <div class="kpi kpi-gris">
                 <div class="kpi-icon">⚡</div>
                 <h4>Momentum</h4>
@@ -124,6 +128,7 @@
                 <p id="TextoPipelineMomentum"></p>
             </div>
 
+            <!-- SALUD DEL PIPELINE -->
             <div class="kpi kpi-naranja">
                 <div class="kpi-icon">❤️</div>
                 <h4>Salud del Pipeline</h4>
@@ -131,6 +136,7 @@
                 <p id="PipelineHealthTexto"></p>
             </div>
 
+            <!-- FORECAST -->
             <div class="kpi kpi-rojo">
                 <div class="kpi-icon">📉</div>
                 <h4>Forecast de Cierres</h4>
@@ -144,100 +150,98 @@
 
 </div>
 
-<!-- ============================
-     CONTENEDOR DEL PDF EJECUTIVO
-     ============================ -->
-<div id="pdfContainer" style="display:none; font-family:'Segoe UI', sans-serif; padding:40px;">
+<!-- ============================================= -->
+<!-- PLANTILLA DEL PDF (oculta, fuera de pantalla) -->
+<!-- Esto es lo que html2pdf convierte en el PDF   -->
+<!-- ============================================= -->
+<div id="pdfContainer" class="pdf-page">
 
-    <div style="text-align:center; margin-bottom:20px;">
-        <img src="CRMRandomLogo.png" alt="Random Technology" style="width:140px;">
+    <div class="pdf-header">
+        <img src="CRMRandomLogo.png" alt="Random Technology" class="pdf-logo">
+        <div class="pdf-header-texto">
+            <h1 class="pdf-titulo">Reporte Ejecutivo - Pipeline de Ventas</h1>
+            <p class="pdf-subtitulo">Resumen de actividad comercial y salud del embudo de ventas</p>
+        </div>
     </div>
 
-    <h1 style="text-align:center; margin:0; font-size:28px;">
-        Reporte Ejecutivo - Pipeline de Ventas
-    </h1>
+    <div class="pdf-campo">
+        <p class="pdf-etiqueta">USUARIO</p>
+        <p class="pdf-valor" id="pdfUsuario"></p>
+    </div>
 
-    <p style="text-align:center; font-size:16px; margin-top:5px;">
-        Resumen de actividad comercial y salud del embudo de ventas
+    <div class="pdf-campo">
+        <p class="pdf-etiqueta">PERIODO</p>
+        <p class="pdf-valor" id="pdfPeriodo"></p>
+    </div>
+
+    <div class="pdf-campo">
+        <p class="pdf-etiqueta">EFICIENCIA GLOBAL</p>
+        <p class="pdf-valor pdf-valor-grande"><span id="pdfEficienciaGlobal"></span>%</p>
+    </div>
+
+    <h2 class="pdf-seccion">PIPELINE COMERCIAL</h2>
+    <hr class="pdf-linea">
+
+    <div class="pdf-subcampo">
+        <p class="pdf-etiqueta">PROSPECTOS</p>
+        <p class="pdf-valor">Nuevos: <span id="pdfProspectosNuevos"></span> · En seguimiento: <span id="pdfProspectosEnSeguimiento"></span></p>
+    </div>
+
+    <div class="pdf-subcampo">
+        <p class="pdf-etiqueta">EN SEGUIMIENTO</p>
+        <p class="pdf-valor">Actividades registradas: <span id="pdfActividades"></span></p>
+    </div>
+
+    <div class="pdf-subcampo">
+        <p class="pdf-etiqueta">CIERRE GANADO</p>
+        <p class="pdf-valor">Cierres ganados: <span id="pdfCierreGanado"></span></p>
+    </div>
+
+    <div class="pdf-subcampo">
+        <p class="pdf-etiqueta">CIERRE PERDIDO</p>
+        <p class="pdf-valor"><span id="pdfCierrePerdido"></span></p>
+    </div>
+
+    <p class="pdf-linea-doble">
+        <strong>Actividad por prospecto:</strong> <span id="pdfActividadPorProspecto"></span>
+    </p>
+    <p class="pdf-linea-doble">
+        <strong>Tasa de cierre:</strong> <span id="pdfTasaCierre"></span>%
     </p>
 
-    <hr style="margin:30px 0;">
+    <h2 class="pdf-seccion pdf-seccion-espaciada">INDICADORES CLAVE (KPIs)</h2>
+    <hr class="pdf-linea">
 
-    <h2 style="font-size:22px;">USUARIO <span id="pdfUsuario"></span></h2>
+    <p class="pdf-kpi-linea"><strong>EFICIENCIA GLOBAL:</strong> <span id="pdfEficienciaGlobal2"></span>%</p>
+    <p class="pdf-kpi-linea"><strong>SEGUIMIENTO:</strong> <span id="pdfEficienciaSeguimiento"></span>%</p>
+    <p class="pdf-kpi-linea"><strong>TRABAJO:</strong> <span id="pdfEficienciaTrabajo"></span>%</p>
+    <p class="pdf-kpi-linea"><strong>CIERRE:</strong> <span id="pdfEficienciaCierre"></span>%</p>
 
-    <h3 style="font-size:18px; margin-top:10px;">PERIODO</h3>
-    <p style="font-size:16px;">
-        <span id="pdfFechaInicial"></span> - <span id="pdfFechaFinal"></span>
-    </p>
+    <h2 class="pdf-seccion pdf-seccion-espaciada">DIAGNÓSTICO DEL PIPELINE</h2>
+    <hr class="pdf-linea">
 
-    <h3 style="font-size:18px; margin-top:25px;">EFICIENCIA GLOBAL</h3>
-    <p style="font-size:22px; font-weight:bold;" id="pdfEficienciaGlobal"></p>
+    <div class="pdf-diagnostico">
+        <p class="pdf-diag-titulo">MOMENTUM</p>
+        <p class="pdf-diag-num" id="pdfMomentum"></p>
+        <p class="pdf-diag-texto" id="pdfTextoMomentum"></p>
+    </div>
 
-    <hr style="margin:30px 0;">
+    <div class="pdf-diagnostico">
+        <p class="pdf-diag-titulo">SALUD DEL PIPELINE</p>
+        <p class="pdf-diag-num" id="pdfHealthScore"></p>
+        <p class="pdf-diag-texto" id="pdfHealthTexto"></p>
+    </div>
 
-    <h2 style="font-size:22px;">PIPELINE COMERCIAL</h2>
-
-    <h3 style="font-size:18px; margin-top:20px;">PROSPECTOS</h3>
-    <p style="font-size:16px;">
-        Nuevos: <span id="pdfProspectosNuevos"></span> ·
-        En seguimiento: <span id="pdfProspectosEnSeguimiento"></span>
-    </p>
-
-    <h3 style="font-size:18px; margin-top:20px;">EN SEGUIMIENTO</h3>
-    <p style="font-size:16px;">
-        Actividades registradas: <span id="pdfActividades"></span>
-    </p>
-
-    <h3 style="font-size:18px; margin-top:20px;">CIERRE GANADO</h3>
-    <p style="font-size:16px;">
-        Cierres ganados: <span id="pdfCierreGanado"></span>
-    </p>
-
-    <h3 style="font-size:18px; margin-top:20px;">CIERRE PERDIDO</h3>
-    <p style="font-size:16px;">
-        <span id="pdfCierrePerdido"></span>
-    </p>
-
-    <p style="font-size:16px; margin-top:20px;">
-        Actividad por prospecto: ~ <span id="pdfActividadPorProspecto"></span>
-    </p>
-
-    <p style="font-size:16px;">
-        Tasa de cierre: <span id="pdfTasaCierre"></span>%
-    </p>
-
-    <div style="page-break-before:always;"></div>
-
-    <h2 style="font-size:22px;">INDICADORES CLAVE (KPIs)</h2>
-
-    <p style="font-size:16px;">EFICIENCIA GLOBAL: <span id="pdfEficienciaGlobal2"></span>%</p>
-    <p style="font-size:16px;">SEGUIMIENTO: <span id="pdfEficienciaSeguimiento"></span>%</p>
-    <p style="font-size:16px;">TRABAJO: <span id="pdfEficienciaTrabajo"></span>%</p>
-    <p style="font-size:16px;">CIERRE: <span id="pdfEficienciaCierre"></span>%</p>
-
-    <hr style="margin:30px 0;">
-
-    <h2 style="font-size:22px;">DIAGNÓSTICO DEL PIPELINE</h2>
-
-    <h3 style="font-size:18px; margin-top:20px;">MOMENTUM</h3>
-    <p style="font-size:22px; font-weight:bold;" id="pdfMomentum"></p>
-    <p style="font-size:16px;" id="pdfTextoMomentum"></p>
-
-    <h3 style="font-size:18px; margin-top:20px;">SALUD DEL PIPELINE</h3>
-    <p style="font-size:22px; font-weight:bold;" id="pdfHealthScore"></p>
-    <p style="font-size:16px;" id="pdfHealthTexto"></p>
-
-    <h3 style="font-size:18px; margin-top:20px;">FORECAST</h3>
-    <p style="font-size:22px; font-weight:bold;" id="pdfForecast"></p>
-    <p style="font-size:16px;" id="pdfForecastTexto"></p>
+    <div class="pdf-diagnostico">
+        <p class="pdf-diag-titulo">FORECAST</p>
+        <p class="pdf-diag-num" id="pdfForecast"></p>
+        <p class="pdf-diag-texto" id="pdfForecastTexto"></p>
+    </div>
 
 </div>
 
-<!-- LIBRERÍA PDF -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
-
-<!-- TU JS (RENOMBRADO PARA EVITAR CACHE) -->
-<script src="app2.js"></script>
+<!-- SCRIPTS -->
+<script src="app.js"></script>
 
 </body>
 </html>
