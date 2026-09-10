@@ -193,9 +193,11 @@ h1 {
 /* de generar el PDF con html2pdf                     */
 /* ================================================= */
 .pdf-page {
-    position: fixed;
-    top: 0;
-    left: -10000px;
+    /* Oculto en la vista normal del dashboard. Se revela SOLO dentro del
+       clon interno que usa html2canvas (ver onclone en app.js) para
+       generar la imagen del PDF, evitando el problema de "PDF en blanco"
+       que ocurre al usar position:fixed + coordenadas fuera de pantalla. */
+    display: none;
     width: 800px;
     background: #ffffff;
     color: #111111;
