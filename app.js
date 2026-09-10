@@ -79,8 +79,9 @@ setValue("pdfForecastTexto", params.get("ForecastCierresTexto"));
 // ===============================
 // GENERAR PDF
 // ===============================
-document.getElementById("btnGenerarPDF").addEventListener("click", () => {
+document.getElementById("btnGenerarPDF").addEventListener("click", (evt) => {
 
+    const boton = evt.currentTarget;
     const element = document.getElementById("pdfContainer");
 
     // Nombre de archivo seguro (sin espacios ni caracteres raros)
@@ -92,9 +93,38 @@ document.getElementById("btnGenerarPDF").addEventListener("click", () => {
         margin:       0.5,
         filename:     `Reporte-Pipeline-${nombreArchivo}.pdf`,
         image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true },
+        html2canvas:  {
+            scale: 2,
+            useCORS: true,
+            windowWidth: 900,
+            // Este callback corre sobre una COPIA interna del documento que
+            // html2canvas usa solo para tomar la "foto". Aquí es donde
+            // volvemos visible el contenedor del PDF, sin afectar la
+            // pantalla real del usuario.
+            onclone: (clonedDoc) => {
+                const clonedEl = clonedDoc.getElementById("pdfContainer");
+                if (clonedEl) {
+                    clonedEl.style.display = "block";
+                    clonedEl.style.visibility = "visible";
+                    clonedEl.style.opacity = "1";
+                    clonedEl.style.position = "static";
+                }
+            }
+        },
         jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
     };
 
-    html2pdf().set(opt).from(element).save();
+    boton.disabled = true;
+    const textoOriginal = boton.innerText;
+    boton.innerText = "Generando PDF...";
+
+    html2pdf().set(opt).from(element).save()
+        .catch((err) => {
+            console.error("Error al generar el PDF:", err);
+            alert("Ocurrió un error generando el PDF. Revisa la consola del navegador para más detalles.");
+        })
+        .finally(() => {
+            boton.disabled = false;
+            boton.innerText = textoOriginal;
+        });
 });
