@@ -1,19 +1,13 @@
-// ===============================
-// CARGA DE PARÁMETROS DESDE URL
-// ===============================
-window.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
 
     const params = new URLSearchParams(window.location.search);
 
-    // Función segura para asignar valores
     function setValue(id, value) {
         const el = document.getElementById(id);
         if (el) el.innerText = value ?? "";
     }
 
-    // ===============================
-    // ASIGNACIÓN DE VALORES AL DASHBOARD
-    // ===============================
+    // DASHBOARD
     setValue("nombreUsuario", params.get("nombreUsuario"));
     setValue("fechaInicial", params.get("fechaInicial"));
     setValue("fechaFinal", params.get("fechaFinal"));
@@ -40,14 +34,12 @@ window.addEventListener('DOMContentLoaded', () => {
     setValue("ForecastCierres", params.get("ForecastCierres"));
     setValue("ForecastCierresTexto", params.get("ForecastCierresTexto"));
 
-    // ===============================
-    // ASIGNACIÓN DE VALORES AL PDF
-    // ===============================
+    // PDF
     setValue("pdfUsuario", params.get("nombreUsuario"));
 
     const fechaIni = params.get("fechaInicial");
     const fechaFin = params.get("fechaFinal");
-    setValue("pdfPeriodo", (fechaIni && fechaFin) ? `${fechaIni} - ${fechaFin}` : "");
+    setValue("pdfPeriodo", `${fechaIni} - ${fechaFin}`);
 
     setValue("pdfEficienciaGlobal", params.get("eficienciaGlobal"));
     setValue("pdfEficienciaGlobal2", params.get("eficienciaGlobal"));
@@ -55,7 +47,6 @@ window.addEventListener('DOMContentLoaded', () => {
     setValue("pdfProspectosNuevos", params.get("prospectosNuevos"));
     setValue("pdfProspectosEnSeguimiento", params.get("prospectosEnSeguimiento"));
     setValue("pdfActividades", params.get("actividades"));
-    setValue("pdfTasaExito", params.get("tasaExito"));
 
     setValue("pdfCierreGanado", params.get("cierreGanado"));
     setValue("pdfCierrePerdido", params.get("cierrePerdido"));
@@ -76,29 +67,26 @@ window.addEventListener('DOMContentLoaded', () => {
     setValue("pdfForecast", params.get("ForecastCierres"));
     setValue("pdfForecastTexto", params.get("ForecastCierresTexto"));
 
-    // ===============================
-    // GENERAR PDF
-    // ===============================
+    // PDF GENERATION
     const btn = document.getElementById("btnGenerarPDF");
     const element = document.getElementById("pdfContainer");
 
-    if (btn && element) {
-        btn.addEventListener("click", () => {
+    btn.addEventListener("click", () => {
 
-            const nombreUsuario = params.get("nombreUsuario") || "Usuario";
-            const nombreArchivo = nombreUsuario
-                .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-                .replace(/\s+/g, "-");
+        const nombreUsuario = params.get("nombreUsuario") || "Usuario";
+        const nombreArchivo = nombreUsuario
+            .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+            .replace(/\s+/g, "-");
 
-            const opt = {
-                margin:       0.5,
-                filename:     `Reporte-Pipeline-${nombreArchivo}.pdf`,
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true },
-                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-            };
+        const opt = {
+            margin: 0.5,
+            filename: `Reporte-Pipeline-${nombreArchivo}.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, useCORS: true },
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
 
-            html2pdf().set(opt).from(element).save();
-        });
-    }
+        html2pdf().set(opt).from(element).save();
+    });
+
 });
