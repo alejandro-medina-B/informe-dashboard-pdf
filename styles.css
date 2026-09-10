@@ -1,58 +1,51 @@
-/* ============================
-   ESTILO GENERAL DEL DASHBOARD
-   ============================ */
-
 body {
     margin: 0;
     font-family: "Segoe UI", sans-serif;
-    background: #f0f0f0;
+    background: #0f0f0f;
+    color: white;
 }
 
 .dashboard-container {
     display: flex;
+    flex-direction: row;
     height: 100vh;
 }
-
-/* ============================
-   PANEL IZQUIERDO
-   ============================ */
 
 .panel-izquierdo {
     width: 30%;
     background: #111827;
     padding: 30px;
-    color: white;
 }
 
 .logo-container {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .logo-img {
-    width: 140px;
+    width: 180px;
+    height: auto;
+}
+
+h1 {
+    margin: 0;
+    font-size: 28px;
 }
 
 .subtitulo {
-    margin-top: -10px;
-    font-size: 14px;
-    color: #d1d5db;
+    color: #9ca3af;
+    margin-bottom: 20px;
 }
 
 #btnGenerarPDF {
     width: 100%;
-    padding: 12px;
-    background: #3b82f6;
+    padding: 15px;
+    background: #007bff;
     border: none;
     color: white;
-    font-size: 16px;
-    border-radius: 6px;
+    font-size: 18px;
+    border-radius: 8px;
     cursor: pointer;
-    margin-top: 20px;
-}
-
-#btnGenerarPDF:hover {
-    background: #2563eb;
 }
 
 .info-box {
@@ -60,25 +53,21 @@ body {
 }
 
 .info-item {
-    margin-bottom: 10px;
+    margin-bottom: 22px;
+    display: flex;
+    flex-direction: column;
 }
 
 .label {
-    font-weight: bold;
+    color: #9ca3af;
+    font-size: 15px;
+    margin-bottom: 6px;
 }
 
 .info-value {
-    margin-left: 5px;
-}
-
-/* ============================
-   PANEL DERECHO
-   ============================ */
-
-.panel-derecho {
-    width: 70%;
-    padding: 30px;
-    overflow-y: auto;
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
 }
 
 .pipeline {
@@ -88,80 +77,237 @@ body {
 }
 
 .box {
-    background: white;
-    padding: 20px;
+    padding: 18px;
     border-radius: 10px;
-    width: 200px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     text-align: center;
+    width: 180px;
+    height: 290px; /* ← Ajustado para evitar desbordes */
 }
 
-.kpi-icon {
-    font-size: 30px;
-    margin-bottom: 10px;
+.prospectos { background: #1e3a8a; }
+.seguimiento { background: #374151; }
+.cierre-ganado { background: #059669; }
+.cierre-perdido { background: #b91c1c; }
+
+.arrow {
+    font-size: 40px;
+    margin: 0 10px;
 }
 
 .numero {
-    font-size: 26px;
-    font-weight: bold;
-    margin: 5px 0;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 6px;
 }
-
-.arrow {
-    font-size: 30px;
-    margin: 0 20px;
-}
-
-/* ============================
-   KPIs INFERIORES
-   ============================ */
 
 .kpi-container {
     display: flex;
-    gap: 20px;
-    margin-top: 40px;
+    margin-top: 30px;
 }
 
 .kpi {
-    background: white;
+    flex: 1;
     padding: 20px;
+    margin-right: 15px;
     border-radius: 10px;
-    width: 220px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.kpi:last-child {
+    margin-right: 0;
+}
+
+.kpi-gris { background: #4b5563; }
+.kpi-naranja { background: #ea580c; }
+.kpi-rojo { background: #b91c1c; }
+
+/* TITULOS */
+.kpi h4 {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: white;
+}
+
+/* ICONOS — VISIBLES Y SIN INVADIR CONTENIDO */
+.kpi-icon {
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 6px;
+    opacity: 1;
+    color: white;
+    filter: drop-shadow(0px 0px 3px rgba(0,0,0,0.7));
+    pointer-events: none;
+}
+
+/* ICONO DE ACTIVIDADES — MÁS CONTRASTE */
+.seguimiento .kpi-icon {
+    color: #ffffff;
+    filter: drop-shadow(0px 0px 4px rgba(0,0,0,0.9));
+}
+
+/* PROMEDIO */
+.promedio {
+    margin-top: 12px;
+    font-size: 16px;
+    color: #e5e7eb;
+    font-weight: 500;
+    text-align: center;
+}
+
+/* TARJETA EFICIENCIA */
+.kpi-azul {
+    background: #1e3a8a;
+    padding: 22px;
+    border-radius: 12px;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .kpi-num {
-    font-size: 28px;
-    font-weight: bold;
-    margin: 10px 0;
-}
-
-.kpi-small {
-    font-size: 14px;
-    margin: 3px 0;
+    font-size: 40px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 14px;
 }
 
 .kpi-line {
-    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
 }
 
-/* Colores de KPIs */
-.kpi-azul { border-left: 6px solid #3b82f6; }
-.kpi-gris { border-left: 6px solid #6b7280; }
-.kpi-naranja { border-left: 6px solid #f59e0b; }
-.kpi-rojo { border-left: 6px solid #ef4444; }
-
-/* ============================
-   PDF — ESTILOS AISLADOS
-   ============================ */
-
-#pdfContainer h1, 
-#pdfContainer h2, 
-#pdfContainer h3 {
-    color: #111827;
+.kpi-small {
+    font-size: 15px;
+    color: #e5e7eb;
+    white-space: nowrap;
 }
 
-#pdfContainer p {
-    color: #333;
-    line-height: 1.4;
+/* ================================================= */
+/* PLANTILLA DEL PDF (fondo blanco, texto negro)      */
+/* Se mantiene fuera de la pantalla hasta el momento  */
+/* de generar el PDF con html2pdf                     */
+/* ================================================= */
+.pdf-page {
+    position: fixed;
+    top: 0;
+    left: -10000px;
+    width: 800px;
+    background: #ffffff;
+    color: #111111;
+    font-family: "Segoe UI", sans-serif;
+    padding: 50px 60px;
+    box-sizing: border-box;
+}
+
+.pdf-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 35px;
+}
+
+.pdf-logo {
+    width: 70px;
+    height: auto;
+}
+
+.pdf-titulo {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0 0 6px 0;
+    color: #111111;
+}
+
+.pdf-subtitulo {
+    font-size: 14px;
+    color: #6b7280;
+    margin: 0;
+}
+
+.pdf-campo {
+    margin-bottom: 20px;
+}
+
+.pdf-etiqueta {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #374151;
+    text-transform: uppercase;
+    margin: 0 0 4px 0;
+}
+
+.pdf-valor {
+    font-size: 17px;
+    color: #111111;
+    margin: 0;
+}
+
+.pdf-valor-grande {
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.pdf-seccion {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 30px 0 8px 0;
+    color: #111111;
+}
+
+.pdf-seccion-espaciada {
+    margin-top: 45px;
+}
+
+.pdf-linea {
+    border: none;
+    border-top: 1px solid #e5e7eb;
+    margin: 0 0 18px 0;
+}
+
+.pdf-subcampo {
+    margin-bottom: 16px;
+}
+
+.pdf-linea-doble {
+    font-size: 15px;
+    margin: 6px 0;
+    color: #111111;
+}
+
+.pdf-kpi-linea {
+    font-size: 15px;
+    margin: 8px 0;
+    color: #111111;
+}
+
+.pdf-diagnostico {
+    margin-bottom: 22px;
+}
+
+.pdf-diag-titulo {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #374151;
+    text-transform: uppercase;
+    margin: 0 0 4px 0;
+}
+
+.pdf-diag-num {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 4px 0;
+    color: #111111;
+}
+
+.pdf-diag-texto {
+    font-size: 14px;
+    color: #374151;
+    margin: 0;
 }
