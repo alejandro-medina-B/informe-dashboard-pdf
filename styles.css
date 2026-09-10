@@ -192,17 +192,13 @@ h1 {
 /* Se mantiene fuera de la pantalla hasta el momento  */
 /* de generar el PDF con html2pdf                     */
 /* ================================================= */
-/* Envoltorio que oculta el reporte en la vista normal del dashboard.
-   IMPORTANTE: el ocultamiento va en este envoltorio (padre), NUNCA en
-   .pdf-page directamente. Si a .pdf-page se le pone display:none o
-   position:fixed/absolute, html2pdf.js mide su altura como 0px al
-   clonarlo internamente y genera un PDF en blanco. */
-.pdf-oculto {
-    height: 0;
-    overflow: hidden;
-}
-
 .pdf-page {
+    /* Oculto de la vista normal, pero SIN display:none ni position:fixed,
+       para que conserve sus dimensiones reales al capturarlo con
+       html2canvas directamente (ver app.js). */
+    position: absolute;
+    top: 0;
+    left: -9999px;
     width: 800px;
     background: #ffffff;
     color: #111111;
