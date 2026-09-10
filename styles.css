@@ -201,116 +201,226 @@ h1 {
     left: -9999px;
     width: 800px;
     background: #ffffff;
-    color: #111111;
+    color: #1f2933;
     font-family: "Segoe UI", sans-serif;
-    padding: 50px 60px;
+    padding: 38px 50px 26px;
     box-sizing: border-box;
 }
 
 .pdf-header {
     display: flex;
     align-items: center;
-    gap: 20px;
-    margin-bottom: 35px;
+    gap: 16px;
+    margin-bottom: 18px;
+    padding-bottom: 16px;
+    border-bottom: 3px solid #1e3a8a;
 }
 
 .pdf-logo {
-    width: 70px;
+    width: 56px;
     height: auto;
+    border-radius: 10px;
 }
 
 .pdf-titulo {
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 700;
-    margin: 0 0 6px 0;
-    color: #111111;
+    margin: 0 0 3px 0;
+    color: #111827;
 }
 
 .pdf-subtitulo {
-    font-size: 14px;
+    font-size: 13px;
     color: #6b7280;
     margin: 0;
 }
 
-.pdf-campo {
-    margin-bottom: 20px;
+/* FILA DE ESTADÍSTICAS: usuario / periodo / eficiencia global */
+.pdf-stats-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.pdf-stat-box {
+    flex: 1;
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 10px 14px;
+}
+
+.pdf-stat-destacado {
+    background: #eff6ff;
+    border-color: #bfdbfe;
 }
 
 .pdf-etiqueta {
-    font-size: 12px;
+    font-size: 10.5px;
     font-weight: 700;
     letter-spacing: 0.5px;
-    color: #374151;
+    color: #6b7280;
     text-transform: uppercase;
-    margin: 0 0 4px 0;
+    margin: 0 0 3px 0;
 }
 
 .pdf-valor {
-    font-size: 17px;
-    color: #111111;
+    font-size: 14.5px;
+    color: #111827;
     margin: 0;
 }
 
 .pdf-valor-grande {
-    font-size: 26px;
+    font-size: 22px;
     font-weight: 700;
+    color: #1e3a8a;
 }
 
 .pdf-seccion {
-    font-size: 20px;
+    font-size: 15px;
     font-weight: 700;
-    margin: 30px 0 8px 0;
-    color: #111111;
+    letter-spacing: 0.3px;
+    margin: 20px 0 6px 0;
+    color: #111827;
 }
 
 .pdf-seccion-espaciada {
-    margin-top: 45px;
+    margin-top: 24px;
 }
 
 .pdf-linea {
     border: none;
     border-top: 1px solid #e5e7eb;
-    margin: 0 0 18px 0;
+    margin: 0 0 12px 0;
 }
 
-.pdf-subcampo {
-    margin-bottom: 16px;
+/* CUADRÍCULA DE TARJETAS: pipeline comercial */
+.pdf-pipeline-grid {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
 }
 
-.pdf-linea-doble {
-    font-size: 15px;
-    margin: 6px 0;
-    color: #111111;
+.pdf-card {
+    flex: 1;
+    border-radius: 8px;
+    padding: 10px 12px;
+    border-left: 4px solid;
 }
 
-.pdf-kpi-linea {
-    font-size: 15px;
-    margin: 8px 0;
-    color: #111111;
+.pdf-card-azul   { background: #eff6ff; border-color: #1e3a8a; }
+.pdf-card-gris   { background: #f3f4f6; border-color: #4b5563; }
+.pdf-card-verde  { background: #ecfdf5; border-color: #059669; }
+.pdf-card-rojo   { background: #fef2f2; border-color: #b91c1c; }
+
+.pdf-card-etiqueta {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    color: #374151;
+    margin: 0 0 5px 0;
 }
 
-.pdf-diagnostico {
-    margin-bottom: 22px;
+.pdf-card-valor {
+    font-size: 12px;
+    color: #374151;
+    margin: 0 0 2px 0;
+}
+
+.pdf-card-numero {
+    font-size: 20px;
+    font-weight: 700;
+    color: #111827;
+    margin: 2px 0 0 0;
+}
+
+.pdf-metrics-row {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 4px;
+}
+
+.pdf-metric-inline {
+    font-size: 13px;
+    color: #374151;
+    margin: 0;
+}
+
+/* CUADRÍCULA DE KPIs */
+.pdf-kpi-grid {
+    display: flex;
+    gap: 10px;
+}
+
+.pdf-kpi-item {
+    flex: 1;
+    text-align: center;
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 10px 6px;
+}
+
+.pdf-kpi-num {
+    font-size: 19px;
+    font-weight: 700;
+    color: #1e3a8a;
+    margin: 0 0 2px 0;
+}
+
+.pdf-kpi-label {
+    font-size: 10.5px;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin: 0;
+}
+
+/* CUADRÍCULA DE DIAGNÓSTICO */
+.pdf-diag-grid {
+    display: flex;
+    gap: 12px;
+}
+
+.pdf-diag-card {
+    flex: 1;
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 12px 14px;
 }
 
 .pdf-diag-titulo {
-    font-size: 13px;
+    font-size: 10.5px;
     font-weight: 700;
-    letter-spacing: 0.5px;
-    color: #374151;
+    letter-spacing: 0.4px;
+    color: #6b7280;
     text-transform: uppercase;
     margin: 0 0 4px 0;
 }
 
 .pdf-diag-num {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 700;
     margin: 0 0 4px 0;
-    color: #111111;
+    color: #1e3a8a;
 }
 
 .pdf-diag-texto {
-    font-size: 14px;
-    color: #374151;
+    font-size: 11.5px;
+    line-height: 1.4;
+    color: #4b5563;
     margin: 0;
+}
+
+/* PIE DE PÁGINA */
+.pdf-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 26px;
+    padding-top: 12px;
+    border-top: 1px solid #e5e7eb;
+    font-size: 10.5px;
+    color: #9ca3af;
 }
