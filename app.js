@@ -75,6 +75,14 @@ setValue("pdfHealthTexto", params.get("PipelineHealthTexto"));
 setValue("pdfForecast", params.get("ForecastCierres"));
 setValue("pdfForecastTexto", params.get("ForecastCierresTexto"));
 
+// Pie de página: fecha y hora en que se generó el PDF
+const ahora = new Date();
+const fechaGeneracion = ahora.toLocaleString("es-MX", {
+    year: "numeric", month: "short", day: "numeric",
+    hour: "2-digit", minute: "2-digit"
+});
+setValue("pdfFechaGeneracion", `Generado el ${fechaGeneracion}`);
+
 
 // ===============================
 // GENERAR PDF
