@@ -167,78 +167,99 @@
         </div>
     </div>
 
-    <div class="pdf-campo">
-        <p class="pdf-etiqueta">USUARIO</p>
-        <p class="pdf-valor" id="pdfUsuario"></p>
+    <!-- USUARIO / PERIODO / EFICIENCIA GLOBAL -->
+    <div class="pdf-stats-row">
+        <div class="pdf-stat-box">
+            <p class="pdf-etiqueta">Usuario</p>
+            <p class="pdf-valor" id="pdfUsuario"></p>
+        </div>
+        <div class="pdf-stat-box">
+            <p class="pdf-etiqueta">Periodo</p>
+            <p class="pdf-valor" id="pdfPeriodo"></p>
+        </div>
+        <div class="pdf-stat-box pdf-stat-destacado">
+            <p class="pdf-etiqueta">Eficiencia global</p>
+            <p class="pdf-valor pdf-valor-grande"><span id="pdfEficienciaGlobal"></span>%</p>
+        </div>
     </div>
 
-    <div class="pdf-campo">
-        <p class="pdf-etiqueta">PERIODO</p>
-        <p class="pdf-valor" id="pdfPeriodo"></p>
-    </div>
-
-    <div class="pdf-campo">
-        <p class="pdf-etiqueta">EFICIENCIA GLOBAL</p>
-        <p class="pdf-valor pdf-valor-grande"><span id="pdfEficienciaGlobal"></span>%</p>
-    </div>
-
-    <h2 class="pdf-seccion">PIPELINE COMERCIAL</h2>
+    <h2 class="pdf-seccion">Pipeline comercial</h2>
     <hr class="pdf-linea">
 
-    <div class="pdf-subcampo">
-        <p class="pdf-etiqueta">PROSPECTOS</p>
-        <p class="pdf-valor">Nuevos: <span id="pdfProspectosNuevos"></span> · En seguimiento: <span id="pdfProspectosEnSeguimiento"></span></p>
+    <div class="pdf-pipeline-grid">
+        <div class="pdf-card pdf-card-azul">
+            <p class="pdf-card-etiqueta">Prospectos</p>
+            <p class="pdf-card-valor">Nuevos: <strong><span id="pdfProspectosNuevos"></span></strong></p>
+            <p class="pdf-card-valor">En seguimiento: <strong><span id="pdfProspectosEnSeguimiento"></span></strong></p>
+        </div>
+        <div class="pdf-card pdf-card-gris">
+            <p class="pdf-card-etiqueta">En seguimiento</p>
+            <p class="pdf-card-valor">Actividades registradas:</p>
+            <p class="pdf-card-numero" id="pdfActividades"></p>
+        </div>
+        <div class="pdf-card pdf-card-verde">
+            <p class="pdf-card-etiqueta">Cierre ganado</p>
+            <p class="pdf-card-valor">Cierres ganados:</p>
+            <p class="pdf-card-numero" id="pdfCierreGanado"></p>
+        </div>
+        <div class="pdf-card pdf-card-rojo">
+            <p class="pdf-card-etiqueta">Cierre perdido</p>
+            <p class="pdf-card-valor">Cierres perdidos:</p>
+            <p class="pdf-card-numero" id="pdfCierrePerdido"></p>
+        </div>
     </div>
 
-    <div class="pdf-subcampo">
-        <p class="pdf-etiqueta">EN SEGUIMIENTO</p>
-        <p class="pdf-valor">Actividades registradas: <span id="pdfActividades"></span></p>
+    <div class="pdf-metrics-row">
+        <p class="pdf-metric-inline"><strong>Actividad por prospecto:</strong> <span id="pdfActividadPorProspecto"></span></p>
+        <p class="pdf-metric-inline"><strong>Tasa de cierre:</strong> <span id="pdfTasaCierre"></span>%</p>
     </div>
 
-    <div class="pdf-subcampo">
-        <p class="pdf-etiqueta">CIERRE GANADO</p>
-        <p class="pdf-valor">Cierres ganados: <span id="pdfCierreGanado"></span></p>
-    </div>
-
-    <div class="pdf-subcampo">
-        <p class="pdf-etiqueta">CIERRE PERDIDO</p>
-        <p class="pdf-valor"><span id="pdfCierrePerdido"></span></p>
-    </div>
-
-    <p class="pdf-linea-doble">
-        <strong>Actividad por prospecto:</strong> <span id="pdfActividadPorProspecto"></span>
-    </p>
-    <p class="pdf-linea-doble">
-        <strong>Tasa de cierre:</strong> <span id="pdfTasaCierre"></span>%
-    </p>
-
-    <h2 class="pdf-seccion pdf-seccion-espaciada">INDICADORES CLAVE (KPIs)</h2>
+    <h2 class="pdf-seccion pdf-seccion-espaciada">Indicadores clave (KPIs)</h2>
     <hr class="pdf-linea">
 
-    <p class="pdf-kpi-linea"><strong>EFICIENCIA GLOBAL:</strong> <span id="pdfEficienciaGlobal2"></span>%</p>
-    <p class="pdf-kpi-linea"><strong>SEGUIMIENTO:</strong> <span id="pdfEficienciaSeguimiento"></span>%</p>
-    <p class="pdf-kpi-linea"><strong>TRABAJO:</strong> <span id="pdfEficienciaTrabajo"></span>%</p>
-    <p class="pdf-kpi-linea"><strong>CIERRE:</strong> <span id="pdfEficienciaCierre"></span>%</p>
+    <div class="pdf-kpi-grid">
+        <div class="pdf-kpi-item">
+            <p class="pdf-kpi-num"><span id="pdfEficienciaGlobal2"></span>%</p>
+            <p class="pdf-kpi-label">Eficiencia global</p>
+        </div>
+        <div class="pdf-kpi-item">
+            <p class="pdf-kpi-num"><span id="pdfEficienciaSeguimiento"></span>%</p>
+            <p class="pdf-kpi-label">Seguimiento</p>
+        </div>
+        <div class="pdf-kpi-item">
+            <p class="pdf-kpi-num"><span id="pdfEficienciaTrabajo"></span>%</p>
+            <p class="pdf-kpi-label">Trabajo</p>
+        </div>
+        <div class="pdf-kpi-item">
+            <p class="pdf-kpi-num"><span id="pdfEficienciaCierre"></span>%</p>
+            <p class="pdf-kpi-label">Cierre</p>
+        </div>
+    </div>
 
-    <h2 class="pdf-seccion pdf-seccion-espaciada">DIAGNÓSTICO DEL PIPELINE</h2>
+    <h2 class="pdf-seccion pdf-seccion-espaciada">Diagnóstico del pipeline</h2>
     <hr class="pdf-linea">
 
-    <div class="pdf-diagnostico">
-        <p class="pdf-diag-titulo">MOMENTUM</p>
-        <p class="pdf-diag-num" id="pdfMomentum"></p>
-        <p class="pdf-diag-texto" id="pdfTextoMomentum"></p>
+    <div class="pdf-diag-grid">
+        <div class="pdf-diag-card">
+            <p class="pdf-diag-titulo">Momentum</p>
+            <p class="pdf-diag-num" id="pdfMomentum"></p>
+            <p class="pdf-diag-texto" id="pdfTextoMomentum"></p>
+        </div>
+        <div class="pdf-diag-card">
+            <p class="pdf-diag-titulo">Salud del pipeline</p>
+            <p class="pdf-diag-num" id="pdfHealthScore"></p>
+            <p class="pdf-diag-texto" id="pdfHealthTexto"></p>
+        </div>
+        <div class="pdf-diag-card">
+            <p class="pdf-diag-titulo">Forecast</p>
+            <p class="pdf-diag-num" id="pdfForecast"></p>
+            <p class="pdf-diag-texto" id="pdfForecastTexto"></p>
+        </div>
     </div>
 
-    <div class="pdf-diagnostico">
-        <p class="pdf-diag-titulo">SALUD DEL PIPELINE</p>
-        <p class="pdf-diag-num" id="pdfHealthScore"></p>
-        <p class="pdf-diag-texto" id="pdfHealthTexto"></p>
-    </div>
-
-    <div class="pdf-diagnostico">
-        <p class="pdf-diag-titulo">FORECAST</p>
-        <p class="pdf-diag-num" id="pdfForecast"></p>
-        <p class="pdf-diag-texto" id="pdfForecastTexto"></p>
+    <div class="pdf-footer">
+        <span>CRM Random · Sucursal Juárez</span>
+        <span id="pdfFechaGeneracion"></span>
     </div>
 
 </div>
