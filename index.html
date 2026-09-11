@@ -257,6 +257,26 @@
         </div>
     </div>
 
+    <h2 class="pdf-seccion pdf-seccion-espaciada">Detalle de Actividades</h2>
+    <hr class="pdf-linea">
+
+    <table class="pdf-tabla-actividades" id="pdfTablaActividades">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Oportunidad</th>
+                <th>Actividad</th>
+                <th>Comentario</th>
+            </tr>
+        </thead>
+        <tbody id="pdfActividadesBody">
+            <!-- Filas generadas dinámicamente por app.js a partir del parámetro actividadesDetalle -->
+        </tbody>
+    </table>
+
+    <p class="pdf-actividades-vacio" id="pdfActividadesVacio">No hay actividades registradas en el periodo seleccionado.</p>
+    <p class="pdf-actividades-nota" id="pdfActividadesNota"></p>
+
     <div class="pdf-footer">
         <span>CRM Random · Sucursal Juárez</span>
         <span id="pdfFechaGeneracion"></span>
