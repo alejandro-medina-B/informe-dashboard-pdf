@@ -62,6 +62,13 @@ setValue("pdfCierrePerdido", params.get("cierrePerdido"));
 setValue("pdfActividadPorProspecto", params.get("actividadPorProspecto"));
 setValue("pdfTasaCierre", params.get("tasaCierre"));
  
+// Valor del Pipeline (dinero) — Fase 5: los valores ya llegan formateados
+// desde AppSheet (ej. "$27,000.00", "100.00%"), no requieren formateo aquí.
+setValue("pdfValorEnProceso", params.get("valorEnProceso"));
+setValue("pdfValorGanado", params.get("valorGanado"));
+setValue("pdfValorPerdido", params.get("valorPerdido"));
+setValue("pdfTasaGanadas", params.get("tasaGanadas"));
+ 
 setValue("pdfEficienciaSeguimiento", params.get("eficienciaSeguimiento"));
 setValue("pdfEficienciaTrabajo", params.get("eficienciaTrabajo"));
 setValue("pdfEficienciaCierre", params.get("eficienciaCierre"));
@@ -196,4 +203,5 @@ document.getElementById("btnGenerarPDF").addEventListener("click", (evt) => {
     });
 });
  
+
 
