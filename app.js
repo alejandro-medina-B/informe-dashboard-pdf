@@ -36,6 +36,7 @@ setValue("PipelineHealthScore", params.get("PipelineHealthScore"));
 setValue("PipelineHealthTexto", params.get("PipelineHealthTexto"));
  
 setValue("ForecastCierres", params.get("ForecastCierres"));
+setValue("ForecastCierresValor", params.get("ForecastCierresValor"));
 setValue("ForecastCierresTexto", params.get("ForecastCierresTexto"));
  
  
@@ -80,6 +81,7 @@ setValue("pdfHealthScore", params.get("PipelineHealthScore"));
 setValue("pdfHealthTexto", params.get("PipelineHealthTexto"));
  
 setValue("pdfForecast", params.get("ForecastCierres"));
+setValue("pdfForecastValor", params.get("ForecastCierresValor"));
 setValue("pdfForecastTexto", params.get("ForecastCierresTexto"));
  
 // Conversión y Éxito (Fase 4c)
@@ -244,4 +246,3 @@ document.getElementById("btnGenerarPDF").addEventListener("click", (evt) => {
         boton.innerText = textoOriginal;
     });
 });
- 
