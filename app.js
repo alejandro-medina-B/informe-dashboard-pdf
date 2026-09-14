@@ -54,7 +54,7 @@ setValue("pdfEficienciaGlobal2", params.get("eficienciaGlobal")); // se repite e
 setValue("pdfProspectosNuevos", params.get("prospectosNuevos"));
 setValue("pdfProspectosEnSeguimiento", params.get("prospectosEnSeguimiento"));
 setValue("pdfActividades", params.get("actividades"));
-setValue("pdfTasaExito", params.get("tasaExito"));
+// (pdfTasaExito se asigna más abajo junto con el resto de Conversión y Éxito)
  
 setValue("pdfCierreGanado", params.get("cierreGanado"));
 setValue("pdfCierrePerdido", params.get("cierrePerdido"));
@@ -81,6 +81,31 @@ setValue("pdfHealthTexto", params.get("PipelineHealthTexto"));
  
 setValue("pdfForecast", params.get("ForecastCierres"));
 setValue("pdfForecastTexto", params.get("ForecastCierresTexto"));
+ 
+// Conversión y Éxito (Fase 4c)
+setValue("pdfTasaExito", params.get("tasaExito"));
+setValue("pdfTextoTasaExito", params.get("textoTasaExito"));
+ 
+setValue("pdfConversionGlobal", params.get("conversionGlobal"));
+setValue("pdfTextoConversionGlobal", params.get("textoConversionGlobal"));
+ 
+setValue("pdfConversionPorUsuario", params.get("conversionPorUsuario"));
+setValue("pdfTextoConversionPorUsuario", params.get("textoConversionPorUsuario"));
+ 
+// Ritmo de Actividades (Fase 4g) — los valores numéricos ya llegan
+// formateados como texto "dd:hh:mm" desde AppSheet (mismas columnas
+// *DD:HH:MM confirmadas en el dashboard), no requieren formateo aquí.
+setValue("pdfTiempoEntreActividades", params.get("tiempoEntreActividades"));
+setValue("pdfTextoTiempoEntreActividades", params.get("textoTiempoEntreActividades"));
+ 
+setValue("pdfInactividadEntreActividades", params.get("inactividadEntreActividades"));
+setValue("pdfTextoInactividadEntreActividades", params.get("textoInactividadEntreActividades"));
+ 
+setValue("pdfTiempoEnEtapas", params.get("tiempoEnEtapas"));
+setValue("pdfTextoTiempoEnEtapas", params.get("textoTiempoEnEtapas"));
+ 
+setValue("pdfTiempoPromedioCierre", params.get("tiempoPromedioCierre"));
+setValue("pdfTextoTiempoPromedioCierre", params.get("textoTiempoPromedioCierre"));
  
 // ===============================
 // DETALLE DE ACTIVIDADES (tabla)
@@ -203,5 +228,6 @@ document.getElementById("btnGenerarPDF").addEventListener("click", (evt) => {
     });
 });
  
-
-
+ 
+ 
+ 
