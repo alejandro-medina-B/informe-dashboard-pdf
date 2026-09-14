@@ -205,6 +205,17 @@ document.getElementById("btnGenerarPDF").addEventListener("click", (evt) => {
     // sin pasar por el envoltorio automático de html2pdf.js que causaba
     // los recortes). Luego solo usamos html2pdf.js para armar el PDF a
     // partir de esa imagen ya capturada.
+    //
+    // El PDF se arma como UNA sola página cuyo alto se calcula a partir del
+    // alto real del contenido capturado (en vez de usar el tamaño fijo
+    // "letter"). Con el reporte cada vez más largo (se le siguen agregando
+    // secciones de KPIs), un tamaño de página fijo corta tarjetas a la mitad
+    // en el límite entre una página y la siguiente — como pasó con las
+    // tarjetas de "Ritmo de Actividades". Una sola página de alto variable
+    // elimina ese problema de raíz, sin importar cuánto crezca el reporte
+    // en el futuro. La contraparte es que no es ideal para imprimirse en
+    // papel Carta físico; si en algún momento se necesita para impresión,
+    // hay que rediseñarlo como paginado con saltos de página controlados.
     html2canvas(element, {
         scale: 2,
         useCORS: true,
@@ -212,11 +223,17 @@ document.getElementById("btnGenerarPDF").addEventListener("click", (evt) => {
         scrollX: 0,
         scrollY: -window.scrollY
     }).then((canvas) => {
+        const anchoPulgadas = 8.5;
+        const margenPulgadas = 0.5;
+        const anchoContenidoPulgadas = anchoPulgadas - margenPulgadas * 2;
+        const altoPulgadas =
+            anchoContenidoPulgadas * (canvas.height / canvas.width) + margenPulgadas * 2;
+ 
         const opt = {
-            margin: 0.5,
+            margin: margenPulgadas,
             filename: `Reporte-Pipeline-${nombreArchivo}.pdf`,
             image: { type: "jpeg", quality: 0.98 },
-            jsPDF: { unit: "in", format: "letter", orientation: "portrait" }
+            jsPDF: { unit: "in", format: [anchoPulgadas, altoPulgadas], orientation: "portrait" }
         };
         return html2pdf().set(opt).from(canvas, "canvas").toPdf().save();
     }).catch((err) => {
@@ -227,7 +244,4 @@ document.getElementById("btnGenerarPDF").addEventListener("click", (evt) => {
         boton.innerText = textoOriginal;
     });
 });
- 
- 
- 
  
