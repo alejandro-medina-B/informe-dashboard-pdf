@@ -177,6 +177,138 @@ setValue("pdfTextoTiempoPromedioCierre", params.get("textoTiempoPromedioCierre")
     }
 })();
  
+// ===============================
+// RESUMEN EJECUTIVO GENERADO POR IA (Claude, vía Cloudflare Worker)
+// ===============================
+// La clave de Anthropic NUNCA vive aquí ni en ningún archivo de este repo
+// (es público) — vive solo como secreto cifrado dentro del Worker en
+// Cloudflare, que actúa de intermediario. Este código solo le manda datos
+// ya calculados (los mismos KPIs que ya se muestran en el reporte) y recibe
+// de vuelta el texto del resumen. Si el Worker falla, tarda demasiado, o no
+// responde, el PDF se genera igual SIN esta sección — nunca bloquea al
+// usuario.
+const RESUMEN_IA_WORKER_URL = "https://resumen-ejecutivo-random.scanapp246.workers.dev";
+const RESUMEN_IA_TIMEOUT_MS = 20000;
+ 
+function buildDatosParaIA() {
+    return {
+        vendedor: params.get("nombreUsuario") || "",
+        periodo: `${params.get("fechaInicial") || ""} - ${params.get("fechaFinal") || ""}`,
+        prospectos_nuevos: params.get("prospectosNuevos"),
+        prospectos_en_seguimiento: params.get("prospectosEnSeguimiento"),
+        actividades_registradas: params.get("actividades"),
+        actividad_promedio_por_prospecto: params.get("actividadPorProspecto"),
+        cierres_ganados: params.get("cierreGanado"),
+        cierres_perdidos: params.get("cierrePerdido"),
+        tasa_cierre_pct: params.get("tasaCierre"),
+        eficiencia_global_pct: params.get("eficienciaGlobal"),
+        eficiencia_seguimiento_pct: params.get("eficienciaSeguimiento"),
+        eficiencia_trabajo_pct: params.get("eficienciaTrabajo"),
+        eficiencia_cierre_pct: params.get("eficienciaCierre"),
+        pipeline_momentum: params.get("PipelineMomentum"),
+        pipeline_momentum_texto: params.get("TextoPipelineMomentum"),
+        salud_pipeline_score: params.get("PipelineHealthScore"),
+        salud_pipeline_texto: params.get("PipelineHealthTexto"),
+        forecast_cierres: params.get("ForecastCierres"),
+        forecast_cierres_valor: params.get("ForecastCierresValor"),
+        forecast_cierres_texto: params.get("ForecastCierresTexto"),
+        tasa_exito_pct: params.get("tasaExito"),
+        conversion_global_pct: params.get("conversionGlobal"),
+        conversion_por_usuario_pct: params.get("conversionPorUsuario"),
+        valor_en_proceso: params.get("valorEnProceso"),
+        valor_ganado: params.get("valorGanado"),
+        valor_perdido: params.get("valorPerdido"),
+        tasa_ganadas_pct: params.get("tasaGanadas"),
+        tiempo_entre_actividades: params.get("tiempoEntreActividades"),
+        oportunidades_enfriandose: params.get("inactividadEntreActividades"),
+        texto_oportunidades_enfriandose: params.get("textoInactividadEntreActividades"),
+        tiempo_en_etapas: params.get("tiempoEnEtapas"),
+        tiempo_promedio_cierre: params.get("tiempoPromedioCierre"),
+        texto_tiempo_promedio_cierre: params.get("textoTiempoPromedioCierre")
+    };
+}
+ 
+async function obtenerResumenIA(datos) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), RESUMEN_IA_TIMEOUT_MS);
+ 
+    try {
+        const resp = await fetch(RESUMEN_IA_WORKER_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ datos }),
+            signal: controller.signal
+        });
+ 
+        if (!resp.ok) {
+            console.warn("Resumen IA: el servidor respondió con error", resp.status);
+            return null;
+        }
+ 
+        const body = await resp.json();
+        return body.resumen || null;
+    } catch (err) {
+        console.warn("Resumen IA: no se pudo obtener, se continúa sin él:", err.message);
+        return null;
+    } finally {
+        clearTimeout(timeoutId);
+    }
+}
+ 
+function escaparHTML(texto) {
+    const div = document.createElement("div");
+    div.textContent = texto;
+    return div.innerHTML;
+}
+ 
+function renderResumenIA(textoCrudo) {
+    const contenedor = document.getElementById("resumenIAContenido");
+    const card = document.getElementById("resumenIACard");
+    const titulo = document.getElementById("resumenIATitulo");
+    const linea = document.getElementById("resumenIALinea");
+    if (!contenedor || !card) return;
+ 
+    // Limpieza defensiva por si el modelo agrega formato Markdown (**negritas**,
+    // encabezados con #, etc.) aunque el prompt le pide texto plano.
+    const texto = textoCrudo
+        .replace(/^#+\s*/gm, "")
+        .replace(/\*\*/g, "")
+        .trim();
+ 
+    // Separa el párrafo principal de la sección "Sugerencias:"
+    const partes = texto.split(/sugerencias:?/i);
+    const parrafo = (partes[0] || "").trim();
+    const sugerenciasTexto = (partes[1] || "").trim();
+ 
+    let html = "";
+    parrafo.split(/\n+/).filter((p) => p.trim().length > 0).forEach((p) => {
+        html += `<p class="resumen-ia-texto">${escaparHTML(p.trim())}</p>`;
+    });
+ 
+    if (sugerenciasTexto) {
+        const items = sugerenciasTexto
+            .split(/\n+/)
+            .map((l) => l.replace(/^[-•*]\s*/, "").trim())
+            .filter((l) => l.length > 0);
+ 
+        if (items.length > 0) {
+            html += `<div class="resumen-ia-subtitulo">Sugerencias</div>`;
+            html += `<ul class="resumen-ia-lista">`;
+            items.forEach((item) => {
+                html += `<li>${escaparHTML(item)}</li>`;
+            });
+            html += `</ul>`;
+        }
+    }
+ 
+    if (!html) return; // nada útil que mostrar — se deja oculto
+ 
+    contenedor.innerHTML = html;
+    card.style.display = "block";
+    if (titulo) titulo.style.display = "block";
+    if (linea) linea.style.display = "block";
+}
+ 
 // Pie de página: fecha y hora en que se generó el PDF
 const ahora = new Date();
 const fechaGeneracion = ahora.toLocaleString("es-MX", {
@@ -189,7 +321,7 @@ setValue("pdfFechaGeneracion", `Generado el ${fechaGeneracion}`);
 // ===============================
 // GENERAR PDF
 // ===============================
-document.getElementById("btnGenerarPDF").addEventListener("click", (evt) => {
+document.getElementById("btnGenerarPDF").addEventListener("click", async (evt) => {
  
     const boton = evt.currentTarget;
     const element = document.getElementById("pdfContainer");
@@ -201,6 +333,19 @@ document.getElementById("btnGenerarPDF").addEventListener("click", (evt) => {
  
     boton.disabled = true;
     const textoOriginal = boton.innerText;
+ 
+    // Paso previo: intentar obtener el resumen ejecutivo generado por IA.
+    // Si tarda m\u00e1s de RESUMEN_IA_TIMEOUT_MS o falla, seguimos sin bloquear
+    // al usuario \u2014 el PDF se genera igual, solo que sin esa secci\u00f3n.
+    try {
+        boton.innerText = "Generando resumen ejecutivo...";
+        const datos = buildDatosParaIA();
+        const resumen = await obtenerResumenIA(datos);
+        if (resumen) renderResumenIA(resumen);
+    } catch (err) {
+        console.warn("Resumen IA: error inesperado, se contin\u00faa sin \u00e9l:", err);
+    }
+ 
     boton.innerText = "Generando PDF...";
  
     // Capturamos el reporte directamente con html2canvas (control total,
@@ -246,3 +391,4 @@ document.getElementById("btnGenerarPDF").addEventListener("click", (evt) => {
         boton.innerText = textoOriginal;
     });
 });
+ 
