@@ -348,6 +348,21 @@
     <p class="pdf-actividades-vacio" id="pdfActividadesVacio">No hay actividades registradas en el periodo seleccionado.</p>
     <p class="pdf-actividades-nota" id="pdfActividadesNota"></p>
 
+    <!-- RESUMEN EJECUTIVO (IA) — oculto por defecto; app.js lo muestra solo
+         si logra obtener el resumen del backend a tiempo. Si falla o tarda
+         demasiado, el PDF se genera igual, sin esta sección. -->
+    <h2 class="pdf-seccion pdf-seccion-espaciada" id="resumenIATitulo" style="display:none;">Resumen Ejecutivo</h2>
+    <hr class="pdf-linea" id="resumenIALinea" style="display:none;">
+
+    <div class="resumen-ia-card" id="resumenIACard" style="display:none;">
+        <div class="resumen-ia-header">
+            <span class="resumen-ia-icono">✨</span>
+            <span class="resumen-ia-titulo">Análisis generado por IA</span>
+            <span class="resumen-ia-badge">Claude</span>
+        </div>
+        <div id="resumenIAContenido"></div>
+    </div>
+
     <div class="pdf-footer">
         <span>CRM Random · Sucursal Juárez</span>
         <span id="pdfFechaGeneracion"></span>
